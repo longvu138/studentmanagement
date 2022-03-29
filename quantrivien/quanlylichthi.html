@@ -1,0 +1,293 @@
+<div class="row text-center py-3">
+    <h3>Quản Lý Lịch Thi</h3>
+</div>
+<div class="row py-3">
+
+    <div class="col-md-3">
+        <select id="kyHoc" class="form-select" style="border-radius: 15px">
+        </select>
+    </div>
+    <div class="col-md-3">
+        <input type="text" id="tenLop" class="form-control" style="border-radius: 15px" placeholder="Tên Lớp">
+    </div>
+    <div class="col-2 col-md-2">
+        <button class="btn btn-primary" onclick="renderLopLT()">Tìm kiếm</button>
+    </div>
+</div>
+
+<div class="modal" id="myModalAdd">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 400px !important">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Thêm Lịch Thi</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body ">
+                <form id="formAdd" class="row g-3 needs-validation" novalidate>
+                    <input hidden id="idLop">
+                    <div class="col-12 position-relative">
+                        <label class="form-label">Thời gian*</label>
+                        <input type="datetime-local" class="form-control" id="thoiGianThi" required>
+                        <div class="invalid-feedback">
+                            Thời gian không được để trống
+                        </div>
+                    </div>
+                    <div class="col-12 position-relative">
+                        <label class="form-label">Phòng thi*</label>
+                        <input type="text" class="form-control" id="phongThi" required>
+                        <div class="invalid-feedback">
+                            Phòng thi không được để trống
+                        </div>
+                    </div>
+
+                    <div class="col-12 ">
+                        <button class="btn btn-primary" style="float: right;" type="submit"> Lưu </button>
+                    </div>
+
+                </form>
+            </div>
+            <!-- Modal footer -->
+        </div>
+
+    </div>
+</div>
+
+<div style="background-color: #f5f5f5; border-radius: 7px; border: 1px solid black; margin-top: 50px !important;">
+    <table class="table table-hover mt-5 " style="margin-top: 5px !important;">
+        <thead>
+            <tr>
+                <th scope="col">STT</th>
+                <th scope="col">Tên Lớp</th>
+                <th scope="col">Kỳ học</th>
+                <th scope="col">Môn học</th>
+                <th scope="col">GV</th>
+                <th scope="col">Số Lượng</th>
+            </tr>
+        </thead>
+        <tbody id="listLop">
+
+        </tbody>
+    </table>
+</div>
+
+<div class="modal" id="myModalUpdate">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 800px !important">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Sửa lịch thi</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body ">
+                <form id="formUpdate" class="row g-3 needs-validation" novalidate>
+                    <input hidden id="idLop">
+                    <div class="col-12 position-relative">
+                        <label class="form-label">Thời gian*</label>
+                        <input type="datetime-local" class="form-control" id="thoiGianThi" required>
+                        <div class="invalid-feedback">
+                            Thời gian không được để trống
+                        </div>
+                    </div>
+                    <div class="col-12 position-relative">
+                        <label class="form-label">Phòng thi*</label>
+                        <input type="text" class="form-control" id="phongThi" required>
+                        <div class="invalid-feedback">
+                            Phòng thi không được để trống
+                        </div>
+                    </div>
+
+                    <div class="col-12 ">
+                        <button class="btn btn-primary" style="float: right;" type="submit"> Lưu </button>
+                    </div>
+
+                </form>
+            </div>
+            <!-- Modal footer -->
+        </div>
+
+    </div>
+</div>
+
+
+<div class="modal" id="myModalView">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 800px !important">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Chi tiết thông tin lịch thi</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body ">
+                <form id="formView" class="row g-3 needs-validation" novalidate>
+                    <input type="text" id="maLop" hidden>
+                    <div class="col-md-6 position-relative">
+                        <label class="form-label">Tên lớp</label>
+                        <input type="text" class="form-control" id="tenLop" readonly>
+                    </div>
+
+                    <div class="col-md-6 position-relative">
+                        <label class="form-label">Môn học</label>
+                        <input type="text" class="form-control" id="monHoc" readonly>
+                    </div>
+
+                    <div class="col-md-6 position-relative">
+                        <label class="form-label">Họ và tên GV</label>
+                        <input type="text" class="form-control" id="giangVien" readonly>
+                    </div>
+
+                    <div class="col-md-6 position-relative">
+                        <label class="form-label">Số lượng</label>
+                        <input type="text" class="form-control" id="soLuong" readonly>
+                    </div>
+
+                    <div class="col-md-6 position-relative">
+                        <label class="form-label">Thời gian</label>
+                        <input type="datetime-local" class="form-control" id="thoiGianThi" readonly>
+                    </div>
+
+                    <div class="col-md-6 position-relative">
+                        <label class="form-label">Phòng thi</label>
+                        <input type="text" class="form-control" id="phongThi" readonly>
+                    </div>
+                </form>
+            </div>
+            <!-- Modal footer -->
+        </div>
+
+    </div>
+</div>
+
+<script>
+    renderLopLT()
+    getGV()
+    getKy()
+    getMonHoc()
+</script>
+<script>
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (function () {
+        'use strict'
+
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.querySelectorAll('.needs-validation')
+
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', async function (event) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                    if (!form.checkValidity()) {
+                        form.classList.add('was-validated')
+                    } else {
+                        if (form.id == "formAdd") {
+                            let phongThi = form.phongThi.value.trim();
+                            var format = /[!@#$%^&*()+\=\[\]{};':"\\|,.<>\/?]+/;
+                            if (phongThi.length > 255) {
+                                alert('Bạn đã nhập quá số ký tự cho phép. Mời nhập lại')
+                            } else if (format.test(phongThi)) {
+                                alert('Không nhập các ký tự đặc biệt như $, %,^ ,&, ,..')
+                            } else {
+                                const lichthi = await fetch(`${HOST}/api/lichthi/`, {
+                                        method: "POST",
+                                        headers: {
+                                            'Content-Type': 'application/json',
+                                        },
+                                        body: JSON.stringify({
+                                            'thoiGian': form.thoiGianThi.value,
+                                            'phongThi': form.phongThi.value,
+                                            'idLop': form.idLop.value
+                                        }),
+                                    })
+                                    .then(res => res.json())
+                                    .then(data => {
+                                        if (data.message) {
+                                            form.reset()
+                                            alert("Lớp học này đã có lịch thi")
+                                            document.querySelector("#myModalAdd .btn-close")
+                                                .click()
+                                        } else {
+                                            form.reset()
+                                            alert("Thêm lịch thi thành công")
+                                            document.querySelector("#myModalAdd .btn-close")
+                                                .click()
+                                            return data
+                                        }
+                                    })
+                                    .catch(err => console.log("Error: ", err))
+                                if (lichthi.idLop) {
+                                    const listSV = await fetch(
+                                            `${HOST}/api/sinhvien/thongke/${lichthi.idLop}`)
+                                        .then(res => res.json())
+                                        .then(data => {
+                                            return data
+                                        })
+                                        .catch(err => console.log("Error: ", err))
+
+                                    listSV.forEach(async (sv, index) => {
+                                        await fetch(`${HOST}/api/ctlichthi/`, {
+                                                method: "POST",
+                                                headers: {
+                                                    'Content-Type': 'application/json',
+                                                },
+                                                body: JSON.stringify({
+                                                    'idsv': sv.idsv,
+                                                    'idlt': lichthi.idlt,
+                                                    'sbd': index + 1
+                                                }),
+                                            })
+                                            .then(res => res.json())
+                                            .then(data => {
+                                                return data
+                                            })
+                                            .catch(err => console.log("Error: ", err))
+                                    })
+                                }
+                            }
+                        } else if (form.id == "formUpdate") {
+                            let phongThi = form.phongThi.value.trim();
+                            var format = /[!@#$%^&*()+\=\[\]{};':"\\|,.<>\/?]+/;
+                            if (phongThi.length > 255) {
+                                alert('Bạn đã nhập quá số ký tự cho phép. Mời nhập lại')
+                            } else if (format.test(phongThi)) {
+                                alert('Không nhập các ký tự đặc biệt như $, %,^ ,&, ,..')
+                            } else {
+                                await fetch(
+                                        `${HOST}/api/lichthi/${form.idLop.value}`, {
+                                            method: "PUT",
+                                            headers: {
+                                                'Content-Type': 'application/json',
+                                            },
+                                            body: JSON.stringify({
+                                                'thoiGian': form.thoiGianThi.value,
+                                                'phongThi': form.phongThi.value,
+                                            }),
+                                        })
+                                    .then(res => res.json())
+                                    .then(data => {
+                                        if (data.message) {
+                                            console.log(data.message)
+                                            // form.reset()
+                                            // alert("Lớp học này đã có lịch thi")
+                                            // document.querySelector("#myModalAdd .btn-close")
+                                            //     .click()
+                                        } else {
+                                            form.reset()
+                                            alert("Sửa lịch thi thành công")
+                                            document.querySelector("#myModalUpdate .btn-close")
+                                                .click()
+                                        }
+                                    })
+                                    .catch(err => console.log("Error: ", err))
+                            }
+                        }
+                    }
+
+                }, false)
+            })
+    })()
+</script>

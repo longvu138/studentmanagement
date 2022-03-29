@@ -1,0 +1,32 @@
+img {
+  position: absolute;
+  /* Full height */
+  height: 100%;
+  width: 100%;
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.login-form {
+  position: absolute;
+  width: 450px;
+  height: 400px;
+  left: 35%;
+  top: 15%;
+  background: #ffffff;
+}
+
+.login-logo {
+  position: absolute;
+  width: 255px;
+  height: 80px;
+  left: 20%;
+  top: 5%;
+}
+
+.login-form form {
+  margin-top: 100px;
+  padding: 30px;
+}

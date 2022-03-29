@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.6.1/font/bootstrap-icons.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+        integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="./assets/css/login.css">
+    <script src="./js/constants.js"></script>
+    <title>Login</title>
+    <script>
+        const user = JSON.parse(localStorage.getItem("user"))
+        if (!user) { } else if (user.taiKhoan.chucNang == "quantrivien") {
+            window.location = "./quantrivien/"
+        } else if (user.taiKhoan.chucNang == "giangvien") {
+            window.location = "./giangvien/"
+        } else if (user.taiKhoan.chucNang == "sinhvien") {
+            window.location = "./sinhvien/"
+        }
+    </script>
+</head>
+
+<body>
+    <img src="./assets/image/login.jpg" alt="">
+    <div class="login-form">
+        <img class="login-logo" src="./assets/image/logo.jpg" alt="">
+        <form action="" method="post">
+            <div class="input-group">
+                <input id="username" type="text" class="form-control" placeholder="Tên đăng nhập:">
+            </div>
+            <p style="color: red;" id="userNameMessage"></p>
+            <div class="input-group">
+                <input id="password" type="password" class="form-control" placeholder="Mật khẩu:">
+            </div>
+            <p style="color: red;" id="passwordMessage"></p>
+            <div class="form-group text-center mt-5">
+                <button id="btnSubmit" type="submit" class="btn btn-primary ">Đăng nhập</button>
+            </div>
+
+        </form>
+
+    </div>
+</body>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $("#btnSubmit").click(function (e) {
+            e.preventDefault();
+            let username = $('input[id=username]')
+                .val(); // get the content of what user typed ( in textarea ) 
+            let password = $('input[id=password]')
+                .val(); // get the content of what user typed ( in textarea ) 
+            if (username.trim() == "" && password.trim() === "") {
+                document.getElementById("userNameMessage").innerText = "Tên đăng nhập không được để trống"
+                document.getElementById("passwordMessage").innerText = "Mật khẩu không được để trống"
+                document.getElementById('username').focus();
+
+            } else if (username.trim() == "") {
+                document.getElementById("userNameMessage").innerText = "Tên đăng nhập không được để trống"
+                document.getElementById('username').focus();
+            } else if (password.trim() === "") {
+                document.getElementById("passwordMessage").innerText = "Mật khẩu không được để trống"
+                document.getElementById('password').focus();
+            } else {
+                $.ajax({
+                    type: "POST",
+                    url: `${HOST}/api/login`,
+                    data: {
+                        "username": username.trim().toLowerCase(),
+                        "password": password.trim()
+                    },
+                    dataType: "json",
+                    success: function (result) {
+                        if (result.error === 'Account not exist' || result.error ===
+                            "Password incorrect") {
+                            alert(
+                                "Tên đăng nhập hoặc mật khẩu không đúng, vui lòng nhập lại!"
+                            )
+                        } else if (result.taiKhoan.trangThai === 0) {
+                            alert(
+                                "Tài khoản đã bị thu hồi quyền truy cập!"
+                            )
+                        } else {
+                            console.log('login success')
+                            const user = JSON.parse(JSON.stringify(result));
+                            window.localStorage.setItem("user", JSON.stringify(user))
+                            if (user.taiKhoan.chucNang === "quantrivien") {
+                                window.location = "quantrivien/"
+                            } else if (user.taiKhoan.chucNang === "giangvien") {
+                                window.location = "giangvien/"
+                            } else if (user.taiKhoan.chucNang === "sinhvien") {
+                                window.location = "sinhvien/"
+                            }
+                        }
+                    },
+                    error: function (result) {
+                        alert("khong thể kết nối se");
+                    }
+                }); //end ajax   
+            }
+        }); //end click function
+    }); //end ready function
+
+    const input = document.querySelector('input');
+    const userNameMessage = document.getElementById('userNameMessage');
+    const passwordMessage = document.getElementById('passwordMessage');
+
+    input.addEventListener('change', updateValue);
+
+    function updateValue(e) {
+        userNameMessage.innerText = ""
+        passwordMessage.innerText = ""
+    }
+</script>
+
+</html>

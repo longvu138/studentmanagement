@@ -1,0 +1,487 @@
+<div class="row text-center py-3">
+    <h3>Quản Lý Lớp Học</h3>
+</div>
+<div class="row py-3">
+
+    <div class="col-md-3">
+        <select id="kyHoc" class="form-select" style="border-radius: 15px">
+        </select>
+    </div>
+    <div class="col-md-3">
+        <input type="text" id="tenLop" class="form-control" style="border-radius: 15px" placeholder="Tên Lớp">
+    </div>
+    <div class="col-2 col-md-2">
+        <button class="btn btn-primary" onclick="renderLop()">Tìm kiếm</button>
+    </div>
+
+    <div class="col-2 col col-lg-2">
+        <div class="container">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModalAdd">
+                Thêm
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="myModalAdd">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 800px !important">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Thêm Lớp</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body ">
+                <form id="formAdd" class="row g-3 needs-validation" novalidate>
+
+                    <div class="col-md-6 position-relative">
+                        <label class="form-label">Tên Lớp *</label>
+                        <input maxlength="255" type="text" class="form-control" id="tenLop" required>
+                        <div class="invalid-feedback">
+                            Tên lớp học phần không được để trống
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 position-relative">
+                        <label class="form-label">Tên môn học * </label>
+                        <select class="form-select" id="monhoc" required>
+
+                        </select>
+                        <div class="invalid-feedback">
+                            Tên môn học không được để trống
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 position-relative">
+                        <label class="form-label">Phòng Học *</label>
+                        <input type="text" class="form-control" id="phongHoc" required>
+                        <div class="invalid-feedback">
+                            Phòng học không được để trống
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 position-relative">
+                        <label class="form-label">Kỳ Học * </label>
+                        <select class="form-select" id="kyHoc" required>
+
+                        </select>
+                        <div class="invalid-feedback">
+                            Kỳ học không được để trống
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 position-relative">
+                        <label class="form-label">Tên Giảng Viên * </label>
+                        <select class="form-select" id="tenGiangVien" required>
+
+                        </select>
+                        <div class="invalid-feedback">
+                            Tên giảng viên không được để trống
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 position-relative">
+                        <label class="form-label">Thời Gian BắT Đầu *</label>
+                        <input type="date" class="form-control" id="thoiGianBatDau" required>
+                        <div class="invalid-feedback">
+                            Thời gian bắt đầu không được để trống
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 position-relative">
+                        <label class="form-label">Thời Gian Kết Thúc *</label>
+                        <input type="date" class="form-control" id="thoiGianKetThuc" required>
+                        <div class="invalid-feedback">
+                            Thời gian kết thúc không được để trống
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 position-relative">
+                        <label class="form-label">Số Lượng *</label>
+                        <input type="number" class="form-control" id="soLuong" required>
+                        <div class="invalid-feedback">
+                            Số lượng không được để trống
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 position-relative">
+                        <label class="form-label">Trạng Thái * </label>
+                        <select class="form-select" id="trangThai" required>
+                            <option selected disabled value="">Trạng Thái Lớp Học</option>
+                            <option value="hoatdong"> Hoạt Động </option>
+                            <option value="tamdung"> Tạm Dừng </option>
+                            <option value="dangky"> Đăng Ký </option>
+
+                        </select>
+                        <div class="invalid-feedback">
+                            Trạng thái không được để trống
+                        </div>
+                    </div>
+
+                    <div class="col-12 ">
+                        <button class="btn btn-primary" style="float: right;" type="submit"> Lưu </button>
+                    </div>
+
+                </form>
+            </div>
+            <!-- Modal footer -->
+        </div>
+
+    </div>
+</div>
+
+<div style="background-color: #f5f5f5; border-radius: 7px; border: 1px solid black; margin-top: 50px !important;">
+    <table class="table table-hover mt-5 " style="margin-top: 5px !important;">
+        <thead>
+            <tr>
+                <th scope="col">STT</th>
+                <th scope="col">Tên Lớp</th>
+                <th scope="col">Kỳ Học</th>
+                <th scope="col">Trạng Thái</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody id="listLop">
+
+        </tbody>
+
+
+
+        <div class="modal" id="myModal3">
+            <div class="modal-dialog modal-dialog-centered" style="max-width: 400px !important">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Cảnh Báo</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <!-- Modal body -->
+                    <div class="modal-body ">
+                        <form class="row g-3 py-3">
+                            Bạn có muốn dừng lớp học này không?
+                        </form>
+                    </div>
+
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary text-center" style="width: 30%"
+                            data-bs-dismiss="modal">Đồng ý</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </table>
+</div>
+
+<div class="modal" id="myModalUpdate">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 800px !important">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Cập Nhật Lớp</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body ">
+                <form id="formUpdate" class="row g-3 needs-validation" novalidate>
+                    <input type="text" id="maLop" hidden>
+                    <div class="col-md-6 position-relative">
+                        <label class="form-label">Tên Lớp *</label>
+                        <input type="text" class="form-control" id="tenLop" required>
+                        <div class="invalid-feedback">
+                            Tên lớp học phần không được để trống
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 position-relative">
+                        <label class="form-label">Tên môn học * </label>
+                        <select class="form-select" id="monhoc" required>
+                            <option selected disabled value="">Môn Học</option>
+
+                        </select>
+                        <div class="invalid-feedback">
+                            Tên môn học không được để trống
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 position-relative">
+                        <label class="form-label">Phòng Học *</label>
+                        <input type="text" class="form-control" id="phongHoc" required>
+                        <div class="invalid-feedback">
+                            Phòng học không được để trống
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 position-relative">
+                        <label class="form-label">Kỳ Học * </label>
+                        <select class="form-select" id="kyHoc" required>
+                            <option selected disabled value="">Kỳ Học</option>
+
+                        </select>
+                        <div class=" invalid-feedback">
+                            Kỳ học không được để trống
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 position-relative">
+                        <label class="form-label">Tên Giảng Viên * </label>
+                        <select class="form-select" id="tenGiangVien" required>
+                            <option selected disabled value="">Giảng Viên</option>
+
+                        </select>
+                        <div class="invalid-feedback">
+                            Tên giảng viên không được để trống
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 position-relative">
+                        <label class="form-label">Thời Gian BắT Đầu *</label>
+                        <input type="date" class="form-control" id="thoiGianBatDau" required>
+                        <div class="invalid-feedback">
+                            Thời gian bắt đầu không được để trống
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 position-relative">
+                        <label class="form-label">Thời Gian Kết Thúc *</label>
+                        <input type="date" class="form-control" id="thoiGianKetThuc" required>
+                        <div class="invalid-feedback">
+                            Thời gian kết thúc không được để trống
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 position-relative">
+                        <label class="form-label">Số Lượng *</label>
+                        <input type="number" class="form-control" id="soLuong" required>
+                        <div class="invalid-feedback">
+                            Số lượng không được để trống
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 position-relative">
+                        <label class="form-label">Trạng Thái * </label>
+                        <select class="form-select" id="trangThai" required>
+                            <option selected disabled value="">Trạng Thái Lớp Học</option>
+                            <option value="hoatdong"> Hoạt Động </option>
+                            <option value="tamdung"> Tạm Dừng </option>
+                            <option value="dangky"> Đăng Ký Học </option>
+
+                        </select>
+                        <div class="invalid-feedback">
+                            Trạng thái không được để trống
+                        </div>
+                    </div>
+
+                    <div class="col-12 ">
+                        <button class="btn btn-primary" style="float: right;" type="submit"> Lưu </button>
+                    </div>
+
+                </form>
+            </div>
+            <!-- Modal footer -->
+        </div>
+
+    </div>
+</div>
+
+
+<div class="modal" id="myModalView">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 800px !important">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Xem chi tiết lớp</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body ">
+                <form id="formView" class="row g-3 needs-validation" novalidate>
+                    <input type="text" id="maLop" hidden>
+                    <div class="col-md-6 position-relative">
+                        <label class="form-label">Tên Lớp *</label>
+                        <input type="text" class="form-control" id="tenLop" readonly>
+
+                    </div>
+
+                    <div class="col-md-6 position-relative">
+                        <label class="form-label">Tên môn học * </label>
+                        <input class="form-control" id="monhoc" readonly>
+
+                    </div>
+
+                    <div class="col-md-6 position-relative">
+                        <label class="form-label">Phòng Học *</label>
+                        <input type="text" class="form-control" id="phongHoc" readonly>
+
+                    </div>
+
+                    <div class="col-md-6 position-relative">
+                        <label class="form-label">Kỳ Học * </label>
+                        <input class="form-control" id="kyHoc" readonly>
+
+
+                    </div>
+
+                    <div class="col-md-6 position-relative">
+                        <label class="form-label">Tên Giảng Viên * </label>
+                        <input class="form-control" id="tenGiangVien" readonly>
+
+                    </div>
+
+                    <div class="col-md-6 position-relative">
+                        <label class="form-label">Thời Gian BắT Đầu *</label>
+                        <input type="date" class="form-control" id="thoiGianBatDau" readonly>
+
+                    </div>
+
+                    <div class="col-md-6 position-relative">
+                        <label class="form-label">Thời Gian Kết Thúc *</label>
+                        <input type="date" class="form-control" id="thoiGianKetThuc" readonly>
+
+                    </div>
+
+                    <div class="col-md-6 position-relative">
+                        <label class="form-label">Số Lượng *</label>
+                        <input type="number" class="form-control" id="soLuong" readonly>
+
+                    </div>
+
+                    <div class="col-md-6 position-relative">
+                        <label class="form-label">Trạng Thái * </label>
+                        <input class="form-control" id="trangThai" readonly>
+
+                    </div>
+                </form>
+            </div>
+            <!-- Modal footer -->
+        </div>
+
+    </div>
+</div>
+
+<script>
+    renderLop()
+    getGV()
+    getKy()
+    getMonHoc()
+</script>
+<script>
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (function () {
+            'use strict'
+
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.querySelectorAll('.needs-validation')
+
+            // Loop over them and prevent submission
+            Array.prototype.slice.call(forms)
+                .forEach(function (form) {
+                    form.addEventListener('submit', function (event) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                        if (!form.checkValidity()) {
+                            form.classList.add('was-validated')
+                        } else {
+                            if (form.id == "formAdd") {
+
+                                let tenLop = form.tenLop.value.trim();
+                                let phongHoc = form.phongHoc.value.trim();
+                                let soLuong = form.soLuong.value.trim();
+                                var format = /[!@#$%^&*()+\=\[\]{};':"\\|,.<>\/?]+/;
+                                if (tenLop.length > 255 || phongHoc.length > 255) {
+                                    alert('Bạn đã nhập quá số ký tự cho phép. Mời nhập lại')
+                                }
+                                else if (format.test(tenLop) || format.test(phongHoc) || format.test(soLuong)) {
+                                    alert('Không nhập các ký tự đặc biệt như $, %,^ ,&, ,..')
+                                }
+                                else if (soLuong > 200) {
+                                    alert('Số lượng quá nhiều  ')
+                                }
+                                else {
+                                    fetch(`${HOST}/api/lophocphan/`, {
+                                        method: "POST",
+                                        headers: {
+                                            'Content-Type': 'application/json',
+                                        },
+                                        body: JSON.stringify({
+                                            "tenLop": tenLop,
+                                            'phongHoc': phongHoc,
+                                            'soLuong': soLuong,
+                                            'thoiGianBd': form.thoiGianBatDau.value,
+                                            'thoiGianKt': form.thoiGianKetThuc.value,
+                                            'trangThai': form.trangThai.value,
+                                            'idgv': form.tenGiangVien.value,
+                                            'idmh': form.monhoc.value,
+                                            'idky': form.kyHoc.value,
+
+                                        }),
+                                    })
+                                        .then(res => res.json())
+                                        .then(data => {
+                                            console.log(data);
+                                            if (data.message) {
+                                                alert('Lớp học phần đã tồn tại')
+                                            }
+                                            else {
+                                                form.reset()
+                                                alert("Thêm lớp học thành công")
+                                                renderLop()
+                                                document.querySelector("#myModalAdd .btn-close").click()
+                                            }
+                                        })
+                                        .catch(err => console.log("Error: ", err))
+                                }
+                            } else if (form.id == "formUpdate") {
+                                let tenLop = form.tenLop.value.trim();
+                                let phongHoc = form.phongHoc.value.trim();
+                                let soLuong = form.soLuong.value.trim();
+                                var format = /[!@#$%^&*()+\=\[\]{};':"\\|,.<>\/?]+/;
+                                if (tenLop.length > 255 || phongHoc.length > 255) {
+                                    alert('Bạn đã nhập quá số ký tự cho phép. Mời nhập lại')
+                                }
+                                else if (format.test(tenLop) || format.test(phongHoc) || format.test(soLuong)) {
+                                    alert('Không nhập các ký tự đặc biệt như $, %,^ ,&, ,..')
+                                }
+                                else if (soLuong > 200) {
+                                    alert('Số lượng quá nhiều   ')
+                                }
+                                else {
+                                    fetch(`${HOST}/api/lophocphan/${form.maLop.value}`, {
+                                        method: "PUT",
+                                        headers: {
+                                            'Content-Type': 'application/json',
+                                        },
+                                        body: JSON.stringify({
+                                            "tenLop": form.tenLop.value,
+                                            'phongHoc': form.phongHoc.value,
+                                            'soLuong': form.soLuong.value,
+                                            'thoiGianBd': form.thoiGianBatDau.value,
+                                            'thoiGianKt': form.thoiGianKetThuc.value,
+                                            'trangThai': form.trangThai.value,
+                                            'idgv': form.tenGiangVien.value,
+                                            'idmh': form.monhoc.value,
+                                            'idky': form.kyHoc.value,
+
+                                        }),
+                                    })
+                                        .then(res => res.json())
+                                        .then(data => {
+                                            if (data.sqlMessage) {
+                                                alert('Lớp học phần đã tồn tại')
+                                            }
+                                            else {
+                                                form.reset()
+                                                alert("Cập nhật lớp học thành công")
+                                                renderLop()
+                                                document.querySelector("#myModalUpdate .btn-close").click()
+                                            }
+                                        })
+                                        .catch(err => console.log("Error: ", err))
+                                }
+                            }
+                        }
+
+                    }, false)
+                })
+        })()
+</script>

@@ -1,0 +1,216 @@
+<div class="row text-center py-3">
+    <h3>Quản Lý Môn Học</h3>
+</div>
+<div class="row py-3">
+    <div class="col-md-4">
+        <input id="searchInput" type="text" class="form-control" style="border-radius: 15px" placeholder="Tên môn học">
+    </div>
+    <div class="col-3 col-md-auto">
+        <button class="btn btn-primary" onclick="renderMonHoc()">Tìm Kiếm</button>
+    </div>
+    <div class="col col col-lg-2">
+        <div class="container">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModalAdd">
+                Thêm
+            </button>
+        </div>
+        <div class="modal" id="myModalAdd">
+            <div class="modal-dialog modal-dialog-centered" style="max-width: 500px !important">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Thêm Môn Học</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <!-- Modal body -->
+                    <div class="modal-body ">
+                        <form id="formAdd" class="row g-3 needs-validation1" novalidate>
+                            <div class="col-md-12 position-relative">
+                                <label for="tenMon" class="form-label">Tên môn học</label>
+                                <input type="text" class="form-control" id="tenMon" required>
+                                <div class="invalid-feedback">
+                                    Tên môn học không được để trống
+                                </div>
+                            </div>
+                            <div class="col-md-12 position-relative">
+                                <label for="soTinChi" class="form-label">Số Tín Chỉ</label>
+                                <input type="number" class="form-control" id="soTinChi" required>
+                                <div class="invalid-feedback">
+                                    Số tín chỉ không được để trống
+                                </div>
+                            </div>
+                            <div class="col-md-12 position-relative">
+                                <label for="tienHoc" class="form-label">Tiền Học</label>
+                                <input type="number" class="form-control" id="tienHoc" required>
+                                <div class="invalid-feedback">
+                                    Học phí không được để trống
+                                </div>
+                            </div>
+
+                            <div class="col-12 ">
+                                <button class="btn btn-primary" style="float: right;" type="submit"> Lưu </button>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div style="background-color: #f5f5f5; border-radius: 7px; border: 1px solid black; margin-top: 50px !important;">
+    <table class="table table-hover mt-5 " style="margin-top: 5px !important;">
+        <thead>
+            <tr>
+                <th scope="col">STT</th>
+                <th scope="col">Tên Môn Học</th>
+                <th scope="col">Số Tín Chỉ</th>
+                <th scope="col">Học Phí</th>
+
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody id="listMonHoc">
+
+        </tbody>
+    </table>
+</div>
+<div class="modal" id="myModalUpdate">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 500px !important">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Sửa Thông Tin Môn Học</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body ">
+                <form id="formUpdate" class="row g-3 needs-validation1" novalidate>
+                    <input hidden type="text" class="form-control" id="maMon" required>
+                    <div class="col-md-12">
+                        <label for="tenMon" class="form-label">Tên môn học*</label>
+                        <input type="text" class="form-control" id="tenMon" required>
+                        <div class="invalid-feedback">
+                            Tên môn học không được để trống
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <label for="soTinChi" class="form-label">Số tín chỉ*</label>
+                        <input type="number" class="form-control" id="soTinChi" required>
+                        <div class="invalid-feedback">
+                            Số tín chỉ không được để trống
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <label for="tienHoc" class="form-label">Tiền học*</label>
+                        <input type="number " class="form-control" id="tienHoc" required>
+                        <div class="invalid-feedback">
+                            Học phí không được để trống
+                        </div>
+                    </div>
+                    <div class="col-12 ">
+                        <button class="btn btn-primary" style="float: right;" type="submit"> Lưu </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    renderMonHoc()
+
+</script>
+<script>
+        (function () {
+            'use strict'
+
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.querySelectorAll('.needs-validation1')
+
+            // Loop over them and prevent submission
+            Array.prototype.slice.call(forms)
+                .forEach(function (form) {
+                    form.addEventListener('submit', function (event) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                        if (!form.checkValidity()) {
+                            form.classList.add('was-validated')
+                        } else {
+                            if (form.id == "formAdd") {
+                                let tenMon = form.tenMon.value.trim()
+                                var format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
+                                if (form.tenMon.value.length > 255) {
+                                    alert('Bạn đã nhập quá số ký tự cho phép. Mời nhập lại')
+                                }
+                                else if (format.test(tenMon)) {
+                                    alert('Không nhập các ký tự đặc biệt như $, %,^ ,&, ,..')
+                                }
+                                else {
+                                    fetch(`${HOST}/api/monhoc/`, {
+                                        method: "POST",
+                                        headers: {
+                                            'Content-Type': 'application/json',
+                                        },
+                                        body: JSON.stringify({
+                                            "tenMon": form.tenMon.value,
+                                            "soTinChi": form.soTinChi.value,
+                                            "tienHoc": form.tienHoc.value
+                                        }),
+                                    })
+                                        .then(res => res.json())
+                                        .then(data => {
+                                            if (data.message) {
+                                                alert('Môn học đã tồn tại')
+                                            }
+                                            else {
+                                                form.reset()
+                                                alert("Thêm môn học thành công")
+                                                renderMonHoc()
+                                                document.querySelector("#myModalAdd .btn-close").click()
+                                            }
+                                        })
+                                        .catch(err => console.log("Error: ", err))
+                                }
+                            } else if (form.id == "formUpdate") {
+                                let tenMon = form.tenMon.value.trim()
+                                var format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
+                                if (form.tenMon.value.length > 255) {
+                                    alert('Bạn đã nhập quá số ký tự cho phép. Mời nhập lại')
+                                }
+                                else if (format.test(tenMon)) {
+                                    alert('Không nhập các ký tự đặc biệt như $, %,^ ,&, ,..')
+                                }
+                                else {
+                                    fetch(`${HOST}/api/monhoc/${form.maMon.value}`, {
+                                        method: "PUT",
+                                        headers: {
+                                            'Content-Type': 'application/json',
+                                        },
+                                        body: JSON.stringify({
+                                            "tenMon": form.tenMon.value,
+                                            "soTinChi": form.soTinChi.value,
+                                            "tienHoc": form.tienHoc.value
+                                        }),
+                                    })
+                                        .then(res => res.json())
+                                        .then(data => {
+
+                                            if (data.sqlMessage) {
+                                                alert('Môn học đã tồn tại')
+                                            }
+                                            else {
+                                                form.reset()
+                                                alert("Sửa môn học thành công")
+                                                renderMonHoc()
+                                                document.querySelector("#myModalUpdate .btn-close").click()
+                                            }
+                                        })
+                                        .catch(err => console.log("Error: ", err))
+                                }
+                            }
+                        }
+
+                    }, false)
+                })
+        })()
+</script>
