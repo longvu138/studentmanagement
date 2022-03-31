@@ -1,0 +1,271 @@
+<div class="row text-center py-3">
+    <h3>Quản Lý Tài Khoản</h3>
+</div>
+<div class="row py-3">
+    <div class="col-md-4">
+        <select id="searchChucNang" class="form-select" style="border-radius: 15px" required>
+            <option selected disabled value="">Chức Năng</option>
+            <option value="">Tất cả</option>
+            <option value="sinhvien"> Sinh Viên </option>
+            <option value="giangvien"> Giảng Viên </option>
+            <option value="quantrivien"> Quản Trị Viên </option>
+        </select>
+    </div>
+    <div class="col-md-4">
+        <input id="searchTextInput" type="text" class="form-control" style="border-radius: 15px"
+            placeholder="Tên đăng nhập">
+    </div>
+    <div class="col-3 col-md-auto">
+        <button class="btn btn-primary" onclick="quanLyTaiKhoan()">Tìm Kiếm</button>
+    </div>
+    <div class="col col col-lg-2">
+        <div class="container">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
+                Thêm
+            </button>
+        </div>
+        <div class="modal" id="myModal">
+            <div class="modal-dialog modal-dialog-centered" style="max-width: 500px !important">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Thêm Tài Khoản</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <!-- Modal body -->
+                    <div class="modal-body ">
+                        <form class="row g-3 needs-validation" id="formAdd" novalidate>
+
+                            <div class="col-md-12">
+                                <label for="TenLop" class="form-label">Tên đăng nhập*</label>
+                                <input type="text" class="form-control" id="tenDangNhap" required>
+                                <div class="invalid-feedback">
+                                    Tên đăng nhập không được để trống
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <label for="Tenmonhoc" class="form-label">Mật khẩu*</label>
+                                <input type="text" class="form-control" id="matKhau" required>
+                                <div class="invalid-feedback">
+                                    Mật khẩu không được để trống
+
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <label for="inputState" class="form-label">Chức năng*</label>
+                                <select id="chucNang" class="form-select" required>
+                                    <option selected disabled value="">---Chọn Chức Năng---</option>
+                                    <option value="sinhvien"> Sinh Viên </option>
+                                    <option value="giangvien"> Giảng Viên </option>
+                                    <option value="quantrivien"> Quản Trị Viên </option>
+
+                                </select>
+                                <div class="invalid-feedback">
+                                    Chức năng không được để trống
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <label for="inputState" class="form-label">Trạng thái*</label>
+                                <select class="form-select" id="trangThai" required>
+                                    <option selected disabled value="">---Chọn Trạng Thái---</option>
+                                    <option value="1">Hoạt Động</option>
+                                    <option value="0">Không Hoạt Động</option>
+
+                                </select>
+                                <div class="invalid-feedback">
+                                    Trạng thái không được để trống
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <button class="btn btn-primary" style="float: right;" type="submit">Lưu</button>
+                            </div>
+                        </form>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div style="background-color: #f5f5f5; border-radius: 7px; border: 1px solid black; margin-top: 50px !important;">
+    <table class="table table-hover mt-5 " style="margin-top: 5px !important;">
+        <thead>
+            <tr>
+                <th scope="col">STT</th>
+                <th scope="col">Tên đăng nhập</th>
+                <th scope="col">Chức năng</th>
+                <th scope="col">Trạng thái</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody id="listTaiKhoan">
+
+        </tbody>
+    </table>
+</div>
+
+<div class="modal" id="myModaldata">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 500px !important">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Sửa Tài Khoản</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body ">
+                <form class="row g-3 needs-validation" id="formUpdate" novalidate>
+                    <div class="col-md-12">
+                        <label for="maTaiKhoan" class="form-label">Mã tài khoản</label>
+                        <input readonly type="text" class="form-control" id="maTaiKhoan">
+                    </div>
+                    <div class="col-md-12">
+                        <label for="tenDangNhap" class="form-label">Tên đăng nhập*</label>
+                        <input readonly type="text" class="form-control" id="tenDangNhap">
+                    </div>
+                    <div class="col-md-12">
+                        <label for="chucNang" class="form-label">Chức năng*</label>
+                        <select id="chucNang" class="form-select" required>
+                            <option selected disabled value="">---Chọn Chức Năng---</option>
+                            <option value="sinhvien"> Sinh Viên </option>
+                            <option value="giangvien"> Giảng Viên </option>
+                            <option value="quantrivien"> Quản Trị Viên </option>
+                        </select>
+                    </div>
+                    <div class="col-md-12">
+                        <label for="trangThai" class="form-label">Trạng thái*</label>
+                        <select class="form-select" id="trangThai" required>
+                            <option selected disabled value="">---Chọn Trạng Thái---</option>
+                            <option value="1">Hoạt Động</option>
+                            <option value="0">Không Hoạt Động</option>
+                        </select>
+                    </div>
+                    <div class="col-12">
+                        <button class="btn btn-primary" style="float: right;" type="submit">Lưu</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="myModal3">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 400px !important">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Cảnh Báo</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body ">
+                <form class="row g-3 py-3 needs-validation" id="formBlock">
+                    Bạn có muốn dừng tài khoản này không?
+                    <input hidden id="idtk">
+                    <div class="col-12">
+                        <button class="btn btn-primary" style="float: right;" type="submit">Lưu</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    quanLyTaiKhoan();
+</script>
+
+<script>
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (function () {
+        'use strict'
+
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.querySelectorAll('.needs-validation')
+
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                    if (!form.checkValidity()) {
+                        form.classList.add('was-validated')
+                    } else {
+                        if (form.id == "formAdd") {
+                            let tenDangNhap = form.tenDangNhap.value.trim()
+                            var format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
+                            if (form.tenDangNhap.value.length > 16) {
+                                alert('Tên đăng nhập không quá 16 ký tự')
+                            } else if (form.matKhau.value.length > 32) {
+                                alert('Mật khẩu không quá 32 ký tự')
+                            }
+                            else if (format.test(tenDangNhap)) {
+                                alert('Không nhập các ký tự đặc biệt như $, %,^ ,&, ,..')
+                            } else {
+                                fetch(`${HOST}/api/taikhoan/`, {
+                                    method: "POST",
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                    },
+                                    body: JSON.stringify({
+                                        "tenDangNhap": form.tenDangNhap.value,
+                                        "matKhau": form.matKhau.value,
+                                        "chucNang": form.chucNang.value,
+                                        "trangThai": form.trangThai.value,
+                                    }),
+                                })
+                                    .then(res => res.json())
+                                    .then(data => {
+                                        if (data.message) {
+                                            alert('Tài khoản đã tồn tại')
+                                        }
+                                        else {
+                                            form.reset()
+                                            alert("Thêm tài khoản thành công")
+                                            quanLyTaiKhoan()
+                                            document.querySelectorAll(".btn-close")[0].click()
+                                        }
+                                    })
+                                    .catch(err => console.log("Error: ", err))
+                            }
+
+
+
+                        } else if (form.id == "formUpdate") {
+                            fetch(`${HOST}/api/taikhoan/${form.maTaiKhoan.value}`, {
+                                method: "PUT",
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                },
+                                body: JSON.stringify({
+                                    "chucNang": form.chucNang.value,
+                                    "trangThai": form.trangThai.value,
+                                }),
+                            })
+                                .then(res => res.json())
+                                .then(data => {
+                                    alert("Sửa tài khoản thành công")
+                                    quanLyTaiKhoan()
+                                    document.querySelectorAll(".btn-close")[1].click()
+                                })
+                                .catch(err => console.log("Error: ", err))
+                        } else if (form.id == "f") {
+                            fetch(`${HOST}/api/taikhoan/${form.idtk.value}`, {
+                                method: "DELETE",
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                },
+                            })
+                                .then(res => res.json())
+                                .then(data => {
+                                    alert("Khoá tài khoản thành công")
+                                    quanLyTaiKhoan()
+                                    document.querySelectorAll(".btn-close")[2].click()
+                                })
+                                .catch(err => console.log("Error: ", err))
+                        }
+                    }
+                }, false)
+            })
+    })()
+</script>

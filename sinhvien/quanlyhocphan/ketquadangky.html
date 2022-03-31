@@ -1,0 +1,32 @@
+<div class="row text-center py-3">
+    <h3>Kết Quả Đăng Ký Học</h3>
+</div>
+
+<div class="row py-4">
+    <div class="col-md-3">
+        <select class="form-select" id="kyHoc" style="border-radius: 15px" onchange="getKetQuaDangKy()" required>
+        </select>
+    </div>
+</div>
+
+<div style="background-color: #f5f5f5; border-radius: 7px; border: 1px solid black; margin-top: 5px !important;">
+    <table class="table table-hover text-center" style="margin-top: 5px !important;">
+        <thead>
+            <tr>
+                <th scope="col">STT</th>
+                <th scope="col">Học phần</th>
+                <th scope="col">Thời gian</th>
+                <th scope="col">Địa điểm</th>
+                <th scope="col">Giảng viên</th>
+                <th scope="col">Sĩ số</th>
+                <th scope="col">Số TC</th>
+            </tr>
+        </thead>
+        <tbody id="listKetQuaDangky">
+
+        </tbody>
+    </table>
+</div>
+<script>
+    getKy();
+</script>

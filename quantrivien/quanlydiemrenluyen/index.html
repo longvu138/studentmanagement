@@ -1,0 +1,151 @@
+<div class="row text-center py-3">
+  <h3>Thêm Điểm Rèn Luyện</h3>
+</div>
+<div class="row py-3">
+  <div class="col-md-3">
+    <select id="kyHoc" class="form-select" style="border-radius: 15px">
+    </select>
+  </div>
+  <div class="col-md-3">
+    <select id="khoa" class="form-select" style="border-radius: 15px">
+    </select>
+  </div>
+  <div class="col-md-3">
+    <input id="inputName" type="text" class="form-control" value="" style="border-radius: 15px" placeholder="Họ và tên">
+  </div>
+  <div class="col-md-3">
+    <button class="btn btn-primary mx-3" onclick="renderDiemRenLuyen()">Tìm Kiếm</button>
+    <button type="button" class="btn btn-primary mx-3 px-4" data-bs-toggle="modal" data-bs-target="#myModalAdd">
+      Thêm
+    </button>
+  </div>
+
+  <div class="modal" id="myModalAdd">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 500px !important">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Thêm Điểm Rèn Luyện</h4>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <!-- Modal body -->
+        <div class="modal-body ">
+          <form class="row g-3 needs-validation" id="formAdd" novalidate>
+            <div>
+              <label for="inputDataList" class="form-label">Sinh viên*</label>
+              <input class="form-control" list="sinhVien" id="inputDataList" placeholder="Tìm kiếm..."
+                autocomplete="off" required>
+              <datalist id="sinhVien">
+              </datalist>
+              <div class="invalid-feedback">
+                Sinh viên bắt buộc nhập
+              </div>
+            </div>
+            <div>
+              <label for="kyHoc" class="form-label">Học Kỳ*</label>
+              <select id="kyHoc" class="form-select" style="max-width: 467px;" required>
+              </select>
+              <div class="invalid-feedback">
+                Vui lòng chọn kỳ học
+              </div>
+            </div>
+            <div class="col-md-12">
+              <label for="tenKhoa" class="form-label">Điểm rèn luyện*</label>
+              <input type="number" class="form-control" id="diemRenLuyen" required step="0.1">
+              <div class="invalid-feedback">
+                Vui lòng nhập vào điểm rèn luyện
+              </div>
+            </div>
+            <div class="col-12">
+              <button class="btn btn-primary" style="float: right;" type="submit">Lưu</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<div style="background-color: #f5f5f5; border-radius: 7px; border: 1px solid black; margin-top: 50px !important;">
+  <table class="table table-hover mt-5 " style="margin-top: 5px !important;">
+    <thead>
+      <tr>
+        <th scope="col">STT</th>
+        <th scope="col">MSV</th>
+        <th scope="col">Họ và tên</th>
+        <th scope="col">Khoa</th>
+        <th scope="col">Kỳ Học</th>
+        <th scope="col">Điểm Rèn Luyện</th>
+      </tr>
+    </thead>
+    <tbody id="ListDiemRenLuyen">
+
+    </tbody>
+  </table>
+</div>
+
+<script>
+  getKhoa()
+  getKy()
+  getSinhVien()
+  renderDiemRenLuyen()
+</script>
+
+<script>
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (function () {
+      'use strict'
+
+      // Fetch all the forms we want to apply custom Bootstrap validation styles to
+      var forms = document.querySelectorAll('.needs-validation')
+
+      // Loop over them and prevent submission
+      Array.prototype.slice.call(forms)
+        .forEach(function (form) {
+          form.addEventListener('submit', function (event) {
+            event.preventDefault()
+            event.stopPropagation()
+            if (!form.checkValidity()) {
+              form.classList.add('was-validated')
+            } else {
+              if (form.id == "formAdd") {
+                const idsv = form.inputDataList.value.split('-')[0]
+                const tensv = form.inputDataList.value.split('-')[1]
+                const idky = form.kyHoc.value
+                const diemRenLuyen = form.diemRenLuyen.value;
+                if (diemRenLuyen < 0 || diemRenLuyen > 100) {
+                  alert('Điểm rèn luyện phải lớn hơn 0 và nhỏ hơn 100')
+                } else if (parseInt(diemRenLuyen) === diemRenLuyen) {
+                  alert('Điểm rèn luyện không được nhập số thập phân')
+                } else if (!tensv || !idsv) {
+                  alert('Sinh viên không tồn tại')
+                } else {
+                  fetch(`${HOST}/api/diemrenluyen/`, {
+                    method: "POST",
+                    headers: {
+                      'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                      "idsv": idsv,
+                      "idky": idky,
+                      "diem": diemRenLuyen
+                    }),
+                  })
+                    .then(res => res.json())
+                    .then(data => {
+                      if (data.message) {
+                        alert("ERROR:" + data.message)
+                      } else {
+                        form.reset()
+                        alert("Thêm điểm rèn luyện thành công")
+                        renderDiemRenLuyen()
+                        document.querySelector("#myModalAdd .btn-close").click()
+                      }
+                    })
+                    .catch(err => console.log("Có lỗi vui lòng kiểm tra lại: ", err))
+                }
+              }
+            }
+          }, false)
+        })
+    })()
+</script>

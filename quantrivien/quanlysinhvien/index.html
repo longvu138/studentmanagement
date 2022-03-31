@@ -1,0 +1,667 @@
+<div class="row text-center py-3">
+    <h3>Quản Lý Thông Tin Sinh Viên</h3>
+</div>
+<div class="row py-3">
+    <div class="col-md-4">
+        <input id="searchInput" type="text" class="form-control" style="border-radius: 15px" placeholder="Họ và tên">
+    </div>
+    <div class="col-3 col-md-auto">
+        <button class="btn btn-primary" onclick="renderSV()">Tìm Kiếm</button>
+    </div>
+    <div class="col col col-lg-2">
+        <div class="container">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModalAdd">
+                Thêm
+            </button>
+        </div>
+        <div class="modal" id="myModalAdd">
+            <div class="modal-dialog modal-dialog-centered" style="max-width: 800px !important">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Thêm Thông Tin Sinh Viên</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <!-- Modal body -->
+                    <div class="modal-body ">
+                        <form id="formAdd" class="row g-3 needs-validation" novalidate>
+
+                            <div class="col-md-6">
+                                <label for="hoVaTen" class="form-label">Họ và tên*</label>
+                                <input type="text" class="form-control" id="hoVaTen" required>
+                                <div class="invalid-feedback">
+                                    Tên sinh viên không được để trống
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="gioiTinh" class="form-label">Giới tính*</label>
+                                <select id="gioiTinh" class=" form-select" required>
+                                    <option selected disabled value="">--Chọn Giới Tính--</option>
+                                    <option value="1">Nam</option>
+                                    <option value="0">Nữ</option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    Giới tính không được để trống
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="Tenmonhoc" class="form-label">Ngày sinh*</label>
+                                <input type="date" class="form-control" id="ngaySinh" required>
+                                <div class="invalid-feedback">
+                                    Ngày sinh không được để trống
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="kyTucXa" class="form-label">Kí túc xã*</label>
+                                <select id="kyTucXa" class="form-select" required>
+                                    <option selected disabled value="">--Chọn Ký Túc Xá--</option>
+                                    <option value="1">Có</option>
+                                    <option value="0">không</option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    Kí túc xá không được để trống
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="khoa" class="form-label">Khoa*</label>
+                                <select id="khoa" class="form-select" required>
+                                </select>
+                                <div class="invalid-feedback">
+                                    Tên khoa không được để trống
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="queQuan" class="form-label">Quê quán*</label>
+                                <input type="text" class="form-control" id="queQuan" required>
+                                <div class="invalid-feedback">
+                                    Quê quán không được để trống
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="diaChi" class="form-label">Địa chỉ*</label>
+                                <input type="text" class="form-control" id="diaChi" required>
+                                <div class="invalid-feedback">
+                                    Địa chỉ không được để trống
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="Tenmonhoc" class="form-label">SĐT*</label>
+                                <input type="text" class="form-control" id="soDienThoai" required>
+                                <div class="invalid-feedback">
+                                    Số điện thoại không được để trống
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="Tenmonhoc" class="form-label">Căn cước công dân*</label>
+                                <input type="text" class="form-control" id="CCCD" required>
+                                <div class="invalid-feedback">
+                                    Căn cước công dân không được để trống
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="tenDangNhap" class="form-label">Tên đăng nhập*</label>
+                                <input type="text" class="form-control" id="tenDangNhap" required>
+                                <div class="invalid-feedback">
+                                    Tên đăng nhập không được để trống
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="Tenmonhoc" class="form-label">Họ và tên Bố*</label>
+                                <input type="text" class="form-control" id="hoTenBo" required>
+                                <div class="invalid-feedback">
+                                    Tên Bố không được để trống
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="Tenmonhoc" class="form-label">Năm sinh*</label>
+                                <input type="date" class="form-control" id="namSinhBo" required>
+                                <div class="invalid-feedback">
+                                    Năm sinh bố không được để trống
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="Tenmonhoc" class="form-label">Nghề nghiệp Bố*</label>
+                                <!-- theo figma -->
+                                <input type="text" class="form-control" id="ngheNghiepBo" required>
+                                <div class="invalid-feedback">
+                                    Nghề nghiệp bố không được để trống
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="Tenmonhoc" class="form-label">SĐT Bố*</label>
+                                <input type="text" class="form-control" id="sdtBo" required>
+                                <div class="invalid-feedback">
+                                    Số điện thoại bố không được để trống
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="Tenmonhoc" class="form-label">Họ và tên Mẹ*</label>
+                                <input type="text" class="form-control" id="hoTenMe" required>
+                                <div class="invalid-feedback">
+                                    Tên mẹ không được để trống
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="Tenmonhoc" class="form-label">Năm sinh*</label>
+                                <input type="date" class="form-control" id="namSinhMe" required>
+                                <div class="invalid-feedback">
+                                    Năm sinh mẹ không được để trống
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="Tenmonhoc" class="form-label">Nghề nghiệp Mẹ*</label>
+                                <input type="text" class="form-control" id="ngheNghiepMe" required>
+                                <div class="invalid-feedback">
+                                    Nghề nghiệp mẹ không được để trống
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="Tenmonhoc" class="form-label">SĐT Mẹ*</label>
+                                <input type="text" class="form-control" id="sdtMe" required>
+                                <div class="invalid-feedback">
+                                    Số điện thoại mẹ không được để trống
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <button class="btn btn-primary" style="float: right;" type="submit">Lưu</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div style="background-color: #f5f5f5; border-radius: 7px; border: 1px solid black; margin-top: 50px !important;">
+    <table class="table table-hover mt-5 " style="margin-top: 5px !important;">
+        <thead>
+            <tr>
+                <th scope="col">STT</th>
+                <th scope="col">Họ và tên</th>
+                <th scope="col">Năm Sinh</th>
+                <th scope="col">Giới Tính</th>
+                <th scope="col">Điện Thoại</th>
+            </tr>
+        </thead>
+        <tbody id="listSinhVien">
+
+        </tbody>
+    </table>
+</div>
+
+<div class="modal" id="myModalUpdate">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 1000px !important">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Sửa Thông Tin Sinh Viên</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body ">
+                <form id="formUpdate" class="row g-3 needs-validation" novalidate>
+                    <input type="text" hidden name="" id="maSinhVien">
+                    <div class="col-md-6">
+                        <label for="hoVaTen" class="form-label">Họ và tên*</label>
+                        <input type="text" class="form-control" id="hoVaTen">
+                        <div class="invalid-feedback">
+                            Tên sinh viên không được để trống
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="gioiTinh" class="form-label">Giới tính*</label>
+                        <select id="gioiTinh" class=" form-select" required>
+                            <option selected disabled value="">--Chọn Giới Tính--</option>
+                            <option value="1">Nam</option>
+                            <option value="0">Nữ</option>
+                        </select>
+                        <div class="invalid-feedback">
+                            Giới tính không được để trống
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="ngaySinh" class="form-label">Ngày sinh*</label>
+                        <input type="date" class="form-control" id="ngaySinh" required>
+                        <div class="invalid-feedback">
+                            Ngày sinh không được để trống
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="kyTucXa" class="form-label">Kí túc xã*</label>
+                        <select id="kyTucXa" class="form-select" required>
+                            <option selected disabled value="">--Chọn Ký Túc Xá--</option>
+                            <option value="1">Có</option>
+                            <option value="0">không</option>
+                        </select>
+                        <div class="invalid-feedback">
+                            Kí túc xá không được để trống
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="khoa" class="form-label">Khoa*</label>
+                        <select id="khoa" class="form-select" required>
+                        </select>
+                        <div class="invalid-feedback">
+                            Tên khoa không được để trống
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="queQuan" class="form-label">Quê quán*</label>
+                        <input type="text" class="form-control" id="queQuan" required>
+                        <div class="invalid-feedback">
+                            Quê quán không được để trống
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <label for="diaChi" class="form-label">Địa chỉ*</label>
+                        <input type="text" class="form-control" id="diaChi" required>
+                        <div class="invalid-feedback">
+                            Địa chỉ không được để trống
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="soDienThoai" class="form-label">SĐT*</label>
+                        <input type="text" class="form-control" id="soDienThoai" required>
+                        <div class="invalid-feedback">
+                            Số điện thoại không được để trống
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="Tenmonhoc" class="form-label">Căn cước công dân*</label>
+                        <input type="text" class="form-control" id="CCCD" required>
+                        <div class="invalid-feedback">
+                            Căn cước công dân không được để trống
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="hoTenBo" class="form-label">Họ và tên Bố*</label>
+                        <input type="text" class="form-control" id="hoTenBo" required>
+                        <div class="invalid-feedback">
+                            Tên Bố không được để trống
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="namSinhBo" class="form-label">Năm sinh*</label>
+                        <input type="date" class="form-control" id="namSinhBo" required>
+                        <div class="invalid-feedback">
+                            Năm sinh bố không được để trống
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="ngheNghiepBo" class="form-label">Nghề nghiệp*</label>
+                        <input type="text" class="form-control" id="ngheNghiepBo" required>
+                        <div class="invalid-feedback">
+                            Nghề nghiệp bố không được để trống
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="sdtBo" class="form-label">SĐT Bố*</label>
+                        <input type="text" class="form-control" id="sdtBo" required>
+                        <div class="invalid-feedback">
+                            Số điện thoại bố không được để trống
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="hoTenMe" class="form-label">Họ và tên Mẹ*</label>
+                        <input type="text" class="form-control" id="hoTenMe" required>
+                        <div class="invalid-feedback">
+                            Tên mẹ không được để trống
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="namSinhMe" class="form-label">Năm sinh*</label>
+                        <input type="date" class="form-control" id="namSinhMe" required>
+                        <div class="invalid-feedback">
+                            Năm sinh mẹ không được để trống
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="ngheNghiepMe" class="form-label">Nghề nghiệp*</label>
+                        <input type="text" class="form-control" id="ngheNghiepMe" required>
+                        <div class="invalid-feedback">
+                            Nghề nghiệp mẹ không được để trống
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="sdtMe" class="form-label">SĐT Mẹ*</label>
+                        <input type="text" class="form-control" id="sdtMe" required>
+                        <div class="invalid-feedback">
+                            Số điện thoại mẹ không được để trống
+                        </div>
+                    </div>
+                    <input type="text" hidden id="idtk">
+                    <div class="col-12">
+                        <button class="btn btn-primary" style="float: right;" type="submit">Lưu</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="myModelView">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 1000px !important">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Chi Tiết Thông Tin Sinh Viên</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body ">
+                <form id="formView" class="row g-3 needs-validation" novalidate>
+                    <input type="text" hidden name="" id="maSinhVien">
+                    <div class="col-md-6">
+                        <label for="hoVaTen" class="form-label">Họ và tên*</label>
+                        <input type="text" class="form-control" id="hoVaTen" readonly>
+                        <div class="invalid-feedback">
+                            Vui lòng nhập họ và tên
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="gioiTinh" class="form-label">Giới tính*</label>
+                        <select id="gioiTinh" class=" form-select" readonly>
+                            <option selected disabled value="">--Chọn Giới Tính--</option>
+                            <option value="1">Nam</option>
+                            <option value="0">Nữ</option>
+                        </select>
+                        <div class="invalid-feedback">
+                            Vui lòng chọn giới tính
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="ngaySinh" class="form-label">Ngày sinh*</label>
+                        <input type="date" class="form-control" id="ngaySinh" readonly>
+                        <div class="invalid-feedback">
+                            Vui lòng nhập nhập vào ngày sinh
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="kyTucXa" class="form-label">Kí túc xá*</label>
+                        <select id="kyTucXa" class="form-select" readonly>
+                            <option selected disabled value="">--Chọn Ký Túc Xá--</option>
+                            <option value="1">Có</option>
+                            <option value="0">không</option>
+                        </select>
+                        <div class="invalid-feedback">
+                            Vui lòng chọn ký túc xá
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="khoa" class="form-label">Khoa*</label>
+                        <select id="khoa" class="form-select" readonly>
+                        </select>
+                        <div class="invalid-feedback">
+                            Vui lòng chọn khoa
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="queQuan" class="form-label">Quê quán*</label>
+                        <input type="text" class="form-control" id="queQuan" readonly>
+                        <div class="invalid-feedback">
+                            Vui lòng nhập vào quê quán
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <label for="diaChi" class="form-label">Địa chỉ*</label>
+                        <input type="text" class="form-control" id="diaChi" readonly>
+                        <div class="invalid-feedback">
+                            Vui lòng nhập địa chỉ
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="soDienThoai" class="form-label">SĐT*</label>
+                        <input type="text" class="form-control" id="soDienThoai" readonly>
+                        <div class="invalid-feedback">
+                            Số điện thoại bố không được để trống
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="Tenmonhoc" class="form-label">Căn cước công dân*</label>
+                        <input type="text" class="form-control" id="CCCD" readonly>
+                        <div class="invalid-feedback">
+                            Vui lòng nhập số căn cước công dân
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="hoTenBo" class="form-label">Họ và tên Bố*</label>
+                        <input type="text" class="form-control" id="hoTenBo" readonly>
+                        <div class="invalid-feedback">
+                            Tên Bố không được để trống
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="namSinhBo" class="form-label">Năm sinh*</label>
+                        <input type="date" class="form-control" id="namSinhBo" readonly>
+                        <div class="invalid-feedback">
+                            Năm sinh bố không được để trống
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="ngheNghiepBo" class="form-label">Nghề nghiệp*</label>
+                        <input type="text" class="form-control" id="ngheNghiepBo" readonly>
+                        <div class="invalid-feedback">
+                            Nghề nghiệp bố không được để trống
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="sdtBo" class="form-label">SĐT Bố*</label>
+                        <input type="text" class="form-control" id="sdtBo" readonly>
+                        <div class="invalid-feedback">
+                            Số điện thoại bố không được để trống
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="hoTenMe" class="form-label">Họ và tên Mẹ*</label>
+                        <input type="text" class="form-control" id="hoTenMe" readonly>
+                        <div class="invalid-feedback">
+                            Tên mẹ không được để trống
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="namSinhMe" class="form-label">Năm sinh*</label>
+                        <input type="date" class="form-control" id="namSinhMe" readonly>
+                        <div class="invalid-feedback">
+                            Năm sinh bố không được để trống
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="ngheNghiepMe" class="form-label">Nghề nghiệp*</label>
+                        <input type="text" class="form-control" id="ngheNghiepMe" readonly>
+                        <div class="invalid-feedback">
+                            Nghề nghiệp bố không được để trống
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="sdtMe" class="form-label">SĐT Mẹ*</label>
+                        <input type="text" class="form-control" id="sdtMe" readonly>
+                        <div class="invalid-feedback">
+                            Số điện thoại bố không được để trống
+                        </div>
+                    </div>
+                    <input type="text" hidden id="idtk">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    renderSV()
+
+
+    // fetch khoa
+    getKhoa()
+
+
+</script>
+
+
+<script>
+        (function () {
+            'use strict'
+
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.querySelectorAll('.needs-validation')
+
+            // Loop over them and prevent submission
+            Array.prototype.slice.call(forms)
+                .forEach(function (form) {
+                    form.addEventListener('submit', function (event) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                        if (!form.checkValidity()) {
+                            form.classList.add('was-validated')
+                        } else {
+                            if (form.id == "formAdd") {
+                                let tenSV = form.hoVaTen.value.trim();
+                                let tenBo = form.hoTenBo.value.trim();
+                                let tenMe = form.hoTenMe.value.trim();
+                                let queQuan = form.queQuan.value.trim();
+                                let diaChi = form.diaChi.value.trim();
+                                let sdt = form.soDienThoai.value.trim();
+                                let sdtBo = form.sdtBo.value.trim();
+                                let sdtMe = form.sdtMe.value.trim();
+                                let cccd = form.CCCD.value.trim();
+                                let tenDangNhap = form.tenDangNhap.value.trim()
+                                var format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
+                                if (tenSV.length > 255 || tenBo.length > 255 || tenMe.length > 255) {
+                                    alert('Bạn đã nhập quá số ký tự cho phép. Mời nhập lại')
+                                } else if (format.test(tenSV) || format.test(tenBo) || format.test(tenMe) || form.test(cccd)) {
+                                    alert('Không nhập các ký tự đặc biệt như $, %,^ ,&, ,..')
+                                } else if (!checkPhoneNumber(sdt) || !checkPhoneNumber(sdtBo) || !checkPhoneNumber(sdtMe)) {
+                                    alert('Nhập số điện thoại không đúng định dạng: 096, 097, 098,...')
+                                }
+                                else if (cccd.length < 11 || cccd.length > 13) {
+                                    alert('Căn cước công dân không đúng định dạng')
+                                }
+                                else if (tenDangNhap.length > 16) {
+                                    alert('Tên đăng nhập không được quá 16 ký tự');
+                                }
+                                else {
+                                    fetch(`${HOST}/api/taikhoan/`, {
+                                        method: "POST",
+                                        headers: {
+                                            'Content-Type': 'application/json',
+                                        },
+                                        body: JSON.stringify({
+                                            "tenDangNhap": tenDangNhap,
+                                            "matKhau": form.ngaySinh.value,
+                                            "chucNang": "sinhvien",
+                                            "trangThai": "1"
+                                        }),
+                                    })
+                                        .then(res => res.json())
+                                        .then(data => {
+                                            fetch(`${HOST}/api/sinhvien/`, {
+                                                method: "POST",
+                                                headers: {
+                                                    'Content-Type': 'application/json',
+                                                },
+                                                body: JSON.stringify({
+                                                    "tenSV": tenSV,
+                                                    "ngaySinh": form.ngaySinh.value,
+                                                    "laNam": form.gioiTinh.value,
+                                                    "idKhoa": form.khoa.value,
+                                                    "kyTucXa": form.kyTucXa.value,
+                                                    "queQuan": queQuan,
+                                                    "diaChi": diaChi,
+                                                    "sdt": sdt,
+                                                    "cccd": form.CCCD.value,
+                                                    "tenBo": tenBo,
+                                                    "namSinhBo": getFullYear(form.namSinhBo.value),
+                                                    "ngheNghiepBo": form.ngheNghiepBo.value,
+                                                    "sdtBo": sdtBo,
+                                                    "tenMe": tenMe,
+                                                    "namSinhMe": getFullYear(form.namSinhMe.value),
+                                                    "ngheNghiepMe": form.ngheNghiepMe.value,
+                                                    "sdtMe": sdtMe,
+                                                    "idtk": data.idtk
+                                                }),
+
+                                            })
+                                                .then(res => res.json())
+                                                .then(data => {
+                                                    console.log(data);
+                                                    form.reset()
+                                                    alert("Thêm thông tin sinh viên thành công")
+                                                    renderSV()
+                                                    document.querySelector("#myModalAdd .btn-close").click()
+                                                })
+                                                .catch(err => console.log("Error: ", err))
+
+                                        })
+                                        .catch(err => console.log("Error: ", err))
+                                }
+                            } else if (form.id == "formUpdate") {
+                                let tenSV = form.hoVaTen.value.trim();
+                                let tenBo = form.hoTenBo.value.trim();
+                                let tenMe = form.hoTenMe.value.trim();
+                                let queQuan = form.queQuan.value.trim();
+                                let diaChi = form.diaChi.value.trim();
+                                let sdt = form.soDienThoai.value.trim();
+                                let sdtBo = form.sdtBo.value.trim();
+                                let sdtMe = form.sdtMe.value.trim();
+                                let cccd = form.CCCD.value.trim();
+                                var format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
+                                if (tenSV.length > 255 || tenBo.length > 255 || tenMe.length > 255) {
+                                    alert('Bạn đã nhập quá số ký tự cho phép. Mời nhập lại')
+                                } else if (format.test(tenSV) || format.test(tenBo) || format.test(tenMe)) {
+                                    alert('Không nhập các ký tự đặc biệt như $, %,^ ,&, ,..')
+                                } else if (!checkPhoneNumber(sdt) || !checkPhoneNumber(sdtBo) || !checkPhoneNumber(sdtMe)) {
+                                    alert('Nhập số điện thoại không đúng định dạng: 096, 097, 098,...')
+                                }
+                                else if (cccd.length < 11 || cccd.length > 13) {
+                                    alert('Căn cước công dân không đúng định dạng')
+                                } else {
+                                    fetch(`${HOST}/api/sinhvien/${form.maSinhVien.value}`, {
+                                        method: "PUT",
+                                        headers: {
+                                            'Content-Type': 'application/json',
+                                        },
+                                        body: JSON.stringify({
+                                            "tenSV": form.hoVaTen.value,
+                                            "ngaySinh": form.ngaySinh.value,
+                                            "laNam": form.gioiTinh.value,
+                                            "idKhoa": form.khoa.value,
+                                            "kyTucXa": form.kyTucXa.value,
+                                            "queQuan": form.queQuan.value,
+                                            "diaChi": form.diaChi.value,
+                                            "sdt": form.soDienThoai.value,
+                                            "cccd": form.CCCD.value,
+                                            "tenBo": form.hoTenBo.value,
+                                            "namSinhBo": getFullYear(form.namSinhBo.value),
+                                            "ngheNghiepBo": form.ngheNghiepBo.value,
+                                            "sdtBo": form.sdtBo.value,
+                                            "tenMe": form.hoTenMe.value,
+                                            "namSinhMe": getFullYear(form.namSinhMe.value),
+                                            "ngheNghiepMe": form.ngheNghiepMe.value,
+                                            "sdtMe": form.sdtMe.value,
+                                            "idtk": form.idtk.value
+                                        }),
+                                    })
+                                        .then(res => res.json())
+                                        .then(data => {
+
+                                            console.log('sửa', data.sql);
+
+                                            alert("Sửa thông tin sinh viên thành công")
+                                            renderSV()
+                                            document.querySelector("#myModalUpdate .btn-close").click()
+                                        })
+                                        .catch(err => console.log("Error: ", err))
+                                }
+                            }
+                        }
+                    }, false)
+                })
+        })()
+</script>

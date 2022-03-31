@@ -1,0 +1,81 @@
+<div class="row text-center py-3">
+    <h3>Đăng Ký Học</h3>
+</div>
+
+<div class="row py-4">
+
+    <div class="col-md-3">
+        <select class="form-select" onChange=getCoTheDangKyHoc() id="monhoc" style="border-radius: 15px" required>
+
+        </select>
+    </div>
+
+</div>
+
+<div style="background-color: #f5f5f5; border-radius: 7px; border: 1px solid black; margin-top: 5px !important;">
+    <table class="table table-hover text-center" style="margin-top: 5px !important;">
+        <thead>
+            <tr>
+                <th scope="col">STT</th>
+                <th scope="col">Tên Lớp</th>
+                <th scope="col">Thời gian</th>
+                <th scope="col">Địa điểm</th>
+                <th scope="col">Giảng viên</th>
+                <th scope="col">Sĩ số</th>
+                <th scope="col">Số TC</th>
+                <th scope="col">Học phí</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody id="listCoTheDangKyHoc">
+
+            <!-- <tr>
+                <td>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    </div>
+                </td>
+                <td>1</td>
+                <td>GDTC</td>
+                <td>134123</td>
+                <td>132-A2</td>
+                <td>TS</td>
+                <td>98/120</td>
+                <td>3</td>
+                <td>124325436</td>
+            </tr> -->
+        </tbody>
+    </table>
+</div>
+
+<!-- KẾT QUẢ ĐK -->
+<div class="row text-center py-3">
+    <h3>Học Phần Đã Đăng Ký</h3>
+</div>
+
+
+<div style="background-color: #f5f5f5; border-radius: 7px; border: 1px solid black; margin-top: 5px !important;">
+    <table class="table table-hover text-center" style="margin-top: 5px !important;">
+        <thead>
+            <tr>
+                <th scope="col">STT</th>
+                <th scope="col">Tên Lớp</th>
+                <th scope="col">Thời gian</th>
+                <th scope="col">Địa điểm</th>
+                <th scope="col">Giảng viên</th>
+                <th scope="col">Sĩ số</th>
+                <th scope="col">Số TC</th>
+                <th scope="col">Học phí</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody id="listDaDangKyHoc">
+
+        </tbody>
+    </table>
+</div>
+
+<script>
+    getDaDangKyHoc()
+    getMonHocSinhVienDangKyHoc()
+</script>

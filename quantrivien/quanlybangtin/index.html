@@ -1,0 +1,131 @@
+<div class="row text-center py-3">
+    <h3>Quản Lý Bảng Tin</h3>
+</div>
+<div class="row py-3">
+    <div class="col col col-lg-2">
+        <div class="con">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal"
+                style="width:60%">
+                Thêm
+            </button>
+        </div>
+        <div class="modal" id="myModal">
+            <div class="modal-dialog modal-dialog-centered" style="max-width: 800px !important">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Thêm Tin</h4>
+                        <button type="button" class="btn-close" id="close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <!-- Modal body -->
+                    <div class="modal-body ">
+                        <form id="formAdd" class="row g-3 needs-validation" novalidate>
+                            <div class="col-md-12">
+                                <label for="validationServer02" class="form-label">Nội Dung</label>
+                                <textarea style="height: 500px;" cols="80" rows="5" type="text" class="form-control"
+                                    id="editor" required></textarea>
+                                <div class="invalid-feedback">
+                                    Nội dung không được để trống
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <button class="btn btn-primary" style="float: right;" type="submit">Lưu</button>
+                            </div>
+                        </form>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div>
+    <table class="table table-hover mt-5 " style="background-color: #f5f5f5;">
+        <thead>
+            <tr>
+                <th style="width: 50px" scope=" col">STT</th>
+                <th style="width: 130px;" scope="col">Thời Gian Tạo</th>
+                <th scope="col" style="width: 1000px;">Nội Dung</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody id="listBangTin">
+
+        </tbody>
+
+
+    </table>
+</div>
+
+
+<script>
+
+
+</script>
+
+<script>  renderBangTin();</script>
+<script>
+    ClassicEditor
+        .create(document.querySelector('#editor'))
+        .then(editor => {
+            // console.log(editor);
+        })
+        .catch(error => {
+            // console.error(error);
+        });
+
+</script>
+<script>
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (function () {
+        'use strict'
+
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.querySelectorAll('.needs-validation')
+
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                    if (!form.checkValidity()) {
+                        form.classList.add('was-validated')
+                    } else {
+                        if (form.id == "formAdd") {
+                            let noiDung = form.editor.value;
+                            if (noiDung === "") {
+                                alert("Nội dung không được để trống")
+                            }
+                            else if (noiDung.length < 3000) {
+                                fetch(`${HOST}/api/bangtin/`, {
+                                    method: "POST",
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                    },
+                                    body: JSON.stringify({
+                                        "noiDung": noiDung
+                                    }),
+                                })
+                                    .then(res => res.json())
+                                    .then(data => {
+                                        form.reset()
+                                        alert("Thêm mới bảng tin thành công")
+                                        renderBangTin()
+                                        document.getElementById("close").click()
+                                    })
+                                    .catch(err => console.log("Error: ", err))
+                            }
+                            else {
+                                alert('Không được nhập quá 3000 ký tự')
+                                document.getElementById('editor').focus();
+                            }
+
+                        }
+                    }
+
+                }, false)
+            })
+    })()
+</script>

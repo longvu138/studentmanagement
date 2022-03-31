@@ -1,0 +1,487 @@
+<div class="row text-center py-3">
+    <h3>Quản Lý Giảng Viên</h3>
+</div>
+<div class="row py-3">
+    <div class="col-md-4">
+        <input id="searchInput" type="text" class="form-control" style="border-radius: 15px" placeholder="Họ và tên">
+    </div>
+    <div class="col-3 col-md-auto">
+        <button class="btn btn-primary" onclick="renderGiangVien()">Tìm kiếm</button>
+    </div>
+    <div class="col col col-lg-2">
+        <div class="container">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModalAdd">
+                Thêm
+            </button>
+        </div>
+        <div class="modal" id="myModalAdd">
+            <div class="modal-dialog modal-dialog-centered" style="max-width: 800px !important">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Thêm Giảng Viên</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <!-- Modal body -->
+                    <div class="modal-body ">
+                        <form class="row g-3 needs-validation" id="formAdd" novalidate>
+                            <div class="col-md-6">
+                                <label for="tengv" class="form-label">Họ Và Tên *</label>
+                                <input type="text" class="form-control" id="tengv" maxlength="255" required>
+                                <div class="invalid-feedback">
+                                    Tên giảng viên không được để trống
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="laNam" class="form-label">Giới Tính *</label>
+                                <select id="laNam" class="form-select" required>
+                                    <option selected value="1">Nam</option>
+                                    <option value="0">Nữ</option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    Giới tính không được để trống
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="ngaySinh" class="form-label">Ngày Sinh *</label>
+                                <input type="date" class="form-control" id="ngaySinh" required>
+                                <div class="invalid-feedback">
+                                    Ngày sinh không được để trống
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="queQuan" class="form-label">Quê Quán *</label>
+                                <input type="text" class="form-control" id="queQuan" required>
+                                <div class="invalid-feedback">
+                                    Quê quán không được để trống
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <label for="diaChi" class="form-label">Địa Chỉ *</label>
+                                <input type="text" class="form-control" id="diaChi" maxlength="255"
+                                    pattern="[A-Za-z0-9]+" required>
+                                <div class="invalid-feedback">
+                                    Địa chỉ không được để trống
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="khoa" class="form-label">Khoa*</label>
+                                <select id="khoa" class="form-select" required>
+                                </select>
+                                <div class="invalid-feedback">
+                                    Khoa không được để trống
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="sdt" class="form-label">Số Điện Thoại *</label>
+                                <input type="text" class="form-control" id="sdt" maxlength="10" minlength="10"
+                                    pattern="[0]{1}[0-9]{9}[0-9]{7}" required>
+                                <div class="invalid-feedback">
+                                    Số điện thoại không được để trống
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="email"
+                                    pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required>
+                                <div class="invalid-feedback">
+                                    Email không được để trống
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="cccd" class="form-label">CCCD *</label>
+                                <input type="text" class="form-control" id="cccd" maxlength="12" minlength="12"
+                                    pattern="[0-9]{12}" required>
+                                <div class="invalid-feedback">
+                                    Căn cước công dân không được để trống
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="idtk" class="form-label">Tên Đăng Nhập *</label>
+                                <input type="username" class="form-control" id="tenDangNhap" maxlength="16"
+                                    minlength="8" pattern="[A-Za-z0-9.-]+" required>
+                                <div class="invalid-feedback">
+                                    Tên đăng nhập không được để trống
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <button class="btn btn-primary" style="float: right;" type="submit">Lưu</button>
+                            </div>
+                        </form>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div style="background-color: #f5f5f5; border-radius: 7px; border: 1px solid black; margin-top: 50px !important;">
+    <table class="table table-hover mt-5 " style="margin-top: 5px !important;">
+        <thead>
+            <tr>
+                <th scope="col">STT</th>
+                <th scope="col">Mã GV</th>
+                <th scope="col">Họ và Tên</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody id="listGiangVien">
+
+        </tbody>
+
+    </table>
+</div>
+<div class="modal" id="myModalView">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 800px !important">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Xem Thông Tin Giảng Viên</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+                <form class="row g-3 needs-validation" id="formView" novalidate>
+                    <div class="col-md-6">
+                        <label for="tengv" class="form-label">Họ Và Tên *</label>
+                        <input type="text" class="form-control" id="tengv" readonly>
+
+                    </div>
+                    <div class="col-md-6">
+                        <label for="laNam" class="form-label">Giới Tính *</label>
+                        <input type="text" class="form-control" id="laNam" readonly>
+
+                    </div>
+                    <div class="col-md-6">
+                        <label for="ngaySinh" class="form-label">Ngày Sinh *</label>
+                        <input type="text" class="form-control" id="ngaySinh" readonly>
+
+                    </div>
+                    <div class="col-md-6">
+                        <label for="queQuan" class="form-label">Quê Quán *</label>
+                        <input type="text" class="form-control" id="queQuan" readonly>
+
+                    </div>
+                    <div class="col-md-12">
+                        <label for="diaChi" class="form-label">Địa Chỉ *</label>
+                        <input type="text" class="form-control" id="diaChi" readonly>
+
+                    </div>
+                    <div class="col-md-6">
+                        <label for="idKhoa" class="form-label">Khoa</label>
+                        <input type="text" class="form-control" id="idKhoa" readonly>
+
+                    </div>
+                    <div class="col-md-6">
+                        <label for="sdt" class="form-label">Số Điện Thoại *</label>
+                        <input type="text" class="form-control" id="sdt" readonly>
+
+                    </div>
+                    <div class="col-md-6">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="text" class="form-control" id="email" readonly>
+
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="cccd" class="form-label">CCCD *</label>
+                        <input type="text" class="form-control" id="cccd" readonly>
+
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="idtk" class="form-label">Tên Đăng Nhập *</label>
+                        <input type="text" class="form-control" id="tenDangNhap" readonly>
+
+                    </div>
+                    <input type="text" hidden id="idtk">
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal" id="myModalUpdate">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 800px !important">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Sửa Thông Tin Giảng Viên</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body ">
+                <form class="row g-3 needs-validation" id="formUpdate" novalidate>
+                    <input type="text" class="form-control" id="idgv" hidden required>
+                    <div class="col-md-6">
+                        <label for="tengv" class="form-label">Họ Và Tên *</label>
+                        <input type="text" class="form-control" id="tengv" maxlength="255" required>
+                        <div class="invalid-feedback">
+                            Tên giảng viên không được để trống
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="gioiTinh" class="form-label">Giới tính*</label>
+                        <select id="laNam" class=" form-select" required>
+                            <option selected disabled value="">--Chọn Giới Tính--</option>
+                            <option value="1">Nam</option>
+                            <option value="0">Nữ</option>
+                        </select>
+                        <div class="invalid-feedback">
+                            Vui lòng chọn giới tính
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="ngaySinh" class="form-label">Ngày Sinh *</label>
+                        <input type="date" value="" class="form-control" id="ngaySinh" required>
+                        <div class="invalid-feedback">
+                            Ngày sinh không được để trống
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="queQuan" class="form-label">Quê Quán *</label>
+                        <input type="text" class="form-control" id="queQuan" maxlength="255" required>
+                        <div class="invalid-feedback">
+                            Quê quán không được để trống
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <label for="diaChi" class="form-label">Địa Chỉ *</label>
+                        <input type="text" class="form-control" id="diaChi" maxlength="255" required>
+                        <div class="invalid-feedback">
+                            Địa chỉ không được để trống
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="khoa" class="form-label">Khoa*</label>
+                        <select id="khoa" class="form-select" required>
+                        </select>
+                        <div class="invalid-feedback">
+                            Vui lòng chọn khoa
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="sdt" class="form-label">Số Điện Thoại *</label>
+                        <input type="text" class="form-control" id="sdt" maxlength="10" minlength="10" required>
+                        <div class="invalid-feedback">
+                            Số điện thoại không được để trống
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" maxlength="255" required>
+                        <div class="invalid-feedback">
+                            Email không được để trống
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="cccd" class="form-label">CCCD *</label>
+                        <input type="tel" class="form-control" id="cccd" maxlength="12" minlength="12" required>
+                        <div class="invalid-feedback">
+                            Căn cước công dân không được để trống
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="idtk" class="form-label">Tên Đăng Nhập *</label>
+                        <input type="text" class="form-control" id="tenDangNhap" maxlength="16" minlength="8" readonly>
+                        <div class="invalid-feedback">
+                            Tên đăng nhập không được để trống
+                        </div>
+                    </div>
+                    <input type="text" hidden id="idtk">
+
+                    <div class="col-12">
+                        <button class="btn btn-primary" style="float: right;" type="submit">Lưu</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    renderGiangVien()
+    getKhoa()
+</script>
+
+<script>
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (function () {
+            'use strict'
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.querySelectorAll('.needs-validation')
+            // Loop over them and prevent submission
+            Array.prototype.slice.call(forms)
+                .forEach(function (form) {
+                    form.addEventListener('submit', function (event) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                        var format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
+                        if (!form.checkValidity()) {
+                            var needs_valid_array = [...form];
+                            needs_valid_array.forEach(element => {
+                                if (element.id === "sdt" && element.validity.patternMismatch)
+                                    element.parentElement.querySelector('.invalid-feedback').innerHTML = "Nhập số điện thoại không đúng định dạng: 096, 097, 098,...";
+                                else if (element.id === "cccd" && element.validity.patternMismatch)
+                                    element.parentElement.querySelector('.invalid-feedback').innerHTML = "Căn cước công dân không đúng định dạng";
+                                else if (element.id === "email" && element.validity.typeMismatch || element.validity.patternMismatch)
+                                    form.email.parentElement.querySelector('.invalid-feedback').innerHTML = "Nhập email không đúng định dạng abc@abc.abc";
+                                if (element.id === "cccd" && element.validity.tooShort || element.validity.tooLong)
+                                    element.parentElement.querySelector('.invalid-feedback').innerHTML = "Căn cước công dân phải đủ 12 số";
+                                else if (element.id === "sdt" && element.validity.tooShort || element.validity.tooLong)
+                                    element.parentElement.querySelector('.invalid-feedback').innerHTML = "Số điện thoại phải đủ 10 số";
+                                if (element.validity.tooLong)
+                                    element.parentElement.querySelector('.invalid-feedback').innerHTML = "Bạn đã nhập quá số ký tự cho phép. Mời nhập lại";
+                            });
+                            if (format.test(form.tengv.value)) {
+                                alert("Không nhập các ký tự đặc biệt như $, %,^ ,&, ,..");
+                            }
+                            form.classList.add('was-validated')
+                        }
+                        else {
+                            if (form.id == "formAdd") {
+                                let tengv = form.tengv.value.trim();
+                                let ngaySinh = form.ngaySinh.value.trim();
+                                let laNam = form.laNam.value.trim();
+                                let queQuan = form.queQuan.value.trim();
+                                let diaChi = form.diaChi.value.trim();
+                                let sdt = form.sdt.value.trim();
+                                let cccd = form.cccd.value.trim();
+                                let email = form.email.value.trim();
+                                let idKhoa = form.khoa.value;
+
+                                let tenDangNhap = form.tenDangNhap.value.trim()
+                                console.log(ngaySinh);
+                                // if (tengv.length > 255) {
+                                //     alert('Bạn đã nhập quá số ký tự cho phép. Mời nhập lại')
+                                // } else if (format.test(tengv)) {
+                                //     alert('Không nhập các ký tự đặc biệt như $, %,^ ,&, ,..')
+                                // } else if (!checkPhoneNumber(sdt)) {
+                                //     alert('Nhập số điện thoại không đúng định dạng: 096, 097, 098,...')
+                                // } else if (cccd.length != 12) {
+                                //     alert('Bạn đã nhập quá số ký tự cho phép. Mời nhập lại')
+                                // } else if (tenDangNhap.length > 16) {
+                                //     alert('Bạn đã nhập quá số ký tự cho phép. Mời nhập lại')
+                                // } else {
+                                fetch(`${HOST}/api/taikhoan/`, {
+                                    method: "POST",
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                    },
+                                    body: JSON.stringify({
+                                        "tenDangNhap": tenDangNhap,
+                                        "matKhau": ngaySinh,
+                                        "chucNang": "giangvien",
+                                        "trangThai": "1"
+                                    }),
+                                })
+                                    .then(res => res.json())
+                                    .then(data => {
+                                        console.log(data.idtk);
+                                        fetch(`${HOST}/api/giangvien/`, {
+                                            method: "POST",
+                                            headers: {
+                                                'Content-Type': 'application/json',
+                                            },
+                                            body: JSON.stringify({
+                                                "tengv": tengv,
+                                                "ngaySinh": ngaySinh,
+                                                "laNam": laNam,
+                                                "queQuan": queQuan,
+                                                "email": email,
+                                                "diaChi": diaChi,
+                                                "sdt": sdt,
+                                                "cccd": cccd,
+                                                "idKhoa": idKhoa,
+                                                "idtk": data.idtk
+                                            }),
+
+                                        })
+                                            .then(res => res.json())
+                                            .then(data => {
+                                                if (data.sqlMessage || data.message) {
+                                                    if (data.sqlMessage.includes("giangvien.cccd_UNIQUE"))
+                                                        alert("Giảng viên đẫ tồn tại")
+                                                    else alert(data.sqlMessage || data.message)
+                                                } else {
+                                                    form.reset()
+                                                    alert("Thêm thông tin giảng viên thành công")
+                                                    renderGiangVien()
+                                                    document.querySelector("#myModalAdd .btn-close").click()
+                                                }
+                                            })
+                                            .catch(err => console.log("Error: ", err))
+
+                                    })
+                                    .catch(err => console.log("Error: ", err))
+                                // }
+                            } else if (form.id == "formUpdate") {
+                                let tengv = form.tengv.value.trim();
+                                let ngaySinh = form.ngaySinh.value.trim();
+                                let laNam = form.laNam.value.trim();
+                                let queQuan = form.queQuan.value.trim();
+                                let diaChi = form.diaChi.value.trim();
+                                let sdt = form.sdt.value.trim();
+                                let cccd = form.cccd.value.trim();
+                                let email = form.email.value.trim();
+                                let idKhoa = form.khoa.value;
+
+                                let tenDangNhap = form.tenDangNhap.value.trim()
+                                // var format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
+                                // if (tengv.length > 255) {
+                                //     alert('Bạn đã nhập quá số ký tự cho phép. Mời nhập lại')
+                                // } else if (format.test(tengv)) {
+                                //     alert('Không nhập các ký tự đặc biệt như $, %,^ ,&, ,..')
+                                // } else if (!checkPhoneNumber(sdt)) {
+                                //     alert('Nhập số điện thoại không đúng định dạng: 096, 097, 098,...')
+                                // }
+                                // else if (cccd.length < 11 || cccd.length > 13) {
+                                //     alert('Bạn đã nhập quá số ký tự cho phép. Mời nhập lại')
+                                // }
+                                // else {
+                                fetch(`${HOST}/api/giangvien/${form.idgv.value}`, {
+                                    method: "PUT",
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                    },
+                                    body: JSON.stringify({
+                                        "tengv": tengv,
+                                        "ngaySinh": ngaySinh,
+                                        "laNam": laNam,
+                                        "queQuan": queQuan,
+                                        "email": email,
+                                        "diaChi": diaChi,
+                                        "sdt": sdt,
+                                        "cccd": cccd,
+                                        "idKhoa": idKhoa,
+                                        "idtk": form.idtk.value
+                                    }),
+                                })
+                                    .then(res => res.json())
+                                    .then(data => {
+                                        if (data.sqlMessage || data.message) {
+                                            if (data.sqlMessage.includes("giangvien.cccd_UNIQUE"))
+                                                alert("Giảng viên đẫ tồn tại")
+                                            else alert(data.sqlMessage || data.message)
+                                        } else {
+                                            form.reset()
+                                            alert("Sửa giảng viên thành công")
+                                            renderGiangVien()
+                                            document.querySelector("#myModalUpdate .btn-close").click()
+                                        }
+                                    })
+                                    .catch(err => console.log("Error: ", err))
+                                // }
+                            }
+                        }
+
+                    }, false)
+                })
+        })()
+</script>

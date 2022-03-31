@@ -1,0 +1,151 @@
+<div class="row text-center py-3">
+    <h3>Xem Chi Tiết Chương Trình Đào Tạo</h3>
+</div>
+<div class="row py-3">
+    <div class="col col col-lg-2">
+        <div class="con">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModalAdd"
+                style="width:60%">
+                Thêm
+            </button>
+        </div>
+        <div class="modal" id="myModalAdd">
+            <div class="modal-dialog modal-dialog-centered" style="max-width: 500px !important">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Thêm Môn Học</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <!-- Modal body -->
+                    <div class="modal-body ">
+                        <form class="row g-3 needs-validation" id="formAdd" novalidate>
+                            <input type="text" name="" hidden id="idCTDT">
+                            <div class="col-md-12">
+                                <label class="form-label">Tên Môn Học</label>
+                                <div class="col-md-12">
+                                    <select id="monhoc" class="form-select">
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <button class="btn btn-primary" style="float: right;" type="submit">Lưu</button>
+                            </div>
+                        </form>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<div style="background-color: #f5f5f5; border-radius: 7px; border: 1px solid black; margin-top: 50px !important;">
+    <table class="table table-hover mt-5 " style="margin-top: 5px !important;">
+        <thead>
+            <tr>
+                <th scope="col">STT</th>
+                <th scope="col">Môn Học</th>
+                <th scope="col">Tiền Học</th>
+                <th scope="col">Số Tín Chỉ</th>
+
+            </tr>
+        </thead>
+        <tbody id="listCTCTDT">
+
+        </tbody>
+    </table>
+</div>
+<div class="modal" id="myModalUpdate">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 500px !important">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Sửa Khoa</h4>
+                <button type="button" class="btn-close" id="close" data-bs-dismiss="modal"></button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+                <form class="row g-3 needs-validation" id="formUpdate" novalidate>
+                    <input type="text" name="" id="idCTDT" hidden>
+                    <div class="col-md-12">
+                        <label class="form-label">Tên Môn Học</label>
+                        <input type="text" class="form-control" id="tenCTDT" required>
+                        <div class="invalid-feedback">
+                            Vui lòng nhập vào Môn Học
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <label for="khoa" class="form-label">Khoa*</label>
+                        <select id="khoaCTDT" class="form-select" required>
+                        </select>
+                        <div class="invalid-feedback">
+                            Vui lòng chọn khoa
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <button class="btn btn-primary" style="float: right;" type="submit">Lưu</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    getMonHoc()
+</script>
+
+<script>
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (function () {
+            'use strict'
+
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.querySelectorAll('.needs-validation')
+
+            // Loop over them and prevent submission
+            Array.prototype.slice.call(forms)
+                .forEach(function (form) {
+                    form.addEventListener('submit', function (event) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                        if (!form.checkValidity()) {
+                            form.classList.add('was-validated')
+                        } else {
+                            if (form.id == "formAdd") {
+
+                                let idCTDT = form.idCTDT.value
+                                let idmh = form.monhoc.value
+
+                                fetch(`${HOST}/api/ctdaotao/chitiet`, {
+                                    method: "POST",
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                    },
+                                    body: JSON.stringify({
+                                        "idctdt": idCTDT,
+                                        "idmh": idmh
+                                    }),
+                                })
+                                    .then(res => res.json())
+                                    .then(data => {
+
+                                        form.reset()
+                                        alert("Thêm Chi tiết chương trình đào tạo thành công")
+                                        renderChiTietChuongTrinhDaoTao(idCTDT);
+                                        document.querySelector("#myModalAdd .btn-close").click()
+
+                                    })
+                                    .catch(err => console.log("Error: ", err))
+
+
+
+                            }
+                        }
+
+                    }, false)
+                })
+        })()
+</script>

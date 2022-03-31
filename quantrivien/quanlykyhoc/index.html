@@ -1,0 +1,184 @@
+<div class="row text-center py-3">
+    <h3>Danh Sách Kỳ Học</h3>
+</div>
+<div class="row py-3">
+
+    <div class="col col col-lg-2">
+        <div class="container">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" style="width: 60%;"
+                data-bs-target="#myModalAdd">
+                Thêm
+            </button>
+        </div>
+        <div class="modal" id="myModalAdd">
+            <div class="modal-dialog modal-dialog-centered" style="max-width: 500px !important">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Thêm Kỳ Học</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <!-- Modal body -->
+                    <div class="modal-body ">
+                        <form class="row g-3 needs-validation" id="formAdd" novalidate>
+
+                            <div class="col-md-12">
+                                <label for="tenKyHoc" class="form-label">Tên kỳ học*</label>
+                                <input type="text" class="form-control" id="tenKyHoc" required>
+                                <div class="invalid-feedback">
+                                    Tên kỳ học không được để trống
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <button class="btn btn-primary" style="float: right;" type="submit">Lưu</button>
+                            </div>
+                        </form>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div style="background-color: #f5f5f5; border-radius: 7px; border: 1px solid black; margin-top: 50px !important;">
+    <table class="table table-hover mt-5 " style="margin-top: 5px !important;">
+        <thead>
+            <tr>
+                <th scope="col">STT</th>
+                <th scope="col">Tên Kỳ Học</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody id="listHocKy">
+
+        </tbody>
+
+    </table>
+</div>
+<div class="modal" id="myModalUpdate">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 500px !important">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Sửa Kỳ Học</h4>
+                <button type="button" class="btn-close" id="close" data-bs-dismiss="modal"></button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+                <form class="row g-3 needs-validation" id="formUpdate" novalidate>
+
+                    <input hidden id="maKy" readonly type="text" class="form-control">
+
+                    <div class="col-md-12">
+                        <label for="tenKyHoc" class="form-label">Tên kỳ học*</label>
+                        <input type="text" class="form-control" id="tenKyHoc" required>
+                        <div class="invalid-feedback">
+                            Tên kỳ học không được để trống
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <button class="btn btn-primary" style="float: right;" type="submit">Lưu</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    renderKyHoc()
+</script>
+
+<script>
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (function () {
+            'use strict'
+
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.querySelectorAll('.needs-validation')
+
+            // Loop over them and prevent submission
+            Array.prototype.slice.call(forms)
+                .forEach(function (form) {
+                    form.addEventListener('submit', function (event) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                        if (!form.checkValidity()) {
+                            form.classList.add('was-validated')
+                        } else {
+                            if (form.id == "formAdd") {
+                                let tenKyHoc = form.tenKyHoc.value.trim()
+                                var format = /[!@#$%^&*()+\=\[\]{};':"\\|,.<>\/?]+/;
+                                if (form.tenKyHoc.value.length > 255) {
+                                    alert('Tên kỳ học không được quá 255 ký tự')
+                                }
+                                else if (format.test(tenKyHoc)) {
+                                    alert('Không nhập các ký tự đặc biệt như $, %,^ ,&, ,..')
+                                }
+                                else {
+                                    fetch(`${HOST}/api/kyhoc/`, {
+                                        method: "POST",
+                                        headers: {
+                                            'Content-Type': 'application/json',
+                                        },
+                                        body: JSON.stringify({
+                                            "tenKyHoc": tenKyHoc
+                                        }),
+                                    })
+                                        .then(res => res.json())
+                                        .then(data => {
+
+                                            if (data.message) {
+                                                alert('Kỳ học đã tồn tại')
+                                            }
+                                            else {
+                                                form.reset()
+                                                alert("Thêm kỳ học thành công")
+                                                renderKyHoc()
+                                                document.querySelector("#myModalAdd .btn-close").click()
+                                            }
+                                        })
+                                        .catch(err => console.log("Error: ", err))
+                                }
+
+
+                            } else if (form.id == "formUpdate") {
+                                let tenKyHoc = form.tenKyHoc.value.trim()
+                                var format = /[!@#$%^&*()+\=\[\]{};':"\\|,.<>\/?]+/;
+                                if (form.tenKyHoc.value.length > 255) {
+                                    alert('Tên kỳ học không được quá 255 ký tự')
+                                }
+                                else if (format.test(tenKyHoc)) {
+                                    alert('Không nhập các ký tự đặc biệt như $, %,^ ,&, ,..')
+                                }
+                                else {
+                                    fetch(`${HOST}/api/kyhoc/${form.maKy.value}`, {
+                                        method: "PUT",
+                                        headers: {
+                                            'Content-Type': 'application/json',
+                                        },
+                                        body: JSON.stringify({
+                                            "tenKyHoc": form.tenKyHoc.value
+                                        }),
+                                    })
+                                        .then(res => res.json())
+                                        .then(data => {
+
+                                            if (data.sqlMessage) {
+                                                alert('Kỳ học đã tồn tại')
+                                            }
+                                            else {
+                                                form.reset()
+                                                alert("Sửa kỳ học thành công")
+                                                renderKyHoc()
+                                                document.getElementById("close").click()
+                                            }
+                                        })
+                                        .catch(err => console.log("Error: ", err))
+                                }
+                            }
+                        }
+                    }, false)
+                })
+        })()
+</script>

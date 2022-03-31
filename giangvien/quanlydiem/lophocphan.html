@@ -1,0 +1,247 @@
+<div class="row text-center py-3">
+    <h3 id="tenLopDiem"></h3>
+</div>
+<div style="background-color: #f5f5f5; border-radius: 7px; border: 1px solid black; margin-top: 50px !important;">
+    <input hidden type="text" id="idLopDiem">
+    <table class="table table-hover mt-5 " style="margin-top: 5px !important;">
+        <thead>
+            <tr>
+                <th scope="col">STT</th>
+                <th scope="col">Họ và tên</th>
+                <th scope="col">ĐQT</th>
+                <th scope="col">Điểm thi</th>
+                <th scope="col">Điểm TB</th>
+                <th scope="col">Điểm hệ số 4</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody id="renderDiemTheoLop">
+
+        </tbody>
+    </table>
+</div>
+<div class="modal" id="myModalAdd">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 800px !important">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Thêm điểm</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="formAdd" class="row g-3 needs-validation" novalidate>
+                    <div class="row">
+                        <!-- <input hidden type="text" class="form-control" id="maLop" readonly required> -->
+
+                        <div class="col-md-6 position-relative mt-2">
+                            <label for="validationTooltip01" class="form-label">Điểm quá trình</label>
+                            <input type="number" step="any" class="form-control" id="diemQuaTrinh" required>
+                            <div class="invalid-feedback">
+                                Vui lòng nhập điểm quá trình
+                            </div>
+                        </div>
+                        <div class="col-md-6 position-relative mt-2">
+                            <label for="validationTooltip01" class="form-label">Điểm thi</label>
+                            <input type="number" step="any" class="form-control" id="diemThi" required>
+                            <div class="invalid-feedback">
+                                Vui lòng nhập điểm thi
+                            </div>
+                        </div>
+                        <input type="text" hidden id="idsv">
+                        <input type="text" hidden id="idDiem">
+                        <input type="text" hidden id="tenLop">
+                    </div>
+                    <div class="col-12">
+                        <button class="btn btn-primary" style="float: right;" type="submit">Lưu</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="myModalUpdate">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 800px !important">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Sửa điểm</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="formUpdate" class="row g-3 needs-validation" novalidate>
+                    <div class="row">
+                        <!-- <input hidden type="text" class="form-control" id="maLop" readonly required> -->
+
+                        <div class="col-md-6 position-relative mt-2">
+                            <label for="validationTooltip01" class="form-label">Điểm quá trình</label>
+                            <input type="text" class="form-control" id="diemQuaTrinh" required>
+                            <div class="invalid-feedback">
+                                Vui lòng nhập điểm quá trình
+                            </div>
+                        </div>
+                        <div class="col-md-6 position-relative mt-2">
+                            <label for="validationTooltip01" class="form-label">Điểm thi</label>
+                            <input type="text" class="form-control" id="diemThi" required>
+                            <div class="invalid-feedback">
+                                Vui lòng nhập điểm thi
+                            </div>
+                        </div>
+                        <input type="text" hidden id="idsv">
+                        <input type="text" hidden id="idDiem">
+                        <input type="text" hidden id="tenLop">
+                    </div>
+                    <div class="col-12">
+                        <button class="btn btn-primary" style="float: right;" type="submit">Lưu</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (function () {
+        'use strict'
+
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.querySelectorAll('.needs-validation')
+
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                    if (!form.checkValidity()) {
+                        form.classList.add('was-validated')
+                    } else {
+                        if (form.id == "formAdd") {
+                            let diemQuaTrinh = parseFloat(form.diemQuaTrinh.value.trim());
+                            let diemThi = parseFloat(form.diemThi.value.trim())
+                            let diemTrungBinh = (diemQuaTrinh + diemThi) / 2
+                            let diemHeSo4 = calculatorHeSo(diemTrungBinh);
+                            let idLop = document.getElementById('idLopDiem').value.trim()
+                            let idsv = document.getElementById('idsv').value.trim()
+                            let idDiem = parseInt(document.getElementById('idDiem').value.trim())
+                            let tenLop = form.tenLop.value;
+                            if (diemQuaTrinh < 0 || diemQuaTrinh > 10) {
+                                alert('Điểm không được nhỏ hơn 0 hoặc lớn hơn 10! Vui lòng nhập lại ')
+                            }
+                            else if (diemThi < 0 || diemThi > 10) {
+                                alert('Điểm không được nhỏ hơn 0 hoặc lớn hơn 10! Vui lòng nhập lại ')
+                            }
+                            else {
+                                fetch(`${HOST}/api/diem/${idDiem}`, {
+                                    method: "put",
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                    },
+                                    body: JSON.stringify({
+
+                                        "diemQuaTrinh": diemQuaTrinh,
+                                        'diemThi': diemThi,
+                                        'diemTrungBinh': diemTrungBinh,
+                                        'diemHeSo4': diemHeSo4,
+                                        'idsv': idsv,
+                                        'idLop': idLop
+                                    }),
+                                })
+                                    .then(res => res.json())
+                                    .then(data => {
+
+                                        if (data.message) {
+                                            alert('Lỗi khi thêm điểm')
+                                        }
+                                        else {
+                                            form.reset()
+                                            alert("Thêm điểm thành công")
+                                            renderDiemTheoLop(tenLop)
+                                            document.querySelector("#myModalAdd .btn-close").click()
+                                        }
+                                    })
+                                    .catch(err => console.log("Error: ", err))
+                            }
+
+
+                        } else if (form.id == "formUpdate") {
+                            let diemQuaTrinh = parseFloat(form.diemQuaTrinh.value.trim());
+                            let diemThi = parseFloat(form.diemThi.value.trim())
+                            let diemTrungBinh = (diemQuaTrinh + diemThi) / 2
+                            let diemHeSo4 = calculatorHeSo(diemTrungBinh);
+                            let idLop = document.getElementById('idLopDiem').value.trim()
+                            let idsv = form.idsv.value.trim()
+                            let idDiem = parseInt(form.idDiem.value.trim())
+                            let tenLop = form.tenLop.value;
+
+                            if (diemQuaTrinh < 0 || diemQuaTrinh > 10) {
+                                alert('Điểm không được nhỏ hơn 0 hoặc lớn hơn 10! Vui lòng nhập lại ')
+                            }
+                            else if (diemThi < 0 || diemThi > 10) {
+                                alert('Điểm không được nhỏ hơn 0 hoặc lớn hơn 10! Vui lòng nhập lại ')
+                            }
+                            else {
+                                fetch(`${HOST}/api/diem/${idDiem}`, {
+                                    method: "put",
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                    },
+                                    body: JSON.stringify({
+
+                                        "diemQuaTrinh": diemQuaTrinh,
+                                        'diemThi': diemThi,
+                                        'diemTrungBinh': diemTrungBinh,
+                                        'diemHeSo4': diemHeSo4,
+                                        'idsv': idsv,
+                                        'idLop': idLop
+                                    }),
+                                })
+                                    .then(res => res.json())
+                                    .then(data => {
+
+                                        if (data.message) {
+                                            alert('Lỗi khi thêm điểm')
+                                        }
+                                        else {
+                                            form.reset()
+                                            alert("cập nhật điểm thành công")
+                                            renderDiemTheoLop(tenLop)
+                                            document.querySelector("#myModalUpdate .btn-close").click()
+                                        }
+                                    })
+                                    .catch(err => console.log("Error: ", err))
+
+                            }
+                        }
+                    }
+
+                }, false)
+            })
+    })()
+
+    function calculatorHeSo(diemTrungBinh) {
+        let diemHeSo4 = ''
+        if (diemTrungBinh >= 8.5 && diemTrungBinh < 10) {
+            diemHeSo4 = 'A'
+        } else if (diemTrungBinh < 8.5 && diemTrungBinh >= 7) {
+            diemHeSo4 = 'B'
+        } else if (diemTrungBinh < 7 && diemTrungBinh >= 5.5) {
+            diemHeSo4 = 'C'
+
+        } else if (diemTrungBinh < 5.5 && diemTrungBinh >= 4) {
+            diemHeSo4 = 'D'
+        } else {
+            diemHeSo4 = 'F'
+        }
+        return diemHeSo4;
+    }
+</script>
+
+<script>
+    document.getElementById('myModalAdd').addEventListener('shown.bs.modal', function (event) {
+        document.querySelector('#myModalAdd #idsv').value = event.relatedTarget.getAttribute('data-id-sv');
+        document.querySelector('#myModalAdd #idDiem').value = event.relatedTarget.getAttribute('data-id-diem');
+
+    })
+</script>
