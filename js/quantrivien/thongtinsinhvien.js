@@ -1,19 +1,18 @@
 const renderSV = () => {
-  const keyword = document.querySelector("#searchInput").value;
+  const keyword = document.querySelector("#searchInput").value.trim();
   fetch(`${HOST}/api/sinhvien/?tukhoa=${keyword}`)
     .then((res) => res.json())
     .then((data) => {
       let html = "";
-      let i = 1;
-      data.forEach((elm) => {
-        html += `<tr>
-                        <th scope="row">${i++}</th>
+      if (data.length > 0)
+        for (i = 0; i < data.length; i++) {
+          elm = data[i];
+          html += `<tr>
+                        <th scope="row">${i+1}</th>
                         <td>${elm.tensv}</td>
                         <td>${formatDate(elm.ngaySinh)}</td>
                         <td>${elm.laNam === 1 ? "Nam" : "Nữ"}</td>
                         <td>${elm.sdt}</td>
-                       
-                      
                         <td>
                             <a onclick="openUpdateSV(${
                               elm.idsv
@@ -28,7 +27,8 @@ const renderSV = () => {
                             </a>
                         </td>
                     </tr>`;
-      });
+        }
+      else alert("Không có kết quả");
 
       document.querySelector("#listSinhVien").innerHTML = html;
     })

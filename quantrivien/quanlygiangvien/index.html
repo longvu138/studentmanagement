@@ -26,7 +26,7 @@
                         <form class="row g-3 needs-validation" id="formAdd" novalidate>
                             <div class="col-md-6">
                                 <label for="tengv" class="form-label">Họ Và Tên *</label>
-                                <input type="text" class="form-control" id="tengv" required>
+                                <input type="text" class="form-control" id="tengv" maxlength="255" required>
                                 <div class="invalid-feedback">
                                     Tên giảng viên không được để trống
                                 </div>
@@ -57,7 +57,8 @@
                             </div>
                             <div class="col-md-12">
                                 <label for="diaChi" class="form-label">Địa Chỉ *</label>
-                                <input type="text" class="form-control" id="diaChi" required>
+                                <input type="text" class="form-control" id="diaChi" maxlength="255"
+                                    pattern="[A-Za-z0-9]+" required>
                                 <div class="invalid-feedback">
                                     Địa chỉ không được để trống
                                 </div>
@@ -67,19 +68,21 @@
                                 <select id="khoa" class="form-select" required>
                                 </select>
                                 <div class="invalid-feedback">
-                                    Vui lòng chọn khoa
+                                    Khoa không được để trống
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <label for="sdt" class="form-label">Số Điện Thoại *</label>
-                                <input type="text" class="form-control" id="sdt" required>
+                                <input type="text" class="form-control" id="sdt" maxlength="10" minlength="10"
+                                    pattern="[0]{1}[0-9]{9}[0-9]{7}" required>
                                 <div class="invalid-feedback">
                                     Số điện thoại không được để trống
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <label for="email" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="email" required>
+                                <input type="email" class="form-control" id="email"
+                                    pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required>
                                 <div class="invalid-feedback">
                                     Email không được để trống
                                 </div>
@@ -87,14 +90,16 @@
 
                             <div class="col-md-6">
                                 <label for="cccd" class="form-label">CCCD *</label>
-                                <input type="text" class="form-control" id="cccd" required>
+                                <input type="text" class="form-control" id="cccd" maxlength="12" minlength="12"
+                                    pattern="[0-9]{12}" required>
                                 <div class="invalid-feedback">
                                     Căn cước công dân không được để trống
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <label for="idtk" class="form-label">Tên Đăng Nhập *</label>
-                                <input type="text" class="form-control" id="tenDangNhap" required>
+                                <input type="username" class="form-control" id="tenDangNhap" maxlength="16"
+                                    minlength="8" pattern="[A-Za-z0-9.-]+" required>
                                 <div class="invalid-feedback">
                                     Tên đăng nhập không được để trống
                                 </div>
@@ -213,7 +218,7 @@
                     <input type="text" class="form-control" id="idgv" hidden required>
                     <div class="col-md-6">
                         <label for="tengv" class="form-label">Họ Và Tên *</label>
-                        <input type="text" class="form-control" id="tengv" required>
+                        <input type="text" class="form-control" id="tengv" maxlength="255" required>
                         <div class="invalid-feedback">
                             Tên giảng viên không được để trống
                         </div>
@@ -238,14 +243,14 @@
                     </div>
                     <div class="col-md-6">
                         <label for="queQuan" class="form-label">Quê Quán *</label>
-                        <input type="text" class="form-control" id="queQuan" required>
+                        <input type="text" class="form-control" id="queQuan" maxlength="255" required>
                         <div class="invalid-feedback">
                             Quê quán không được để trống
                         </div>
                     </div>
                     <div class="col-md-12">
                         <label for="diaChi" class="form-label">Địa Chỉ *</label>
-                        <input type="text" class="form-control" id="diaChi" required>
+                        <input type="text" class="form-control" id="diaChi" maxlength="255" required>
                         <div class="invalid-feedback">
                             Địa chỉ không được để trống
                         </div>
@@ -260,14 +265,14 @@
                     </div>
                     <div class="col-md-6">
                         <label for="sdt" class="form-label">Số Điện Thoại *</label>
-                        <input type="text" class="form-control" id="sdt" required>
+                        <input type="text" class="form-control" id="sdt" maxlength="10" minlength="10" required>
                         <div class="invalid-feedback">
                             Số điện thoại không được để trống
                         </div>
                     </div>
                     <div class="col-md-6">
                         <label for="email" class="form-label">Email</label>
-                        <input type="text" class="form-control" id="email" required>
+                        <input type="email" class="form-control" id="email" maxlength="255" required>
                         <div class="invalid-feedback">
                             Email không được để trống
                         </div>
@@ -275,7 +280,7 @@
 
                     <div class="col-md-6">
                         <label for="cccd" class="form-label">CCCD *</label>
-                        <input type="text" class="form-control" id="cccd" required>
+                        <input type="tel" class="form-control" id="cccd" maxlength="12" minlength="12" required>
                         <div class="invalid-feedback">
                             Căn cước công dân không được để trống
                         </div>
@@ -283,7 +288,7 @@
 
                     <div class="col-md-6">
                         <label for="idtk" class="form-label">Tên Đăng Nhập *</label>
-                        <input type="text" class="form-control" id="tenDangNhap" readonly>
+                        <input type="text" class="form-control" id="tenDangNhap" maxlength="16" minlength="8" readonly>
                         <div class="invalid-feedback">
                             Tên đăng nhập không được để trống
                         </div>
@@ -303,26 +308,43 @@
 <script>
     renderGiangVien()
     getKhoa()
-
 </script>
 
 <script>
         // Example starter JavaScript for disabling form submissions if there are invalid fields
         (function () {
             'use strict'
-
             // Fetch all the forms we want to apply custom Bootstrap validation styles to
             var forms = document.querySelectorAll('.needs-validation')
-
             // Loop over them and prevent submission
             Array.prototype.slice.call(forms)
                 .forEach(function (form) {
                     form.addEventListener('submit', function (event) {
                         event.preventDefault()
                         event.stopPropagation()
+                        var format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
                         if (!form.checkValidity()) {
+                            var needs_valid_array = [...form];
+                            needs_valid_array.forEach(element => {
+                                if (element.id === "sdt" && element.validity.patternMismatch)
+                                    element.parentElement.querySelector('.invalid-feedback').innerHTML = "Nhập số điện thoại không đúng định dạng: 096, 097, 098,...";
+                                else if (element.id === "cccd" && element.validity.patternMismatch)
+                                    element.parentElement.querySelector('.invalid-feedback').innerHTML = "Căn cước công dân không đúng định dạng";
+                                else if (element.id === "email" && element.validity.typeMismatch || element.validity.patternMismatch)
+                                    form.email.parentElement.querySelector('.invalid-feedback').innerHTML = "Nhập email không đúng định dạng abc@abc.abc";
+                                if (element.id === "cccd" && element.validity.tooShort || element.validity.tooLong)
+                                    element.parentElement.querySelector('.invalid-feedback').innerHTML = "Căn cước công dân phải đủ 12 số";
+                                else if (element.id === "sdt" && element.validity.tooShort || element.validity.tooLong)
+                                    element.parentElement.querySelector('.invalid-feedback').innerHTML = "Số điện thoại phải đủ 10 số";
+                                if (element.validity.tooLong)
+                                    element.parentElement.querySelector('.invalid-feedback').innerHTML = "Bạn đã nhập quá số ký tự cho phép. Mời nhập lại";
+                            });
+                            if (format.test(form.tengv.value)) {
+                                alert("Không nhập các ký tự đặc biệt như $, %,^ ,&, ,..");
+                            }
                             form.classList.add('was-validated')
-                        } else {
+                        }
+                        else {
                             if (form.id == "formAdd") {
                                 let tengv = form.tengv.value.trim();
                                 let ngaySinh = form.ngaySinh.value.trim();
@@ -336,68 +358,69 @@
 
                                 let tenDangNhap = form.tenDangNhap.value.trim()
                                 console.log(ngaySinh);
-                                var format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
-                                if (tengv.length > 255) {
-                                    alert('Bạn đã nhập quá số ký tự cho phép. Mời nhập lại')
-                                } else if (format.test(tengv)) {
-                                    alert('Không nhập các ký tự đặc biệt như $, %,^ ,&, ,..')
-                                } else if (!checkPhoneNumber(sdt)) {
-                                    alert('Nhập số điện thoại không đúng định dạng: 096, 097, 098,...')
-                                }
-                                else if (cccd.length < 11 || cccd.length > 13) {
-                                    alert('căn cướcc công dân không đúng định dạng')
-                                }
-                                else if (tenDangNhap.length > 16) {
-                                    alert('tên đăng nhập không được quá 16 ký tự');
-                                }
-                                else {
-                                    fetch(`${HOST}/api/taikhoan/`, {
-                                        method: "POST",
-                                        headers: {
-                                            'Content-Type': 'application/json',
-                                        },
-                                        body: JSON.stringify({
-                                            "tenDangNhap": tenDangNhap,
-                                            "matKhau": ngaySinh,
-                                            "chucNang": "giangvien",
-                                            "trangThai": "1"
-                                        }),
-                                    })
-                                        .then(res => res.json())
-                                        .then(data => {
-                                            console.log(data.idtk);
-                                            fetch(`${HOST}/api/giangvien/`, {
-                                                method: "POST",
-                                                headers: {
-                                                    'Content-Type': 'application/json',
-                                                },
-                                                body: JSON.stringify({
-                                                    "tengv": tengv,
-                                                    "ngaySinh": ngaySinh,
-                                                    "laNam": laNam,
-                                                    "queQuan": queQuan,
-                                                    "email": email,
-                                                    "diaChi": diaChi,
-                                                    "sdt": sdt,
-                                                    "cccd": cccd,
-                                                    "idKhoa": idKhoa,
-                                                    "idtk": data.idtk
-                                                }),
+                                // if (tengv.length > 255) {
+                                //     alert('Bạn đã nhập quá số ký tự cho phép. Mời nhập lại')
+                                // } else if (format.test(tengv)) {
+                                //     alert('Không nhập các ký tự đặc biệt như $, %,^ ,&, ,..')
+                                // } else if (!checkPhoneNumber(sdt)) {
+                                //     alert('Nhập số điện thoại không đúng định dạng: 096, 097, 098,...')
+                                // } else if (cccd.length != 12) {
+                                //     alert('Bạn đã nhập quá số ký tự cho phép. Mời nhập lại')
+                                // } else if (tenDangNhap.length > 16) {
+                                //     alert('Bạn đã nhập quá số ký tự cho phép. Mời nhập lại')
+                                // } else {
+                                fetch(`${HOST}/api/taikhoan/`, {
+                                    method: "POST",
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                    },
+                                    body: JSON.stringify({
+                                        "tenDangNhap": tenDangNhap,
+                                        "matKhau": ngaySinh,
+                                        "chucNang": "giangvien",
+                                        "trangThai": "1"
+                                    }),
+                                })
+                                    .then(res => res.json())
+                                    .then(data => {
+                                        console.log(data.idtk);
+                                        fetch(`${HOST}/api/giangvien/`, {
+                                            method: "POST",
+                                            headers: {
+                                                'Content-Type': 'application/json',
+                                            },
+                                            body: JSON.stringify({
+                                                "tengv": tengv,
+                                                "ngaySinh": ngaySinh,
+                                                "laNam": laNam,
+                                                "queQuan": queQuan,
+                                                "email": email,
+                                                "diaChi": diaChi,
+                                                "sdt": sdt,
+                                                "cccd": cccd,
+                                                "idKhoa": idKhoa,
+                                                "idtk": data.idtk
+                                            }),
 
-                                            })
-                                                .then(res => res.json())
-                                                .then(data => {
-
+                                        })
+                                            .then(res => res.json())
+                                            .then(data => {
+                                                if (data.sqlMessage || data.message) {
+                                                    if (data.sqlMessage.includes("giangvien.cccd_UNIQUE"))
+                                                        alert("Giảng viên đẫ tồn tại")
+                                                    else alert(data.sqlMessage || data.message)
+                                                } else {
                                                     form.reset()
                                                     alert("Thêm thông tin giảng viên thành công")
                                                     renderGiangVien()
                                                     document.querySelector("#myModalAdd .btn-close").click()
-                                                })
-                                                .catch(err => console.log("Error: ", err))
+                                                }
+                                            })
+                                            .catch(err => console.log("Error: ", err))
 
-                                        })
-                                        .catch(err => console.log("Error: ", err))
-                                }
+                                    })
+                                    .catch(err => console.log("Error: ", err))
+                                // }
                             } else if (form.id == "formUpdate") {
                                 let tengv = form.tengv.value.trim();
                                 let ngaySinh = form.ngaySinh.value.trim();
@@ -410,54 +433,51 @@
                                 let idKhoa = form.khoa.value;
 
                                 let tenDangNhap = form.tenDangNhap.value.trim()
-                                var format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
-                                if (tengv.length > 255) {
-                                    alert('Bạn đã nhập quá số ký tự cho phép. Mời nhập lại')
-                                } else if (format.test(tengv)) {
-                                    alert('Không nhập các ký tự đặc biệt như $, %,^ ,&, ,..')
-                                } else if (!checkPhoneNumber(sdt)) {
-                                    alert('Nhập số điện thoại không đúng định dạng: 096, 097, 098,...')
-                                }
-                                else if (cccd.length < 11 || cccd.length > 13) {
-                                    alert('căn cướcc công dân không đúng định dạng')
-                                }
-                                else if (tenDangNhap.length > 16) {
-                                    alert('tên đăng nhập không được quá 16 ký tự');
-                                }
-                                else {
-                                    fetch(`${HOST}/api/giangvien/${form.idgv.value}`, {
-                                        method: "PUT",
-                                        headers: {
-                                            'Content-Type': 'application/json',
-                                        },
-                                        body: JSON.stringify({
-                                            "tengv": tengv,
-                                            "ngaySinh": ngaySinh,
-                                            "laNam": laNam,
-                                            "queQuan": queQuan,
-                                            "email": email,
-                                            "diaChi": diaChi,
-                                            "sdt": sdt,
-                                            "cccd": cccd,
-                                            "idKhoa": idKhoa,
-                                            "idtk": form.idtk.value
-                                        }),
+                                // var format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
+                                // if (tengv.length > 255) {
+                                //     alert('Bạn đã nhập quá số ký tự cho phép. Mời nhập lại')
+                                // } else if (format.test(tengv)) {
+                                //     alert('Không nhập các ký tự đặc biệt như $, %,^ ,&, ,..')
+                                // } else if (!checkPhoneNumber(sdt)) {
+                                //     alert('Nhập số điện thoại không đúng định dạng: 096, 097, 098,...')
+                                // }
+                                // else if (cccd.length < 11 || cccd.length > 13) {
+                                //     alert('Bạn đã nhập quá số ký tự cho phép. Mời nhập lại')
+                                // }
+                                // else {
+                                fetch(`${HOST}/api/giangvien/${form.idgv.value}`, {
+                                    method: "PUT",
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                    },
+                                    body: JSON.stringify({
+                                        "tengv": tengv,
+                                        "ngaySinh": ngaySinh,
+                                        "laNam": laNam,
+                                        "queQuan": queQuan,
+                                        "email": email,
+                                        "diaChi": diaChi,
+                                        "sdt": sdt,
+                                        "cccd": cccd,
+                                        "idKhoa": idKhoa,
+                                        "idtk": form.idtk.value
+                                    }),
+                                })
+                                    .then(res => res.json())
+                                    .then(data => {
+                                        if (data.sqlMessage || data.message) {
+                                            if (data.sqlMessage.includes("giangvien.cccd_UNIQUE"))
+                                                alert("Giảng viên đẫ tồn tại")
+                                            else alert(data.sqlMessage || data.message)
+                                        } else {
+                                            form.reset()
+                                            alert("Sửa giảng viên thành công")
+                                            renderGiangVien()
+                                            document.querySelector("#myModalUpdate .btn-close").click()
+                                        }
                                     })
-                                        .then(res => res.json())
-                                        .then(data => {
-                                            if (data.message) {
-                                                alert('giảng viên đã tồn tại')
-                                            } else {
-                                                form.reset()
-                                                alert("Sửa giảng viên thành công")
-                                                renderGiangVien()
-                                                document.querySelector("#myModalUpdate .btn-close").click()
-                                            }
-                                        })
-                                        .catch(err => console.log("Error: ", err))
-
-
-                                }
+                                    .catch(err => console.log("Error: ", err))
+                                // }
                             }
                         }
 

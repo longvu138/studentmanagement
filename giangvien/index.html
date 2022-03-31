@@ -18,7 +18,9 @@
     <script src="../js/constants.js"></script>
     <script src="../js/common.js"></script>
     <script src="../js/helper.js"></script>
-    <script src="../js/renderGiangVien.js"></script>
+    <script src="../js/giangvien/giangvien.js"></script>
+    <script src="../js/giangvien/renderGiangvien.js"></script>
+    <script src="../js/quantrivien/thongke.js"></script>
 </head>
 
 <script>
@@ -34,13 +36,14 @@
             <div class="row  align-items-center page-header justify-content-between m-0">
                 <div class="col-md-6 col-6 col-sm-6">
                     <div class=" d-flex  header-logo">
+                        <div class="menu-toggle col-md-1 col-1 col-sm-1">
+                            <i class="bi bi-list icon-toggle" id="show"></i>
+                        </div>
                         <div class="logo col-md-2 col-2 col-sm-2 text-center">
                             <a href="index.html">
-                                <img src="../assets/image/logo-small.png" alt="logo" class="img-logo">
+                                <img src="../assets/image/logo-small.png" alt="logo" class="img-logo"
+                                    onclick="renderPGBangTin()">
                             </a>
-                        </div>
-                        <div class="menu-toggle col-md-4 col-4 col-sm-4 text-center">
-                            <i class="bi bi-list icon-toggle" id="show"></i>
                         </div>
                     </div>
                 </div>
@@ -54,7 +57,7 @@
                                 <span><i class="bi bi-person-circle"></i></span>
                                 <span class="d-none d-sm-inline mx-1" id="name"></span>
                             </a>
-                            <ul class="dropdown-menu dropdown-menu-dark text-small shadow ">
+                            <ul class="dropdown-menu dropdown-menu-dark text-small shadow " style="width:150px">
                                 <li><a class="dropdown-item" href="#" data-bs-toggle="modal"
                                         data-bs-target="#exampleModal">Đổi mật khẩu</a></li>
                                 <li>
@@ -71,14 +74,14 @@
     </div>
     <div class=" container-fluid">
         <div class="row flex-nowrap">
-            <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 sidebar" style="background-color: #2B3643;">
-                <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
+            <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 sidebar" style="background-color: #2B3643;width: 80px;">
+                <div class="d-flex flex-column align-items-center align-items-sm-start ps-2 pt-2 text-white min-vh-100">
                     <ul class="navbar-nav nav-pills mt-3" id="menu">
                         <li class="nav-item mt-2">
                             <a href="" class="nav-link align-middle px-0" data-bs-toggle="tooltip"
                                 data-bs-placement="right" title="Quản lý điểm" onclick="renderQLDiem()">
                                 <i class="fa-regular fa-rectangle-list"></i>
-                                <span class="ms-2">Quản Lý Điểm</span>
+                                <span class="ms-2" style="display: none; ">Quản Lý Điểm</span>
                             </a>
                         </li>
                         <li class="nav-item mt-2">
@@ -86,7 +89,7 @@
                                 data-bs-toggle="tooltip" data-bs-placement="right" title="Quản lý lớp học"
                                 onclick="renderQLLophoc()">
                                 <i class="fa-solid fa-list-ul"></i>
-                                <span class="ms-2">Quản Lý Lớp Học</span>
+                                <span class="ms-2" style="display: none; ">Quản Lý Lớp Học</span>
                             </a>
 
                         </li>
@@ -95,7 +98,7 @@
                                 data-bs-toggle="tooltip" data-bs-placement="right" title="Danh sách sinh viên"
                                 onclick="renderDSsinhvien()">
                                 <i class="fa-solid fa-user-group"></i>
-                                <span class="ms-2">Danh Sách Sinh Viên</span>
+                                <span class="ms-2" style="display: none; ">Danh Sách Sinh Viên</span>
                             </a>
                         </li>
                         <li class="nav-item mt-2">
@@ -103,57 +106,17 @@
                                 data-bs-toggle="tooltip" data-bs-placement="right" title="Thống kê điểm"
                                 onclick="renderThongkediem()">
                                 <i class="fa-solid fa-clipboard-list"></i>
-                                <span class="ms-2">Thống Kê Điểm</span>
+                                <span class="ms-2" style="display: none; ">Thống Kê Điểm</span>
                             </a>
                         </li>
                     </ul>
                 </div>
             </div>
             <div class="col py-3">
-                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                    aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <form class="needs-validation" novalidate>
-                                <h3 class="text-center mt-4">Đổi mật khẩu</h3>
-                                <div class="modal-body">
-                                    <div class="form-group">
-                                        <label for="email1" class="mb-2">Mật khẩu cũ</label>
-                                        <input maxlength="32" type="password" required class="form-control" value=""
-                                            id="matKhauCu">
-                                        <div class="invalid-feedback">
-                                            Mật khẩu cũ không được để trống
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="mb-2 mt-2">Mật khẩu mới</label>
-                                        <input maxlength="32" type="password" required class="form-control" value=""
-                                            id="matKhauMoi">
-                                        <div class="invalid-feedback">
-                                            Mật khẩu mới không được để trống
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="mb-2 mt-2">Nhập lại mật khẩu mới</label>
-                                        <input maxlength="32" type="password" required class="form-control" value=""
-                                            id="xacThucMatKhauMoi">
-                                        <div class="invalid-feedback">
-                                            Nhập lại mật khẩu mới không được để trống
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </form>
-                            <div class="modal-footer border-top-0 d-flex justify-content-center">
-                                <button id="submit" type="submit" class="btn btn-primary" onclick=doiMatKhau()>Cập
-                                    nhật</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <div id="dmk" ></div>
                 <div class="main container" id="main">
                     <script>
-                        renderQLDiem()
+                        renderPGBangTin()
                     </script>
                 </div>
             </div>
@@ -166,35 +129,34 @@
             <a class="text-white" href="#">Thuy Loi University</a>
         </div>
     </footer>
-    <script src="../assets/js/toggle.js" async defer></script>
+    <script src="../assets/js/toggle.js" async defer>document.getElementById("show").click()</script>
 </body>
 <script src="../js/doimatkhau.js"></script>
 <script>
     const name = user.taiKhoan.tenDangNhap;
     document.getElementById("name").innerHTML = name;
-</script>
-<script>
-    // Example starter JavaScript for disabling form submissions if there are invalid fields
-    (function () {
-        'use strict'
+    $("#dmk").load("../doimatkhau.html");
+    // // Example starter JavaScript for disabling form submissions if there are invalid fields
+    // (function () {
+    //     'use strict'
 
-        // Fetch all the forms we want to apply custom Bootstrap validation styles to
-        var forms = document.querySelectorAll('.needs-validation')
+    //     // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    //     var forms = document.querySelectorAll('.needs-validation')
 
 
-        // Loop over them and prevent submission
-        Array.prototype.slice.call(forms)
-            .forEach(function (form) {
-                document.getElementById("submit").addEventListener('click', function (event) {
-                    if (!form.checkValidity()) {
-                        event.preventDefault()
-                        event.stopPropagation()
-                    }
+    //     // Loop over them and prevent submission
+    //     Array.prototype.slice.call(forms)
+    //         .forEach(function (form) {
+    //             document.getElementById("submit").addEventListener('click', function (event) {
+    //                 if (!form.checkValidity()) {
+    //                     event.preventDefault()
+    //                     event.stopPropagation()
+    //                 }
 
-                    form.classList.add('was-validated')
-                }, false)
-            })
-    })()
+    //                 form.classList.add('was-validated')
+    //             }, false)
+    //         })
+    // })()
 </script>
 
 </html>

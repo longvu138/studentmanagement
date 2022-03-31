@@ -16,7 +16,7 @@
     <script src="../js/constants.js"></script>
     <script src="../js/common.js"></script>
     <script src="../js/helper.js"></script>
-    <script src="../js/renderSinhvien.js"></script>
+    <script src="../js/sinhvien/renderSinhvien.js"></script>
     <script src="../js/sinhvien/sinhvien.js"></script>
 </head>
 
@@ -34,15 +34,17 @@
                 <div class="row  align-items-center page-header justify-content-between m-0">
                     <div class="col-md-6 col-6 col-sm-6">
                         <div class=" d-flex  header-logo">
-                            <div class="logo col-md-2 col-2 col-sm-2 text-center">
-                                <a href="">
-                                    <img src="../assets/image/logo-small.png" alt="logo" class="img-logo">
-                                </a>
-                            </div>
-                            <div class="menu-toggle col-md-4 col-4 col-sm-4 text-center">
+                            <div class="menu-toggle col-md-1 col-1 col-sm-1">
                                 <i class="bi bi-list icon-toggle" id="show"></i>
                             </div>
+                            <div class="logo col-md-2 col-2 col-sm-2 text-center">
+                                <a href="index.html">
+                                    <img src="../assets/image/logo-small.png" alt="logo" class="img-logo"
+                                        onclick="renderPGBangTin()">
+                                </a>
+                            </div>
                         </div>
+
                     </div>
                     <div id="Dang-nhap " class="col-md-6 col-6 col-sm-6 "
                         style="font-size:15px;color:grey;padding-top: 10px;">
@@ -53,14 +55,16 @@
                                     <span><i class="bi bi-person-circle"></i></span>
                                     <span class="d-none d-sm-inline mx-1" id="name"> </span>
                                 </a>
-                                <ul class="dropdown-menu dropdown-menu-dark text-small shadow ">
+                                <ul class="dropdown-menu dropdown-menu-dark text-small shadow " style="width:150px">
 
                                     <li><a class="dropdown-item" href="#" data-bs-toggle="modal"
                                             data-bs-target="#exampleModal">Đổi mật khẩu</a></li>
                                     <li>
                                         <hr class="dropdown-divider">
                                     </li>
-                                    <li><a class="dropdown-item" onclick="onLogout()">Đăng xuất</a></li>
+                                    <li>
+                                        <a class="dropdown-item" onclick="onLogout()">Đăng xuất</a>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -70,7 +74,8 @@
         </div>
         <div class="container-fluid">
             <div class="row flex-nowrap">
-                <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 sidebar" style="background-color: #2B3643;">
+                <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 sidebar"
+                    style="background-color: #2B3643;width: 80px;">
                     <div
                         class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
                         <ul class="navbar-nav nav-pills mt-3" id="menu">
@@ -78,28 +83,31 @@
                                 <a class="nav-link align-middle px-0" data-bs-toggle="tooltip" data-bs-placement="right"
                                     title="Lớp Học">
                                     <i class="fa-solid fa-check"></i>
-                                    <span class="ms-2" onclick="renderLophoc()">Lớp Học</span>
+                                    <span class="ms-2" style="display: none; " onclick="renderLophoc()">Lớp Học</span>
                                 </a>
                             </li>
                             <li class="nav-item mt-2">
                                 <a data-bs-toggle="collapse" class="nav-link px-0 align-middle" data-bs-toggle="tooltip"
                                     data-bs-placement="right" title="Đăng ký học">
                                     <i class="fa-regular fa-rectangle-list"></i>
-                                    <span class="ms-2" onclick="renderQLhocphan()">Quản Lý Học Phần</span> </a>
+                                    <span class="ms-2" style="display: none; " onclick="renderQLhocphan()">Quản Lý Học
+                                        Phần</span> </a>
 
                             </li>
                             <li class="nav-item mt-2">
                                 <a data-bs-toggle="collapse" class="nav-link px-0 align-middle" data-bs-toggle="tooltip"
                                     data-bs-placement="right" title="Quản Lý Giảng Viên">
                                     <i class="fa-solid fa-money-check-dollar"></i>
-                                    <span class="ms-2" onclick="renderTracuuhocphi()">Tra Cứu Học Phí</span>
+                                    <span class="ms-2" style="display: none; " onclick="renderTracuuhocphi()">Tra Cứu
+                                        Học Phí</span>
                                 </a>
                             </li>
                             <li class="nav-item mt-2">
                                 <a data-bs-toggle="collapse" class="nav-link px-0 align-middle" data-bs-toggle="tooltip"
                                     data-bs-placement="right" title="Quản Lý Môn Học">
                                     <i class="fa-solid fa-list-ol"></i>
-                                    <span class="ms-2" onclick="renderTracuulichthi()">Tra Cứu Lịch Thi</span>
+                                    <span class="ms-2" style="display: none; " onclick="renderTracuulichthi()">Tra Cứu
+                                        Lịch Thi</span>
                                 </a>
                             </li>
                         </ul>
@@ -107,50 +115,10 @@
                     </div>
                 </div>
                 <div class="col py-3">
-                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                        aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <form class="needs-validation" novalidate>
-                                    <h3 class="text-center mt-4">Đổi mật khẩu</h3>
-                                    <div class="modal-body">
-                                        <div class="form-group">
-                                            <label for="email1" class="mb-2">Mật khẩu cũ</label>
-                                            <input maxlength="32" type="password" required class="form-control" value=""
-                                                id="matKhauCu">
-                                            <div class="invalid-feedback">
-                                                Mật khẩu cũ không được để trống
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="mb-2 mt-2">Mật khẩu mới</label>
-                                            <input maxlength="32" type="password" required class="form-control" value=""
-                                                id="matKhauMoi">
-                                            <div class="invalid-feedback">
-                                                Mật khẩu mới không được để trống
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="mb-2 mt-2">Nhập lại mật khẩu mới</label>
-                                            <input maxlength="32" type="password" required class="form-control" value=""
-                                                id="xacThucMatKhauMoi">
-                                            <div class="invalid-feedback">
-                                                Nhập lại mật khẩu mới không được để trống
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </form>
-                                <div class="modal-footer border-top-0 d-flex justify-content-center">
-                                    <button id="submit" type="submit" class="btn btn-primary" onclick=doiMatKhau()>Cập
-                                        nhật</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <div id="dmk"></div>
                     <div class="main container">
                         <script>
-                            renderLophoc()
+                            renderPGBangTin()
                         </script>
                     </div>
                 </div>
@@ -164,15 +132,18 @@
                 <a class="text-white" href="#">Thuy Loi University</a>
             </div>
         </footer>
+
         <script src="../assets/js/toggle.js" async defer></script>
     </div>
 </body>
+
 <script src="../js/doimatkhau.js"></script>
 <script>
     const name = user.taiKhoan.tenDangNhap;
     document.getElementById("name").innerHTML = name;
 </script>
 <script>
+    $("#dmk").load("../doimatkhau.html");
     // Example starter JavaScript for disabling form submissions if there are invalid fields
     (function () {
         'use strict'
@@ -194,6 +165,13 @@
                 }, false)
             })
     })()
+</script>
+
+<script>
+    $(document).ready(function () {
+        console.log("ready")
+        $("show").click();
+    }); 
 </script>
 
 </html>

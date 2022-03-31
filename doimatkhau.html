@@ -1,0 +1,36 @@
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form class="needs-validation" novalidate>
+                <h3 class="text-center mt-4">Đổi mật khẩu</h3>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="email1" class="mb-2">Mật khẩu cũ</label>
+                        <input maxlength="32" type="password" required class="form-control" value="" id="matKhauCu">
+                        <div class="invalid-feedback">
+                            Mật khẩu cũ không được để trống
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="mb-2 mt-2">Mật khẩu mới</label>
+                        <input maxlength="32" type="password" required class="form-control" value="" id="matKhauMoi">
+                        <div class="invalid-feedback">
+                            Mật khẩu mới không được để trống
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="mb-2 mt-2">Nhập lại mật khẩu mới</label>
+                        <input maxlength="32" type="password" required class="form-control" value=""
+                            id="xacThucMatKhauMoi">
+                        <div class="invalid-feedback">
+                            Nhập lại mật khẩu mới không được để trống
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="modal-footer border-top-0 d-flex justify-content-center">
+                <button id="submit" type="submit" class="btn btn-primary" onclick=doiMatKhau()>Cập nhật</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -5,8 +5,10 @@ const renderGiangVien = () => {
     .then((data) => {
       let html = "";
       let i = 1;
-      data.forEach((elm) => {
-        html += `<tr>
+      if (data.length > 0)
+        for (i = 0; i < data.length; i++) {
+          elm = data[i];
+          html += `<tr>
                             <th scope="row">${i++}</th>
                             <td>${elm.idgv}</td>
                             <td>${elm.tengv}</td>
@@ -26,8 +28,8 @@ const renderGiangVien = () => {
                             </td>
                            
                         </tr>`;
-      });
-
+        }
+      else alert("Không có kết quả");
       document.querySelector("#listGiangVien").innerHTML = html;
     })
     .catch((err) => console.log("Error: ", err));
@@ -67,10 +69,10 @@ const openViewGV = (id) => {
       );
       document.querySelector("#formView #queQuan").value = data.queQuan;
       document.querySelector("#formView #diaChi").value = data.diaChi;
-      document.querySelector("#formView #idKhoa").value = data.sdt;
-      document.querySelector("#formView #sdt").value = data.cccd;
+      document.querySelector("#formView #idKhoa").value = data.idKhoa;
+      document.querySelector("#formView #sdt").value = data.sdt;
       document.querySelector("#formView #email").value = data.email;
-      document.querySelector("#formView #cccd").value = data.idKhoa;
+      document.querySelector("#formView #cccd").value = data.cccd;
       document.querySelector("#formView #idtk").value = data.idtk;
       document.querySelector("#formView #tenDangNhap").value = data.tenDangNhap;
     });

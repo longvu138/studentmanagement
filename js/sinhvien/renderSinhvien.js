@@ -46,7 +46,7 @@ const getKetQuaDangKy = () => {
 
 //TRA CỨU HỌC PHÍ
 const renderTracuuhocphi = () => {
-  $(".main").load("./tracuuhocphi.html");
+  $(".main").load("./tracuuhocphi/");
 };
 
 const getHocPhiChuaThu = () => {
@@ -89,7 +89,7 @@ const getHocPhiDaThu = () => {
 
 //TRA CỨU LỊCH THI
 const renderTracuulichthi = () => {
-  $(".main").load("./tracuulichthi.html");
+  $(".main").load("./tracuulichthi/");
 };
 
 const getLichThiSV = () => {
@@ -107,7 +107,7 @@ const getLichThiSV = () => {
           <td>${elm.tenMon}</td>
           <td>${elm.sbd}</td>
           <td>${elm.phongThi}</td>
-          <td>${elm.thoiGian}</td>
+          <td>${formatDatetime(elm.thoiGian)}</td>
       </tr>`;
       }
       document.querySelector("#listLichThi").innerHTML = html;

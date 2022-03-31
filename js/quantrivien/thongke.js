@@ -64,7 +64,7 @@ const renderSVDRL = () => {
                     <td>${elm.tensv}</td>
                     <td>${elm.tenKhoa}</td>
                     <td>${elm.tenKyHoc}</td>
-                    <td>${elm.tongTien}</td>
+                    <td>${elm.diem}</td>
                 </tr>`;
         }
         document.querySelector("#ListDiemRenLuyen").innerHTML = html;

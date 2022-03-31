@@ -116,7 +116,6 @@ const getCoTheDangKyHoc = () => {
   )
     .then((res) => res.json())
     .then((data) => {
-      console.log(data);
       let html = "";
 
       for (i = 0; i < data.length; i++) {
@@ -192,13 +191,16 @@ const getDaDangKyHoc = () => {
 
 const huyDangKyHoc = (id) => {
   const idsv = JSON.parse(localStorage.getItem("user")).idsv;
-  fetch(`${HOST}/api/sinhvien/dangkyhoc/huy?idsv=${idsv}&idLop=${id}`, {
-    method: "DELETE", // or 'PUT'
-  })
-    .then((res) => res.json())
-    .then((data) => {
-      alert("Hủy lớp thành công");
-      renderDangkyhoc();
+  result = window.confirm("Bạn có muốn hủy học phần này không?");
+  if (result === true) {
+    fetch(`${HOST}/api/sinhvien/dangkyhoc/huy?idsv=${idsv}&idLop=${id}`, {
+      method: "DELETE", // or 'PUT'
     })
-    .catch((err) => console.log("Error: ", err));
+      .then((res) => res.json())
+      .then((data) => {
+        alert("Hủy lớp thành công");
+        renderDangkyhoc();
+      })
+      .catch((err) => console.log("Error: ", err));
+  }
 };

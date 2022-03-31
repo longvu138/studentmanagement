@@ -37,20 +37,20 @@
               <datalist id="sinhVien">
               </datalist>
               <div class="invalid-feedback">
-                Vui lòng chọn sinh viên
+                Sinh viên bắt buộc nhập
               </div>
             </div>
             <div>
               <label for="kyHoc" class="form-label">Học Kỳ*</label>
               <select id="kyHoc" class="form-select" style="max-width: 467px;" required>
               </select>
-            </div>
-            <div class="invalid-feedback">
-              Vui lòng chọn kỳ học
+              <div class="invalid-feedback">
+                Vui lòng chọn kỳ học
+              </div>
             </div>
             <div class="col-md-12">
               <label for="tenKhoa" class="form-label">Điểm rèn luyện*</label>
-              <input type="number" class="form-control" id="diemRenLuyen" required>
+              <input type="number" class="form-control" id="diemRenLuyen" required step="0.1">
               <div class="invalid-feedback">
                 Vui lòng nhập vào điểm rèn luyện
               </div>
@@ -109,12 +109,15 @@
             } else {
               if (form.id == "formAdd") {
                 const idsv = form.inputDataList.value.split('-')[0]
+                const tensv = form.inputDataList.value.split('-')[1]
                 const idky = form.kyHoc.value
-                const diemRenLuyen = +form.diemRenLuyen.value.trim();
-                if (!form.diemRenLuyen.value) {
-                  alert('Nhập điểm rèn luyện')
-                } if (diemRenLuyen < 0 || diemRenLuyen > 100) {
-                  alert('Diểm rèn luyện phải lớn hơn 0 và nhỏ hơn 100')
+                const diemRenLuyen = form.diemRenLuyen.value;
+                if (diemRenLuyen < 0 || diemRenLuyen > 100) {
+                  alert('Điểm rèn luyện phải lớn hơn 0 và nhỏ hơn 100')
+                } else if (parseInt(diemRenLuyen) === diemRenLuyen) {
+                  alert('Điểm rèn luyện không được nhập số thập phân')
+                } else if (!tensv || !idsv) {
+                  alert('Sinh viên không tồn tại')
                 } else {
                   fetch(`${HOST}/api/diemrenluyen/`, {
                     method: "POST",
@@ -130,7 +133,7 @@
                     .then(res => res.json())
                     .then(data => {
                       if (data.message) {
-                        alert('Error')
+                        alert("ERROR:" + data.message)
                       } else {
                         form.reset()
                         alert("Thêm điểm rèn luyện thành công")

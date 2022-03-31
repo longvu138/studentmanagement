@@ -63,7 +63,8 @@ const renderChiTietChuongTrinhDaoTao = (id) => {
                          <a type="button"  onClick=deleteCTCTDT(${
                            elm.idmh
                          })><i class="fa-solid fa-trash"></i>
-                         </a>                             
+                         </a>   
+                      <td>                          
                     </tr>`;
         });
       }
@@ -72,7 +73,7 @@ const renderChiTietChuongTrinhDaoTao = (id) => {
       document.querySelector("#formAdd #idCTDT").value = id;
     });
 
-  $(".main").load("xemchitietchuongtrinhdaotao.html");
+  $(".main").load("./quanlychuongtrinhdaotao/xemchitietchuongtrinhdaotao.html");
 };
 
 const deleteCTCTDT = (idmh) => {
