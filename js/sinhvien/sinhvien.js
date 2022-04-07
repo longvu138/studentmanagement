@@ -19,7 +19,9 @@ const renderLopHoc = () => {
               </a>
           </td>
           <td>
-              <a style="margin-right: 5px;" type="button" onclick="renderTailieumonhoc()">
+              <a style="margin-right: 5px;" type="button" onclick="renderTailieumonhoc(${
+                elm.idLop
+              })">
                   <i class="fa-solid fa-eye"></i>
               </a>
           </td>
@@ -43,8 +45,8 @@ const renderDiemdanh = (id) => {
         elm = data[i];
         html += `<tr>
           <td>${i + 1}</td>
-          <td>${formatDate(elm.thoiGianBd)}</td>
-          <td>${formatDate(elm.thoiGianKt)}</td>
+          <td>${formatDatetime(elm.thoiGianBd)}</td>
+          <td>${formatDatetime(elm.thoiGianKt)}</td>
           <td>
             ${
               elm.trangThai === "vang"
@@ -72,6 +74,39 @@ const renderDiemdanh = (id) => {
   $(".main").load("./lophoc/diemdanh.html");
 };
 
+const renderTailieumonhoc = (idLop) => {
+  $(".main").load("./lophoc/tailieumonhoc.html", function () {
+    fetch(`${HOST}/api/tailieu/${idLop}`)
+      .then((res) => res.json())
+      .then((data) => {
+        fetch(`${HOST}/api/lophocphan/${idLop}`)
+          .then((res) => res.json())
+          .then((data) => {
+            document.querySelector("#title").innerHTML += ` Lớp ${data.tenLop}`;
+            document.querySelector("#myModalUpload #idLop").value = data.idLop;
+          })
+          .catch((err) => console.log("Error: ", err));
+        html = "";
+        for (i = 0; i < data.length; i++) {
+          elm = data[i];
+          html += `<tr>
+              <th>${i + 1}</th>
+              <th>${elm.tenTaiLieu}</th>
+              <th>${moment(elm.thoiGianDang)
+                .format("YYYY-MM-DDTkk:mm")
+                .split("T")
+                .join("  ")}</th>
+              <th><a href="${HOST}/api/tailieu/download/${
+            elm.duongDan.split("/")[1]
+          }"> <i class="bi bi-download""></i></a></th>
+          </tr>`;
+        }
+        document.querySelector("#listTaiLieu").innerHTML = html;
+      })
+      .catch((err) => console.log("Error: ", err));
+  });
+};
+
 const updateDiemDanh = (id) => {
   const idsv = JSON.parse(localStorage.getItem("user")).idsv;
   const idDiemDanh = id;
@@ -85,6 +120,7 @@ const updateDiemDanh = (id) => {
   })
     .then((response) => response.json())
     .then((data) => {
+      alert("Điểm danh thành công");
       renderDiemdanh(idLop);
     })
     .catch((error) => {

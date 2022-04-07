@@ -36,14 +36,14 @@
                             <label for="validationTooltip01" class="form-label">Điểm quá trình</label>
                             <input type="number" step="any" class="form-control" id="diemQuaTrinh" required>
                             <div class="invalid-feedback">
-                                Vui lòng nhập điểm quá trình
+                                Điểm quá trình không được để trống
                             </div>
                         </div>
                         <div class="col-md-6 position-relative mt-2">
                             <label for="validationTooltip01" class="form-label">Điểm thi</label>
                             <input type="number" step="any" class="form-control" id="diemThi" required>
                             <div class="invalid-feedback">
-                                Vui lòng nhập điểm thi
+                                Điểm thi không được để trống
                             </div>
                         </div>
                         <input type="text" hidden id="idsv">
@@ -72,16 +72,16 @@
 
                         <div class="col-md-6 position-relative mt-2">
                             <label for="validationTooltip01" class="form-label">Điểm quá trình</label>
-                            <input type="text" class="form-control" id="diemQuaTrinh" required>
+                            <input type="number" step="any" class="form-control" id="diemQuaTrinh" required>
                             <div class="invalid-feedback">
-                                Vui lòng nhập điểm quá trình
+                                Điểm quá trình không được để trống
                             </div>
                         </div>
                         <div class="col-md-6 position-relative mt-2">
                             <label for="validationTooltip01" class="form-label">Điểm thi</label>
-                            <input type="text" class="form-control" id="diemThi" required>
+                            <input type="number" step="any" class="form-control" id="diemThi" required>
                             <div class="invalid-feedback">
-                                Vui lòng nhập điểm thi
+                                Điểm thi không được để trống
                             </div>
                         </div>
                         <input type="text" hidden id="idsv">
@@ -132,6 +132,7 @@
                             else if (diemThi < 0 || diemThi > 10) {
                                 alert('Điểm không được nhỏ hơn 0 hoặc lớn hơn 10! Vui lòng nhập lại ')
                             }
+
                             else {
                                 fetch(`${HOST}/api/diem/${idDiem}`, {
                                     method: "put",
@@ -157,7 +158,7 @@
                                         else {
                                             form.reset()
                                             alert("Thêm điểm thành công")
-                                            renderDiemTheoLop(tenLop)
+                                            renderDiemTheoLop(idLop)
                                             document.querySelector("#myModalAdd .btn-close").click()
                                         }
                                     })
@@ -202,11 +203,13 @@
 
                                         if (data.message) {
                                             alert('Lỗi khi thêm điểm')
+                                            renderDiemTheoLop(idLop)
+
                                         }
                                         else {
                                             form.reset()
                                             alert("cập nhật điểm thành công")
-                                            renderDiemTheoLop(tenLop)
+                                            renderDiemTheoLop(idLop)
                                             document.querySelector("#myModalUpdate .btn-close").click()
                                         }
                                     })

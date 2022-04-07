@@ -1,5 +1,5 @@
 <div class="row text-center py-3">
-    <h3 id="tenLop">Tài Liệu Môc Học</h3>
+    <h3 id="title">Tài Liệu Môc Học</h3>
 </div>
 <div class="row pt-4">
     <div class="col-3 col-md-auto">
@@ -16,12 +16,8 @@
                 <th scope="col">Thời gian đăng</th>
             </tr>
         </thead>
-        <tbody id="listDiemlop">
-            <tr>
-                <th>1</th>
-                <th>Toán cao cấp</th>
-                <th>09/01/2022</th>
-            </tr>
+        <tbody id="listTaiLieu">
+
         </tbody>
     </table>
 </div>
@@ -33,35 +29,83 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
-                <form id="formAdd" class="row g-3 needs-validation" novalidate>
+                <form id="formUploadFile" class="row g-3 needs-validation" novalidate>
                     <div class="row">
-                        <input hidden type="text" class="form-control" id="idLop" readonly required>
+                        <input hidden type="text" class="form-control" id="idLop" name="idLop" required>
                         <div class="col-md-12 position-relative mt-2">
                             <label for="validationTooltip01" class="form-label">Tên tài liệu</label>
-                            <input type="text" class="form-control" id="tenTaiLieu" required>
+                            <input type="text" class="form-control" name="tenTaiLieu" required>
                             <div class="invalid-feedback">
                                 Tên tài liệu không được để trống
                             </div>
                         </div>
                         <div class="col-md-12 position-relative mt-2">
                             <label for="validationTooltip01" class="form-label">Tài liệu</label>
-                            <input type="file" class="form-control" id="taiLieu" required>
+                            <input type="file" class="form-control" name="myFile" required>
                             <div class="invalid-feedback">
                                 Tài liệu không được để trống
                             </div>
                         </div>
                     </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <div class="row">
                     <button class="btn btn-primary " style="float: right;width: 150%;" type="submit"
                         onclick="">Lưu</button>
-                </div>
+                </form>
             </div>
         </div>
     </div>
 </div>
 
 <script>
+    (function () {
+        'use strict'
+
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.querySelectorAll('.needs-validation')
+
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', async function (event) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                    if (!form.checkValidity()) {
+                        form.classList.add('was-validated')
+                    } else {
+                        if (form.id == "formUploadFile") {
+                            const tenTaiLieu = form.tenTaiLieu.value.trim()
+                            if (tenTaiLieu.length > 255) {
+                                alert('Bạn đã nhập quá số ký tự cho phép. Mời nhập lại')
+                            } else {
+                                const data = await fetch(
+                                        `${HOST}/api/tailieu/?tenTaiLieu=${tenTaiLieu}&idLop=${form.idLop.value}`
+                                    )
+                                    .then(res => res.json())
+                                    .then(data => data)
+
+                                if (data.length <= 0) {
+                                    fetch(`${HOST}/api/tailieu/upload`, {
+                                            body: new FormData(document.getElementById(
+                                                'formUploadFile')),
+                                            method: "post",
+                                        }).then(res => res.json())
+                                        .then(data => {
+                                            const idLop = document.querySelector(
+                                                    '#myModalUpload #idLop')
+                                                .value
+                                            form.reset()
+                                            alert("Thêm tài liệu thành công")
+                                            renderTailieumonhoc(idLop)
+                                            document.querySelector("#myModalUpload .btn-close")
+                                                .click()
+                                        })
+                                } else {
+                                    alert("Tên tài liệu đã tồn tại")
+                                }
+                            }
+                        }
+                    }
+
+                }, false)
+            })
+    })()
 </script>

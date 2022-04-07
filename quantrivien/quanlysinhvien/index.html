@@ -56,7 +56,7 @@
                                 <select id="kyTucXa" class="form-select" required>
                                     <option selected disabled value="">--Chọn Ký Túc Xá--</option>
                                     <option value="1">Có</option>
-                                    <option value="0">không</option>
+                                    <option value="0">Không</option>
                                 </select>
                                 <div class="invalid-feedback">
                                     Kí túc xá không được để trống
@@ -353,138 +353,77 @@
             </div>
             <!-- Modal body -->
             <div class="modal-body ">
-                <form id="formView" class="row g-3 needs-validation" novalidate>
+                <form id="formView" class="row g-3" novalidate>
                     <input type="text" hidden name="" id="maSinhVien">
                     <div class="col-md-6">
-                        <label for="hoVaTen" class="form-label">Họ và tên*</label>
+                        <label for="hoVaTen" class="form-label">Họ và tên:</label>
                         <input type="text" class="form-control" id="hoVaTen" readonly>
-                        <div class="invalid-feedback">
-                            Vui lòng nhập họ và tên
-                        </div>
                     </div>
 
                     <div class="col-md-6">
-                        <label for="gioiTinh" class="form-label">Giới tính*</label>
-                        <select id="gioiTinh" class=" form-select" readonly>
-                            <option selected disabled value="">--Chọn Giới Tính--</option>
-                            <option value="1">Nam</option>
-                            <option value="0">Nữ</option>
-                        </select>
-                        <div class="invalid-feedback">
-                            Vui lòng chọn giới tính
-                        </div>
+                        <label for="gioiTinh" class="form-label">Giới tính:</label>
+                        <input type="text" id="gioiTinh" class=" form-control" readonly>
                     </div>
                     <div class="col-md-6">
-                        <label for="ngaySinh" class="form-label">Ngày sinh*</label>
+                        <label for="ngaySinh" class="form-label">Ngày sinh:</label>
                         <input type="date" class="form-control" id="ngaySinh" readonly>
-                        <div class="invalid-feedback">
-                            Vui lòng nhập nhập vào ngày sinh
-                        </div>
                     </div>
                     <div class="col-md-6">
-                        <label for="kyTucXa" class="form-label">Kí túc xá*</label>
-                        <select id="kyTucXa" class="form-select" readonly>
-                            <option selected disabled value="">--Chọn Ký Túc Xá--</option>
-                            <option value="1">Có</option>
-                            <option value="0">không</option>
+                        <label for="kyTucXa" class="form-label">Kí túc xá:</label>
+                        <input type="text" id="kyTucXa" class="form-control" readonly>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="khoa" class="form-label">Khoa:</label>
+                        <select id="khoa" class="form-select" disabled>
                         </select>
-                        <div class="invalid-feedback">
-                            Vui lòng chọn ký túc xá
-                        </div>
                     </div>
                     <div class="col-md-6">
-                        <label for="khoa" class="form-label">Khoa*</label>
-                        <select id="khoa" class="form-select" readonly>
-                        </select>
-                        <div class="invalid-feedback">
-                            Vui lòng chọn khoa
-                        </div>
-                    </div>
-
-                    <div class="col-md-6">
-                        <label for="queQuan" class="form-label">Quê quán*</label>
+                        <label for="queQuan" class="form-label">Quê quán:</label>
                         <input type="text" class="form-control" id="queQuan" readonly>
-                        <div class="invalid-feedback">
-                            Vui lòng nhập vào quê quán
-                        </div>
                     </div>
                     <div class="col-md-12">
-                        <label for="diaChi" class="form-label">Địa chỉ*</label>
+                        <label for="diaChi" class="form-label">Địa chỉ:</label>
                         <input type="text" class="form-control" id="diaChi" readonly>
-                        <div class="invalid-feedback">
-                            Vui lòng nhập địa chỉ
-                        </div>
                     </div>
                     <div class="col-md-6">
-                        <label for="soDienThoai" class="form-label">SĐT*</label>
+                        <label for="soDienThoai" class="form-label">SĐT:</label>
                         <input type="text" class="form-control" id="soDienThoai" readonly>
-                        <div class="invalid-feedback">
-                            Số điện thoại bố không được để trống
-                        </div>
                     </div>
                     <div class="col-md-6">
-                        <label for="Tenmonhoc" class="form-label">Căn cước công dân*</label>
+                        <label for="Tenmonhoc" class="form-label">Căn cước công dân:</label>
                         <input type="text" class="form-control" id="CCCD" readonly>
-                        <div class="invalid-feedback">
-                            Vui lòng nhập số căn cước công dân
-                        </div>
                     </div>
-
                     <div class="col-md-6">
-                        <label for="hoTenBo" class="form-label">Họ và tên Bố*</label>
+                        <label for="hoTenBo" class="form-label">Họ và tên Bố:</label>
                         <input type="text" class="form-control" id="hoTenBo" readonly>
-                        <div class="invalid-feedback">
-                            Tên Bố không được để trống
-                        </div>
                     </div>
                     <div class="col-md-6">
-                        <label for="namSinhBo" class="form-label">Năm sinh*</label>
+                        <label for="namSinhBo" class="form-label">Năm sinh:</label>
                         <input type="date" class="form-control" id="namSinhBo" readonly>
-                        <div class="invalid-feedback">
-                            Năm sinh bố không được để trống
-                        </div>
                     </div>
                     <div class="col-md-6">
-                        <label for="ngheNghiepBo" class="form-label">Nghề nghiệp*</label>
+                        <label for="ngheNghiepBo" class="form-label">Nghề nghiệp:</label>
                         <input type="text" class="form-control" id="ngheNghiepBo" readonly>
-                        <div class="invalid-feedback">
-                            Nghề nghiệp bố không được để trống
-                        </div>
                     </div>
                     <div class="col-md-6">
-                        <label for="sdtBo" class="form-label">SĐT Bố*</label>
+                        <label for="sdtBo" class="form-label">SĐT Bố:</label>
                         <input type="text" class="form-control" id="sdtBo" readonly>
-                        <div class="invalid-feedback">
-                            Số điện thoại bố không được để trống
-                        </div>
                     </div>
                     <div class="col-md-6">
-                        <label for="hoTenMe" class="form-label">Họ và tên Mẹ*</label>
+                        <label for="hoTenMe" class="form-label">Họ và tên Mẹ:</label>
                         <input type="text" class="form-control" id="hoTenMe" readonly>
-                        <div class="invalid-feedback">
-                            Tên mẹ không được để trống
-                        </div>
                     </div>
                     <div class="col-md-6">
-                        <label for="namSinhMe" class="form-label">Năm sinh*</label>
+                        <label for="namSinhMe" class="form-label">Năm sinh:</label>
                         <input type="date" class="form-control" id="namSinhMe" readonly>
-                        <div class="invalid-feedback">
-                            Năm sinh bố không được để trống
-                        </div>
                     </div>
                     <div class="col-md-6">
-                        <label for="ngheNghiepMe" class="form-label">Nghề nghiệp*</label>
+                        <label for="ngheNghiepMe" class="form-label">Nghề nghiệp:</label>
                         <input type="text" class="form-control" id="ngheNghiepMe" readonly>
-                        <div class="invalid-feedback">
-                            Nghề nghiệp bố không được để trống
-                        </div>
                     </div>
                     <div class="col-md-6">
-                        <label for="sdtMe" class="form-label">SĐT Mẹ*</label>
+                        <label for="sdtMe" class="form-label">SĐT Mẹ:</label>
                         <input type="text" class="form-control" id="sdtMe" readonly>
-                        <div class="invalid-feedback">
-                            Số điện thoại bố không được để trống
-                        </div>
                     </div>
                     <input type="text" hidden id="idtk">
                 </form>
@@ -522,20 +461,23 @@
                             form.classList.add('was-validated')
                         } else {
                             if (form.id == "formAdd") {
-                                let tenSV = form.hoVaTen.value.trim();
-                                let tenBo = form.hoTenBo.value.trim();
-                                let tenMe = form.hoTenMe.value.trim();
-                                let queQuan = form.queQuan.value.trim();
-                                let diaChi = form.diaChi.value.trim();
-                                let sdt = form.soDienThoai.value.trim();
-                                let sdtBo = form.sdtBo.value.trim();
-                                let sdtMe = form.sdtMe.value.trim();
-                                let cccd = form.CCCD.value.trim();
-                                let tenDangNhap = form.tenDangNhap.value.trim()
+                                var tenSV = form.hoVaTen.value.trim();
+                                var ngaySinh = form.ngaySinh.value;
+                                var tenBo = form.hoTenBo.value.trim();
+                                var tenMe = form.hoTenMe.value.trim();
+                                var queQuan = form.queQuan.value.trim();
+                                var diaChi = form.diaChi.value.trim();
+                                var sdt = form.soDienThoai.value.trim();
+                                var sdtBo = form.sdtBo.value.trim();
+                                var sdtMe = form.sdtMe.value.trim();
+                                var ngheNghiepBo = form.ngheNghiepBo.value.trim();
+                                var ngheNghiepMe = form.ngheNghiepMe.value.trim();
+                                var cccd = form.CCCD.value.trim();
+                                var tenDangNhap = (form.tenDangNhap) ? form.tenDangNhap.value.trim() : "";
                                 var format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
-                                if (tenSV.length > 255 || tenBo.length > 255 || tenMe.length > 255) {
+                                if (ngheNghiepBo.length > 255 || ngheNghiepMe.length > 255 || diaChi.length > 255 || queQuan.length > 255 || tenSV.length > 255 || tenBo.length > 255 || tenMe.length > 255) {
                                     alert('Bạn đã nhập quá số ký tự cho phép. Mời nhập lại')
-                                } else if (format.test(tenSV) || format.test(tenBo) || format.test(tenMe) || form.test(cccd)) {
+                                } else if (format.test(ngheNghiepMe) || format.test(ngheNghiepBo) || format.test(diaChi) || format.test(queQuan) || format.test(tenSV) || format.test(tenBo) || format.test(tenMe) || format.test(cccd)) {
                                     alert('Không nhập các ký tự đặc biệt như $, %,^ ,&, ,..')
                                 } else if (!checkPhoneNumber(sdt) || !checkPhoneNumber(sdtBo) || !checkPhoneNumber(sdtMe)) {
                                     alert('Nhập số điện thoại không đúng định dạng: 096, 097, 098,...')
@@ -545,22 +487,25 @@
                                 }
                                 else if (tenDangNhap.length > 16) {
                                     alert('Tên đăng nhập không được quá 16 ký tự');
-                                }
-                                else {
-                                    fetch(`${HOST}/api/taikhoan/`, {
-                                        method: "POST",
-                                        headers: {
-                                            'Content-Type': 'application/json',
-                                        },
-                                        body: JSON.stringify({
-                                            "tenDangNhap": tenDangNhap,
-                                            "matKhau": form.ngaySinh.value,
-                                            "chucNang": "sinhvien",
-                                            "trangThai": "1"
-                                        }),
-                                    })
-                                        .then(res => res.json())
-                                        .then(data => {
+                                } else fetch(`${HOST}/api/taikhoan/`, {
+                                    method: "POST",
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                    },
+                                    body: JSON.stringify({
+                                        "tenDangNhap": tenDangNhap,
+                                        "matKhau": form.ngaySinh.value,
+                                        "chucNang": "sinhvien",
+                                        "trangThai": "1"
+                                    }),
+                                })
+                                    .then(res => res.json())
+                                    .then(data => {
+                                        if (data.sqlMessage || data.message)
+                                            if (data.message && data.message.includes("taikhoan.tenDangNhap_UNIQUE'"))
+                                                alert("Tài khoản đã tồn tại")
+                                            else alert(data.sqlMessage || data.message)
+                                        else
                                             fetch(`${HOST}/api/sinhvien/`, {
                                                 method: "POST",
                                                 headers: {
@@ -575,14 +520,14 @@
                                                     "queQuan": queQuan,
                                                     "diaChi": diaChi,
                                                     "sdt": sdt,
-                                                    "cccd": form.CCCD.value,
+                                                    "cccd": cccd,
                                                     "tenBo": tenBo,
                                                     "namSinhBo": getFullYear(form.namSinhBo.value),
-                                                    "ngheNghiepBo": form.ngheNghiepBo.value,
+                                                    "ngheNghiepBo": ngheNghiepBo,
                                                     "sdtBo": sdtBo,
                                                     "tenMe": tenMe,
                                                     "namSinhMe": getFullYear(form.namSinhMe.value),
-                                                    "ngheNghiepMe": form.ngheNghiepMe.value,
+                                                    "ngheNghiepMe": ngheNghiepMe,
                                                     "sdtMe": sdtMe,
                                                     "idtk": data.idtk
                                                 }),
@@ -590,75 +535,84 @@
                                             })
                                                 .then(res => res.json())
                                                 .then(data => {
-                                                    console.log(data);
-                                                    form.reset()
-                                                    alert("Thêm thông tin sinh viên thành công")
-                                                    renderSV()
-                                                    document.querySelector("#myModalAdd .btn-close").click()
+                                                    if (data.sqlMessage || data.message) {
+                                                        if (data.message && data.message.includes("sinhvien.cccd_UNIQUE"))
+                                                            alert("Sinh viên đã tồn tại")
+                                                        else alert(data.sqlMessage || data.message)
+                                                    } else {
+                                                        form.reset()
+                                                        alert("Thêm thông tin sinh viên thành công")
+                                                        renderSV()
+                                                        document.querySelector("#myModalAdd .btn-close").click()
+                                                    }
                                                 })
                                                 .catch(err => console.log("Error: ", err))
 
-                                        })
-                                        .catch(err => console.log("Error: ", err))
-                                }
+                                    })
+                                    .catch(err => console.log("Error: ", err))
                             } else if (form.id == "formUpdate") {
-                                let tenSV = form.hoVaTen.value.trim();
-                                let tenBo = form.hoTenBo.value.trim();
-                                let tenMe = form.hoTenMe.value.trim();
-                                let queQuan = form.queQuan.value.trim();
-                                let diaChi = form.diaChi.value.trim();
-                                let sdt = form.soDienThoai.value.trim();
-                                let sdtBo = form.sdtBo.value.trim();
-                                let sdtMe = form.sdtMe.value.trim();
-                                let cccd = form.CCCD.value.trim();
+                                var tenSV = form.hoVaTen.value.trim();
+                                var ngaySinh = form.ngaySinh.value;
+                                var tenBo = form.hoTenBo.value.trim();
+                                var tenMe = form.hoTenMe.value.trim();
+                                var queQuan = form.queQuan.value.trim();
+                                var diaChi = form.diaChi.value.trim();
+                                var sdt = form.soDienThoai.value.trim();
+                                var sdtBo = form.sdtBo.value.trim();
+                                var sdtMe = form.sdtMe.value.trim();
+                                var ngheNghiepBo = form.ngheNghiepBo.value.trim();
+                                var ngheNghiepMe = form.ngheNghiepMe.value.trim();
+                                var cccd = form.CCCD.value.trim();
                                 var format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
-                                if (tenSV.length > 255 || tenBo.length > 255 || tenMe.length > 255) {
+                                if (ngheNghiepBo.length > 255 || ngheNghiepMe.length > 255 || diaChi.length > 255 || queQuan.length > 255 || tenSV.length > 255 || tenBo.length > 255 || tenMe.length > 255) {
                                     alert('Bạn đã nhập quá số ký tự cho phép. Mời nhập lại')
-                                } else if (format.test(tenSV) || format.test(tenBo) || format.test(tenMe)) {
+                                } else if (format.test(ngheNghiepMe) || format.test(ngheNghiepBo) || format.test(diaChi) || format.test(queQuan) || format.test(tenSV) || format.test(tenBo) || format.test(tenMe) || format.test(cccd)) {
                                     alert('Không nhập các ký tự đặc biệt như $, %,^ ,&, ,..')
                                 } else if (!checkPhoneNumber(sdt) || !checkPhoneNumber(sdtBo) || !checkPhoneNumber(sdtMe)) {
                                     alert('Nhập số điện thoại không đúng định dạng: 096, 097, 098,...')
                                 }
                                 else if (cccd.length < 11 || cccd.length > 13) {
                                     alert('Căn cước công dân không đúng định dạng')
-                                } else {
-                                    fetch(`${HOST}/api/sinhvien/${form.maSinhVien.value}`, {
-                                        method: "PUT",
-                                        headers: {
-                                            'Content-Type': 'application/json',
-                                        },
-                                        body: JSON.stringify({
-                                            "tenSV": form.hoVaTen.value,
-                                            "ngaySinh": form.ngaySinh.value,
-                                            "laNam": form.gioiTinh.value,
-                                            "idKhoa": form.khoa.value,
-                                            "kyTucXa": form.kyTucXa.value,
-                                            "queQuan": form.queQuan.value,
-                                            "diaChi": form.diaChi.value,
-                                            "sdt": form.soDienThoai.value,
-                                            "cccd": form.CCCD.value,
-                                            "tenBo": form.hoTenBo.value,
-                                            "namSinhBo": getFullYear(form.namSinhBo.value),
-                                            "ngheNghiepBo": form.ngheNghiepBo.value,
-                                            "sdtBo": form.sdtBo.value,
-                                            "tenMe": form.hoTenMe.value,
-                                            "namSinhMe": getFullYear(form.namSinhMe.value),
-                                            "ngheNghiepMe": form.ngheNghiepMe.value,
-                                            "sdtMe": form.sdtMe.value,
-                                            "idtk": form.idtk.value
-                                        }),
-                                    })
-                                        .then(res => res.json())
-                                        .then(data => {
-
-                                            console.log('sửa', data.sql);
-
+                                }
+                                else fetch(`${HOST}/api/sinhvien/${form.maSinhVien.value}`, {
+                                    method: "PUT",
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                    },
+                                    body: JSON.stringify({
+                                        "tenSV": tenSV,
+                                        "ngaySinh": form.ngaySinh.value,
+                                        "laNam": form.gioiTinh.value,
+                                        "idKhoa": form.khoa.value,
+                                        "kyTucXa": form.kyTucXa.value,
+                                        "queQuan": queQuan,
+                                        "diaChi": diaChi,
+                                        "sdt": sdt,
+                                        "cccd": cccd,
+                                        "tenBo": tenBo,
+                                        "namSinhBo": getFullYear(form.namSinhBo.value),
+                                        "ngheNghiepBo": ngheNghiepBo,
+                                        "sdtBo": sdtBo,
+                                        "tenMe": tenMe,
+                                        "namSinhMe": getFullYear(form.namSinhMe.value),
+                                        "ngheNghiepMe": ngheNghiepMe,
+                                        "sdtMe": sdtMe,
+                                    }),
+                                })
+                                    .then(res => res.json())
+                                    .then(data => {
+                                        if (data.sqlMessage || data.message) {
+                                            if (data.message && data.message.includes("sinhvien.cccd_UNIQUE"))
+                                                alert("Sinh viên đã tồn tại")
+                                            else alert(data.sqlMessage || data.message)
+                                        } else {
+                                            form.reset()
                                             alert("Sửa thông tin sinh viên thành công")
                                             renderSV()
                                             document.querySelector("#myModalUpdate .btn-close").click()
-                                        })
-                                        .catch(err => console.log("Error: ", err))
-                                }
+                                        }
+                                    })
+                                    .catch(err => console.log("Error: ", err))
                             }
                         }
                     }, false)

@@ -14,6 +14,9 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="../assets/css/main.css">
     <script src="https://cdn.ckeditor.com/ckeditor5/33.0.0/classic/ckeditor.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"
+        integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <script src="../js/constants.js"></script>
     <script src="../js/common.js"></script>
@@ -41,8 +44,7 @@
                         </div>
                         <div class="logo col-md-2 col-2 col-sm-2 text-center">
                             <a href="index.html">
-                                <img src="../assets/image/logo-small.png" alt="logo" class="img-logo"
-                                    onclick="renderPGBangTin()">
+                                <img src="../assets/image/logo-small.png" alt="logo" class="img-logo">
                             </a>
                         </div>
                     </div>
@@ -75,11 +77,12 @@
     <div class=" container-fluid">
         <div class="row flex-nowrap">
             <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 sidebar" style="background-color: #2B3643;width: 80px;">
-                <div class="d-flex flex-column align-items-center align-items-sm-start ps-2 pt-2 text-white min-vh-100">
-                    <ul class="navbar-nav nav-pills mt-3" id="menu">
+                <div class="d-flex flex-column align-items-center align-items-sm-start ps-2 pt-2 text-white min-vh-100" id="menu">
+                    <ul class="navbar-nav nav-pills mt-3">
                         <li class="nav-item mt-2">
-                            <a href="" class="nav-link align-middle px-0" data-bs-toggle="tooltip"
-                                data-bs-placement="right" title="Quản lý điểm" onclick="renderQLDiem()">
+                            <a href="" data-bs-toggle="collapse" class="nav-link px-0 align-middle"
+                                data-bs-toggle="tooltip" data-bs-placement="right" title="Quản lý lớp học"
+                                onclick="renderQLDiem()">
                                 <i class="fa-regular fa-rectangle-list"></i>
                                 <span class="ms-2" style="display: none; ">Quản Lý Điểm</span>
                             </a>
@@ -113,7 +116,7 @@
                 </div>
             </div>
             <div class="col py-3">
-                <div id="dmk" ></div>
+                <div id="dmk"></div>
                 <div class="main container" id="main">
                     <script>
                         renderPGBangTin()
@@ -136,27 +139,6 @@
     const name = user.taiKhoan.tenDangNhap;
     document.getElementById("name").innerHTML = name;
     $("#dmk").load("../doimatkhau.html");
-    // // Example starter JavaScript for disabling form submissions if there are invalid fields
-    // (function () {
-    //     'use strict'
-
-    //     // Fetch all the forms we want to apply custom Bootstrap validation styles to
-    //     var forms = document.querySelectorAll('.needs-validation')
-
-
-    //     // Loop over them and prevent submission
-    //     Array.prototype.slice.call(forms)
-    //         .forEach(function (form) {
-    //             document.getElementById("submit").addEventListener('click', function (event) {
-    //                 if (!form.checkValidity()) {
-    //                     event.preventDefault()
-    //                     event.stopPropagation()
-    //                 }
-
-    //                 form.classList.add('was-validated')
-    //             }, false)
-    //         })
-    // })()
 </script>
 
 </html>

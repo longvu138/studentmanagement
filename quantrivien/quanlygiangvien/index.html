@@ -203,8 +203,6 @@
     </div>
 </div>
 
-
-
 <div class="modal" id="myModalUpdate">
     <div class="modal-dialog modal-dialog-centered" style="max-width: 800px !important">
         <div class="modal-content">
@@ -355,7 +353,6 @@
                                 let cccd = form.cccd.value.trim();
                                 let email = form.email.value.trim();
                                 let idKhoa = form.khoa.value;
-
                                 let tenDangNhap = form.tenDangNhap.value.trim()
                                 console.log(ngaySinh);
                                 // if (tengv.length > 255) {
@@ -406,8 +403,8 @@
                                             .then(res => res.json())
                                             .then(data => {
                                                 if (data.sqlMessage || data.message) {
-                                                    if (data.sqlMessage.includes("giangvien.cccd_UNIQUE"))
-                                                        alert("Giảng viên đẫ tồn tại")
+                                                    if (data.sqlMessage && data.sqlMessage.includes("giangvien.cccd_UNIQUE"))
+                                                        alert("Giảng viên đã tồn tại")
                                                     else alert(data.sqlMessage || data.message)
                                                 } else {
                                                     form.reset()
@@ -466,8 +463,8 @@
                                     .then(res => res.json())
                                     .then(data => {
                                         if (data.sqlMessage || data.message) {
-                                            if (data.sqlMessage.includes("giangvien.cccd_UNIQUE"))
-                                                alert("Giảng viên đẫ tồn tại")
+                                            if (data.sqlMessage && data.sqlMessage.includes("giangvien.cccd_UNIQUE"))
+                                                alert("Giảng viên đã tồn tại")
                                             else alert(data.sqlMessage || data.message)
                                         } else {
                                             form.reset()

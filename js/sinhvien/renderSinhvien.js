@@ -3,10 +3,6 @@ const renderLophoc = () => {
   $(".main").load("./lophoc");
 };
 
-const renderTailieumonhoc = () => {
-  $(".main").load("./lophoc/tailieumonhoc.html");
-};
-
 //QUẢN LÝ HỌC PHẦN
 const renderQLhocphan = () => {
   $(".main").load("./quanlyhocphan");

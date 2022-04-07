@@ -95,7 +95,8 @@ const renderTailieumonhoc = (idLop) => {
         fetch(`${HOST}/api/lophocphan/${idLop}`)
           .then((res) => res.json())
           .then((data) => {
-            document.querySelector("#tenLop").innerHTML = data.tenLop;
+            document.querySelector("#title").innerHTML += ` Lớp ${data.tenLop}`;
+            document.querySelector('#myModalUpload #idLop').value = data.idLop
           })
           .catch((err) => console.log("Error: ", err));
         html = "";
@@ -103,18 +104,12 @@ const renderTailieumonhoc = (idLop) => {
           elm = data[i];
           html += `<tr>
               <th>${i + 1}</th>
-              <th>${elm.idsv}</th>
-              <th>${elm.tensv}</th>
-              <th>${
-                elm.trangThai === "vang"
-                  ? "Vắng"
-                  : elm.trangThai === "muon"
-                  ? "Muộn"
-                  : "Có Mặt"
-              }</th>
+              <th>${elm.tenTaiLieu}</th>
+              <th>${moment(elm.thoiGianDang).format("YYYY-MM-DDTkk:mm").split('T').join('  ')}</th>
+              <th><a href="${HOST}/api/tailieu/download/${elm.duongDan.split('/')[1]}"> <i class="bi bi-download""></i></a></th>
           </tr>`;
         }
-        document.querySelector("#listSinhVienDD").innerHTML = html;
+        document.querySelector("#listTaiLieu").innerHTML = html;
       })
       .catch((err) => console.log("Error: ", err));
   });
@@ -127,5 +122,5 @@ const renderDSsinhvien = () => {
 
 //THỐNG KÊ ĐIỂM
 const renderThongkediem = () => {
-  $(".main").load("../quantrivien/thongke/diem.html");
+  $(".main").load("../quantrivien/thongkediem");
 };

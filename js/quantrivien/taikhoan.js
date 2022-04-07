@@ -1,18 +1,25 @@
 const quanLyTaiKhoan = () => {
+  const chucNang = document.querySelector("#searchChucNang").value;
   const tuKhoa = document.querySelector("#searchTextInput").value.trim();
   var format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
-  if (tuKhoa.length > 255) {
+  if (tuKhoa.length == 0){
+    alert("Bạn chưa nhập thông tin tìm kiếm")
+  }
+  else if(format.test(tuKhoa)){
+    alert("Không nhập các ký tự đặc biệt như $, %,^ ,&, ,..");
+  }
+  else if (tuKhoa.length > 255) {
     alert("Không được quá 255 ký tự");
     return;
-  }
-  const chucNang = document.querySelector("#searchChucNang").value;
-  fetch(`${HOST}/api/taikhoan/?tenDangNhap=${tuKhoa}&chucNang=${chucNang}`)
-    .then((res) => res.json())
-    .then((data) => {
-      let html = "";
-      let i = 1;
-      data.forEach((elm) => {
-        html += `<tr>
+  } else
+    fetch(`${HOST}/api/taikhoan/?tenDangNhap=${tuKhoa}&chucNang=${chucNang}`)
+      .then((res) => res.json())
+      .then((data) => {
+        let html = "";
+        if (data.length > 0)
+        for(i=0; i<data.length; i++) {
+          elm = data[i]
+          html += `<tr>
                             <th scope="row">${i++}</th>
                             <td>${elm.tenDangNhap}</td>
                             <td>${elm.chucNang}</td>
@@ -37,11 +44,11 @@ const quanLyTaiKhoan = () => {
                                 </a>
                             </td>
                         </tr>`;
-      });
+        }else alert ("Không có kết quả")
 
-      document.querySelector("#listTaiKhoan").innerHTML = html;
-    })
-    .catch((err) => console.log("Error: ", err));
+        document.querySelector("#listTaiKhoan").innerHTML = html;
+      })
+      .catch((err) => console.log("Error: ", err));
 };
 
 const openUpdateTaiKhoan = (id) => {

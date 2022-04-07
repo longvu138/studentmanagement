@@ -21,8 +21,8 @@ function formatDatetime(datetime) {
     month = "" + (d.getMonth() + 1),
     day = "" + d.getDate(),
     year = d.getFullYear();
-    hour = d.getHours();
-    minute = d.getMinutes();
+  hour = d.getHours();
+  minute = d.getMinutes();
   if (month.length < 2) month = "0" + month;
   if (day.length < 2) day = "0" + day;
   if (hour < 10) hour = "0" + hour;

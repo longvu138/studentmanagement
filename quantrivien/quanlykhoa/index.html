@@ -131,9 +131,10 @@
                                     })
                                         .then(res => res.json())
                                         .then(data => {
-                                            if (data.sqlMessage) {
+                                            if (data.sqlMessage && data.sqlMessage.includes("khoa.tenKhoa_UNIQUE")) {
                                                 alert('Khoa đã tồn tại')
                                             }
+                                            else if (data.sqlMessage) alert(data.sqlMessage)
                                             else {
                                                 form.reset()
                                                 alert("Thêm khoa thành công")
@@ -166,10 +167,10 @@
                                     })
                                         .then(res => res.json())
                                         .then(data => {
-                                            console.log(data);
-                                            if (data.sqlMessage) {
+                                            if (data.sqlMessage && data.sqlMessage.includes("khoa.tenKhoa_UNIQUE")) {
                                                 alert('Khoa đã tồn tại')
                                             }
+                                            else if (data.sqlMessage) alert(data.sqlMessage)
                                             else {
                                                 form.reset()
                                                 alert("Sửa khoa thành công")

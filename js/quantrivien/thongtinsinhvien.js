@@ -78,9 +78,9 @@ const openViewSV = (id) => {
       document.querySelector("#formView #ngaySinh").value = formatDate(
         data.ngaySinh
       );
-      document.querySelector("#formView #gioiTinh").value = data.laNam;
+      document.querySelector("#formView #gioiTinh").value = (data.laNam===0)?"Nữ":"Nam";
       document.querySelector("#formView #khoa").value = data.idKhoa;
-      document.querySelector("#formView #kyTucXa").value = data.kyTucXa;
+      document.querySelector("#formView #kyTucXa").value = (data.kyTucXa===0)?"Không":"Có";
       document.querySelector("#formView #queQuan").value = data.queQuan;
       document.querySelector("#formView #diaChi").value = data.diaChi;
       document.querySelector("#formView #soDienThoai").value = data.sdt;

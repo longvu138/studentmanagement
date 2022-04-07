@@ -4,10 +4,11 @@ const renderKhoa = () => {
     .then((res) => res.json())
     .then((data) => {
       let html = "";
-      let i = 1;
-      data.forEach((elm) => {
-        html += `<tr>
-                            <th scope="row">${i++}</th>
+      if (data.length > 0) {
+        for (i = 0; i < data.length; i++) {
+          elm = data[i]
+          html += `<tr>
+                            <th scope="row">${i + 1}</th>
                             <td>${elm.tenKhoa}</td>
                             <td>
                                 <a 
@@ -17,8 +18,8 @@ const renderKhoa = () => {
                                 </a>
                             </td>
                         </tr>`;
-      });
-
+        }
+      } else alert("Không có kết quả");
       document.querySelector("#listKhoa").innerHTML = html;
     })
     .catch((err) => console.log("Error: ", err));

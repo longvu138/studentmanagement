@@ -69,7 +69,7 @@
                 </div>
 
                 <div id="Dang-nhap " class="col-md-6 col-6 col-sm-6 "
-                    style="font-size:15px;color:grey;padding-top: 10px;">
+                    style="font-size:15px; color:grey; padding-top: 10px;">
                     <div class="dropdown pb-4 text-end">
                         <div class="block">
                             <a href="#" class="text-white text-decoration-none" data-bs-toggle="dropdown"
@@ -77,7 +77,7 @@
                                 <span><i class="bi bi-person-circle"></i></span>
                                 <span class="d-none d-sm-inline mx-1" id="name"></span>
                             </a>
-                            <ul class="dropdown-menu dropdown-menu-dark text-small shadow ">
+                            <ul class="dropdown-menu dropdown-menu-dark text-small shadow" style="width:150px">
                                 <li><a class="dropdown-item" href="#" data-bs-toggle="modal"
                                         data-bs-target="#exampleModal">Đổi mật khẩu</a></li>
                                 <li>
@@ -198,37 +198,33 @@
 
                         <li class="nav-item mt-2">
                             <a class="nav-link px-0 align-middle" data-bs-toggle="tooltip" data-bs-placement="right"
-                                onclick="renderSinhVienTrongKTX()" title="Quản Lý Sinh Viên Trong KTX">
+                                onclick="renderSinhVienTrongKTX()" title="Danh Sách Sinh Viên Nội Trú">
                                 <i class="fa-solid fa-graduation-cap"></i>
-                                <span class="ms-2" style="display: none;">Danh Sách Sinh Viên Nội
-                                    Trú</span>
+                                <span class="ms-2" style="display: none;">Danh Sách Sinh Viên Nội Trú</span>
                             </a>
                         </li>
 
                         <li class="nav-item mt-2">
                             <a class="nav-link px-0 align-middle" data-bs-toggle="tooltip" data-bs-placement="right"
-                                title="Quản Lý Sinh Viên Trong KTX">
+                            onclick="renderQuanLyGiangVien()" title="Quản Lý Giảng Viên">
                                 <i class="fa-solid fa-file-lines"></i>
-                                <span class="ms-2" style="display: none;" onclick="renderQuanLyGiangVien()">Quản Lý
-                                    Giảng Viên</span>
+                                <span class="ms-2" style="display: none;">Quản Lý Giảng Viên</span>
                             </a>
                         </li>
 
                         <li class="nav-item mt-2">
                             <a class="nav-link px-0 align-middle" data-bs-toggle="tooltip" data-bs-placement="right"
-                                title="Quản Lý Sinh Viên Trong KTX">
+                                onclick="renderQuanLyDiemRenLuyen()" title="Quản Lý Điểm Rèn Luyện">
                                 <i class="fa-solid fa-align-left"></i>
-                                <span class="ms-2" style="display: none;" onclick="renderQuanLyDiemRenLuyen()">Quản Lý
-                                    Điểm Rèn Luyện</span>
+                                <span class="ms-2" style="display: none;">Quản Lý Điểm Rèn Luyện</span>
                             </a>
                         </li>
 
                         <li class="nav-item mt-2">
                             <a class="nav-link px-0 align-middle" data-bs-toggle="tooltip" data-bs-placement="right"
-                                title="Quản Lý Sinh Viên Trong KTX">
+                                onclick="renderQuanLyKyHoc()" title="Quản Lý Kỳ Học">
                                 <i class="fa-solid fa-calendar-days"></i>
-                                <span class="ms-2" style="display: none;" onclick="renderQuanLyKyHoc()">Quản Lý Kỳ
-                                    Học</span>
+                                <span class="ms-2" style="display: none;">Quản Lý Kỳ Học</span>
                             </a>
                         </li>
                     </ul>
@@ -261,29 +257,7 @@
 <script>
     const name = user.taiKhoan.tenDangNhap;
     document.getElementById("name").innerHTML = name;
-</script>
-<script>
     $("#dmk").load("../doimatkhau.html");
-    // Example starter JavaScript for disabling form submissions if there are invalid fields
-    (function () {
-        'use strict'
-
-        // Fetch all the forms we want to apply custom Bootstrap validation styles to
-        var forms = document.querySelectorAll('.needs-validation')
-
-        // Loop over them and prevent submission
-        Array.prototype.slice.call(forms)
-            .forEach(function (form) {
-                document.getElementById("submit").addEventListener('click', function (event) {
-                    if (!form.checkValidity()) {
-                        event.preventDefault()
-                        event.stopPropagation()
-                    }
-
-                    form.classList.add('was-validated')
-                }, false)
-            })
-    })()
 </script>
 
 </html>

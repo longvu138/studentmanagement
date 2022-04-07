@@ -139,7 +139,7 @@
                             if (form.id == "formAdd") {
                                 let tenMon = form.tenMon.value.trim()
                                 var format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
-                                if (form.tenMon.value.length > 255) {
+                                if (form.soTinChi.value > 4 || form.tienHoc.value > 20 || tenMon.length > 255) {
                                     alert('Bạn đã nhập quá số ký tự cho phép. Mời nhập lại')
                                 }
                                 else if (format.test(tenMon)) {
@@ -152,7 +152,7 @@
                                             'Content-Type': 'application/json',
                                         },
                                         body: JSON.stringify({
-                                            "tenMon": form.tenMon.value,
+                                            "tenMon": tenMon,
                                             "soTinChi": form.soTinChi.value,
                                             "tienHoc": form.tienHoc.value
                                         }),
@@ -174,7 +174,7 @@
                             } else if (form.id == "formUpdate") {
                                 let tenMon = form.tenMon.value.trim()
                                 var format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
-                                if (form.tenMon.value.length > 255) {
+                                if (form.soTinChi.value > 4 || form.tienHoc.value > 20 || tenMon.length > 255) {
                                     alert('Bạn đã nhập quá số ký tự cho phép. Mời nhập lại')
                                 }
                                 else if (format.test(tenMon)) {
@@ -187,14 +187,13 @@
                                             'Content-Type': 'application/json',
                                         },
                                         body: JSON.stringify({
-                                            "tenMon": form.tenMon.value,
+                                            "tenMon": tenMon,
                                             "soTinChi": form.soTinChi.value,
                                             "tienHoc": form.tienHoc.value
                                         }),
                                     })
                                         .then(res => res.json())
                                         .then(data => {
-
                                             if (data.sqlMessage) {
                                                 alert('Môn học đã tồn tại')
                                             }

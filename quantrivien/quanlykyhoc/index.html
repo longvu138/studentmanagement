@@ -18,9 +18,8 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
                     <!-- Modal body -->
-                    <div class="modal-body ">
-                        <form class="row g-3 needs-validation" id="formAdd" novalidate>
-
+                    <form class="row g-3 needs-validation" id="formAdd" novalidate>
+                        <div class="modal-body ">
                             <div class="col-md-12">
                                 <label for="tenKyHoc" class="form-label">Tên kỳ học*</label>
                                 <input type="text" class="form-control" id="tenKyHoc" required>
@@ -28,13 +27,13 @@
                                     Tên kỳ học không được để trống
                                 </div>
                             </div>
+                        </div>
+                        <div class="modal-footer">
                             <div class="col-12">
                                 <button class="btn btn-primary" style="float: right;" type="submit">Lưu</button>
                             </div>
-                        </form>
-                    </div>
-
-
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -45,7 +44,7 @@
         <thead>
             <tr>
                 <th scope="col">STT</th>
-                <th scope="col">Tên Kỳ Học</th>
+                <th scope="col">Tên kỳ học</th>
                 <th scope="col"></th>
             </tr>
         </thead>
@@ -62,9 +61,9 @@
                 <h4 class="modal-title">Sửa Kỳ Học</h4>
                 <button type="button" class="btn-close" id="close" data-bs-dismiss="modal"></button>
             </div>
-            <!-- Modal body -->
-            <div class="modal-body">
-                <form class="row g-3 needs-validation" id="formUpdate" novalidate>
+            <form class="row g-3 needs-validation" id="formUpdate" novalidate>
+                <!-- Modal body -->
+                <div class="modal-body">
 
                     <input hidden id="maKy" readonly type="text" class="form-control">
 
@@ -75,11 +74,13 @@
                             Tên kỳ học không được để trống
                         </div>
                     </div>
+                </div>
+                <div class="modal-footer">
                     <div class="col-12">
                         <button class="btn btn-primary" style="float: right;" type="submit">Lưu</button>
                     </div>
-                </form>
-            </div>
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -107,7 +108,7 @@
                             form.classList.add('was-validated')
                         } else {
                             if (form.id == "formAdd") {
-                                let tenKyHoc = form.tenKyHoc.value.trim()
+                                var tenKyHoc = form.tenKyHoc.value.trim()
                                 var format = /[!@#$%^&*()+\=\[\]{};':"\\|,.<>\/?]+/;
                                 if (form.tenKyHoc.value.length > 255) {
                                     alert('Tên kỳ học không được quá 255 ký tự')
@@ -143,7 +144,7 @@
 
 
                             } else if (form.id == "formUpdate") {
-                                let tenKyHoc = form.tenKyHoc.value.trim()
+                                var tenKyHoc = form.tenKyHoc.value.trim()
                                 var format = /[!@#$%^&*()+\=\[\]{};':"\\|,.<>\/?]+/;
                                 if (form.tenKyHoc.value.length > 255) {
                                     alert('Tên kỳ học không được quá 255 ký tự')
@@ -158,7 +159,7 @@
                                             'Content-Type': 'application/json',
                                         },
                                         body: JSON.stringify({
-                                            "tenKyHoc": form.tenKyHoc.value
+                                            "tenKyHoc": tenKyHoc
                                         }),
                                     })
                                         .then(res => res.json())

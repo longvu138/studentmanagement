@@ -380,7 +380,6 @@
                             form.classList.add('was-validated')
                         } else {
                             if (form.id == "formAdd") {
-
                                 let tenLop = form.tenLop.value.trim();
                                 let phongHoc = form.phongHoc.value.trim();
                                 let soLuong = form.soLuong.value.trim();
@@ -391,8 +390,8 @@
                                 else if (format.test(tenLop) || format.test(phongHoc) || format.test(soLuong)) {
                                     alert('Không nhập các ký tự đặc biệt như $, %,^ ,&, ,..')
                                 }
-                                else if (soLuong > 200) {
-                                    alert('Số lượng quá nhiều  ')
+                                else if (soLuong.length > 11) {
+                                    alert('Bạn đã nhập quá số ký tự cho phép. Mời nhập lại')
                                 }
                                 else {
                                     fetch(`${HOST}/api/lophocphan/`, {
@@ -439,8 +438,8 @@
                                 else if (format.test(tenLop) || format.test(phongHoc) || format.test(soLuong)) {
                                     alert('Không nhập các ký tự đặc biệt như $, %,^ ,&, ,..')
                                 }
-                                else if (soLuong > 200) {
-                                    alert('Số lượng quá nhiều   ')
+                                else if (soLuong.length > 11) {
+                                    alert('Bạn đã nhập quá số ký tự cho phép. Mời nhập lại')
                                 }
                                 else {
                                     fetch(`${HOST}/api/lophocphan/${form.maLop.value}`, {

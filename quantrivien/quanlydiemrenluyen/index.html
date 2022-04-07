@@ -1,5 +1,5 @@
 <div class="row text-center py-3">
-  <h3>Thêm Điểm Rèn Luyện</h3>
+  <h3>Quản Lý Điểm Rèn Luyện</h3>
 </div>
 <div class="row py-3">
   <div class="col-md-3">
@@ -14,7 +14,7 @@
     <input id="inputName" type="text" class="form-control" value="" style="border-radius: 15px" placeholder="Họ và tên">
   </div>
   <div class="col-md-3">
-    <button class="btn btn-primary mx-3" onclick="renderDiemRenLuyen()">Tìm Kiếm</button>
+    <button class="btn btn-primary mx-3" onclick="renderDiemRenLuyen()">Tìm kiếm</button>
     <button type="button" class="btn btn-primary mx-3 px-4" data-bs-toggle="modal" data-bs-target="#myModalAdd">
       Thêm
     </button>
@@ -32,8 +32,8 @@
           <form class="row g-3 needs-validation" id="formAdd" novalidate>
             <div>
               <label for="inputDataList" class="form-label">Sinh viên*</label>
-              <input class="form-control" list="sinhVien" id="inputDataList" placeholder="Tìm kiếm..."
-                autocomplete="off" required>
+              <input class="form-control" list="sinhVien" id="inputDataList" required placeholder="Tìm kiếm..."
+                autocomplete="off">
               <datalist id="sinhVien">
               </datalist>
               <div class="invalid-feedback">
@@ -41,7 +41,7 @@
               </div>
             </div>
             <div>
-              <label for="kyHoc" class="form-label">Học Kỳ*</label>
+              <label for="kyHoc" class="form-label">Kỳ học*</label>
               <select id="kyHoc" class="form-select" style="max-width: 467px;" required>
               </select>
               <div class="invalid-feedback">
@@ -50,7 +50,7 @@
             </div>
             <div class="col-md-12">
               <label for="tenKhoa" class="form-label">Điểm rèn luyện*</label>
-              <input type="number" class="form-control" id="diemRenLuyen" required step="0.1">
+              <input type="number" class="form-control" id="diemRenLuyen" required step="0.1" >
               <div class="invalid-feedback">
                 Vui lòng nhập vào điểm rèn luyện
               </div>
@@ -73,8 +73,8 @@
         <th scope="col">MSV</th>
         <th scope="col">Họ và tên</th>
         <th scope="col">Khoa</th>
-        <th scope="col">Kỳ Học</th>
-        <th scope="col">Điểm Rèn Luyện</th>
+        <th scope="col">Kỳ học</th>
+        <th scope="col">Điểm</th>
       </tr>
     </thead>
     <tbody id="ListDiemRenLuyen">
@@ -87,7 +87,7 @@
   getKhoa()
   getKy()
   getSinhVien()
-  renderDiemRenLuyen()
+  //renderDiemRenLuyen()
 </script>
 
 <script>
@@ -114,9 +114,10 @@
                 const diemRenLuyen = form.diemRenLuyen.value;
                 if (diemRenLuyen < 0 || diemRenLuyen > 100) {
                   alert('Điểm rèn luyện phải lớn hơn 0 và nhỏ hơn 100')
-                } else if (parseInt(diemRenLuyen) === diemRenLuyen) {
+                } else if (diemRenLuyen.includes(".")) {
                   alert('Điểm rèn luyện không được nhập số thập phân')
-                } else if (!tensv || !idsv) {
+                } 
+                else if (!tensv || !idsv) {
                   alert('Sinh viên không tồn tại')
                 } else {
                   fetch(`${HOST}/api/diemrenluyen/`, {
@@ -132,12 +133,16 @@
                   })
                     .then(res => res.json())
                     .then(data => {
-                      if (data.message) {
-                        alert("ERROR:" + data.message)
-                      } else {
+                      console.log(data)
+                      if (data.message && data.message.includes("ER_DUP_ENTRY")) {
+                        alert('Sinh viên đã có điểm rèn luyện.')
+                      }else if (data.message && data.message.includes("ER_NO_REFERENCED_ROW_2")) {
+                        alert('Sinh viên không tồn tại')
+                      }
+                      else if (data.message) err => console.log("Có lỗi vui lòng kiểm tra lại: ", data.message)
+                      else {
                         form.reset()
                         alert("Thêm điểm rèn luyện thành công")
-                        renderDiemRenLuyen()
                         document.querySelector("#myModalAdd .btn-close").click()
                       }
                     })

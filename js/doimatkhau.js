@@ -2,7 +2,8 @@ function doiMatKhau() {
   const matKhauCu = document.getElementById("matKhauCu").value;
   const matKhauMoi = document.getElementById("matKhauMoi").value;
   const xacThucMatKhauMoi = document.getElementById("xacThucMatKhauMoi").value;
-  const matKhauCuHash = JSON.parse(localStorage.getItem("user")).taiKhoan.matKhau;
+  const matKhauCuHash = JSON.parse(localStorage.getItem("user")).taiKhoan
+    .matKhau;
   const idtk = JSON.parse(localStorage.getItem("user")).taiKhoan.idtk;
   if (matKhauMoi != xacThucMatKhauMoi) {
     alert("Mật khẩu mới không khớp");
@@ -20,9 +21,10 @@ function doiMatKhau() {
     })
       .then((res) => res.json())
       .then((data) => {
+        console.log(data);
         if (data.message === "Nội dung trống!") {
         } else {
-          if (data.message === "Mật khẩu đã được cập nhật") {
+          if (data.message === "Đổi mật khẩu thành công.") {
             alert(data.message);
             location.reload();
           } else {
